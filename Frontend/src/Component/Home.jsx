@@ -1,7 +1,9 @@
 import React from 'react'
+import ProductPage from '../HomePage/ProductPage/ProductPage'
 
 export default function Home() {
     return (
+        <>
         <section className="hero">
             <p className="hero-top">
                 LEARN IT. GROW CAREER. BUILD THE FUTURE →
@@ -23,5 +25,8 @@ export default function Home() {
                 </button>
             </div>
         </section>
+        <ProductPage/>
+        </>
+
     )
 }
