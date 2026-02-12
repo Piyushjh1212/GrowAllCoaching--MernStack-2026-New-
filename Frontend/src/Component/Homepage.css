@@ -1,0 +1,196 @@
+/* Header style here */
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    padding: 0 100px;
+    display: flex;
+    align-items: center;
+    background: #ffffffb0;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    z-index: 999;
+}
+
+/* Left */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 50px;
+}
+
+.brand {
+    font-size: 16px;
+}
+
+/* Center */
+/* For toggle system */
+
+.nav-center {
+  display: none;
+}
+
+.nav-center.active {
+  display: block;
+}
+
+
+.nav-center {
+    display: flex;
+}
+
+.nav-center .menu-list {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-center .menu-list a {
+    text-decoration: none;
+    color: #555;
+    font-size: 15px;
+}
+
+.nav-center  a:hover {
+    color: #000;
+}
+
+/* Right */
+.cta-btn {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+}
+
+/* ===================== */
+/* 💻 TABLET */
+/* ===================== */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 0 40px;
+    }
+
+    .nav-center {
+        gap: 20px;
+    }
+}
+
+/* ===================== */
+/* 📱 MOBILE */
+/* ===================== */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    /* hide center menu */
+    .nav-center {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        
+    }
+
+    .menu-list{
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        width: 200px;
+        padding: 10px;
+    }
+
+    .menu-list a {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    /* CTA smaller */
+    .cta-btn {
+        font-size: 14px;
+    }
+}
+
+
+.menu-toggle {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* Mobile only */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+}
+
+
+
+/* Home design */
+
+
+.hero {
+    padding: 120px 20px 140px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url(../assets/Home.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Top small text */
+.hero-top {
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Main heading */
+.hero-title {
+    max-width: 800px;
+    margin: 0 auto 25px;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #000;
+}
+
+/* Subtitle */
+.hero-sub {
+    max-width: 620px;
+    margin: 0 auto 45px;
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* CTA button */
+.hero-btn {
+    padding: 16px 36px;
+    width: fit-content;
+    background: #5060a1;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button-context{
+    display: flex;
+    justify-content: center;
+}
+
+.hero-btn:hover {
+    background: #414c78;
+}
