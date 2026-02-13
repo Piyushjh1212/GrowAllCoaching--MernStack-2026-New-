@@ -1,7 +1,74 @@
 import React from 'react'
 import './Contact.css'
+import { useState } from 'react'
 
 export default function Contact() {
+  const [formData, setformData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const [Errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Formdate set here
+  const HandleChange = (e) => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  // error handling Works here
+
+  const validate = () => {
+    let newErrors = {}
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required"
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required"
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid"
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required"
+    }
+
+    return newErrors
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const validationErrors = validate()
+    setErrors(validationErrors)
+
+    if (Object.keys(validationErrors).length > 0) {
+      return
+    }
+
+    setIsSubmitting(true)
+
+    // Fake delay (simulate API call)
+    setTimeout(() => {
+      console.log("Form Data:", formData)
+
+      setformData({
+        name: '',
+        email: '',
+        message: ''
+      })
+
+      setIsSubmitting(false)
+    }, 2000)
+  }
+
+
   return (
     <section className="contact-section">
 
@@ -9,28 +76,43 @@ export default function Contact() {
         <div className="contact-container">
           <h2>Contact Form</h2>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="name"
               placeholder="Your Name"
-              required
+              value={formData.name}
+              onChange={HandleChange}
+
             />
+            {Errors.name && <p className="error">{Errors.name}</p>}
+
+
 
             <input
               type="email"
               name="email"
               placeholder="Your Email"
-              required
+              value={formData.email}
+              onChange={HandleChange}
+
             />
+            {Errors.email && <p className="error">{Errors.email}</p>}
+
 
             <textarea
               name="message"
               placeholder="Your Message"
-              required
-            />
+              value={formData.message}
+              onChange={HandleChange}
 
-            <button type="submit">Send Message</button>
+            />
+            {Errors.message && <p className="error">{Errors.message}</p>}
+
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
+
           </form>
         </div>
       </div>
