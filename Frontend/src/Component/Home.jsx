@@ -1,5 +1,7 @@
 import React from 'react'
 import ProductPage from '../HomePage/ProductPage/ProductPage'
+import Contact from '../HomePage/ContactForm/Contact'
+import Services from '../HomePage/ServeicesPage/Services'
 
 export default function Home() {
     return (
@@ -26,6 +28,9 @@ export default function Home() {
             </div>
         </section>
         <ProductPage/>
+        <Services/>
+        <Contact />
+       
         </>
 
     )

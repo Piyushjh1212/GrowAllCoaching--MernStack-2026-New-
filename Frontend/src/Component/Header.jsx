@@ -25,6 +25,7 @@ export default function Header() {
             <nav className={isOpen ? "nav-center active" : "nav-center"}>
                 <div className='menu-list'>
                     <a href="#">Company</a>
+                    <a href="#">Contact</a>
                     <a href="#">Support</a>
                     <a href="#">Investors</a>
                 </div>
