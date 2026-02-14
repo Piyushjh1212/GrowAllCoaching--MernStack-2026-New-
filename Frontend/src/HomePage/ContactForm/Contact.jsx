@@ -76,7 +76,7 @@ export default function Contact() {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      const response = await fetch("http://localhost:5000/api/v1/Contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
