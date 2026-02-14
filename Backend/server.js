@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './ConnectDb/Connectdb.js';
+import Contactroutes from './Routes/ContactRoutes.js';
+
+
 
 const app = express();
 
@@ -12,6 +15,10 @@ app.use(express.json());
 // database connection
 dotenv.config();
 connectDB();
+
+
+// Routes
+app.use('/api/v1', Contactroutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
