@@ -1,73 +1,113 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Contact.css'
-import { useState } from 'react'
 
 export default function Contact() {
-  const [formData, setformData] = useState({
+
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
 
-  const [Errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverMessage, setServerMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  // Formdate set here
-  const HandleChange = (e) => {
-    setformData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+  // Handle Input Change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Remove error while typing
+    setErrors(prev => ({
+      ...prev,
+      [name]: ""
+    }));
+  };
+
+  useEffect(() => {
+  if (serverMessage) {
+    const timer = setTimeout(() => {
+      setServerMessage("");
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }
+}, [serverMessage]);
 
-  // error handling Works here
 
+  // Validation Function
   const validate = () => {
-    let newErrors = {}
+    let newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "Name is required"
+      newErrors.name = "Name is required";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
+      newErrors.email = "Email is invalid";
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Message is required"
+      newErrors.message = "Message is required";
     }
 
-    return newErrors
-  }
+    return newErrors;
+  };
 
+  // Submit Handler
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const validationErrors = validate()
-    setErrors(validationErrors)
+    const validationErrors = validate();
+    setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
-      return
+      return;
     }
 
-    setIsSubmitting(true)
+    try {
+      setIsSubmitting(true);
 
-    // Fake delay (simulate API call)
-    setTimeout(() => {
-      console.log("Form Data:", formData)
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
 
-      setformData({
+      const data = await response.json();
+      console.log("API Response:", data);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      setIsSuccess(true);
+      setServerMessage("Message sent successfully!");
+
+      setFormData({
         name: '',
         email: '',
         message: ''
-      })
+      });
 
-      setIsSubmitting(false)
-    }, 2000)
-  }
-
+    } catch (error) {
+      console.error(error);
+      setIsSuccess(false);
+      setServerMessage("Failed to send message.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="contact-section">
@@ -76,38 +116,39 @@ export default function Contact() {
         <div className="contact-container">
           <h2>Contact Form</h2>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
+
+            {serverMessage && (
+              <p className={isSuccess ? "success" : "error"}>
+                {serverMessage}
+              </p>
+            )}
+
             <input
               type="text"
               name="name"
               placeholder="Your Name"
               value={formData.name}
-              onChange={HandleChange}
-
+              onChange={handleChange}
             />
-            {Errors.name && <p className="error">{Errors.name}</p>}
-
-
+            {errors.name && <p className="error">{errors.name}</p>}
 
             <input
               type="email"
               name="email"
               placeholder="Your Email"
               value={formData.email}
-              onChange={HandleChange}
-
+              onChange={handleChange}
             />
-            {Errors.email && <p className="error">{Errors.email}</p>}
-
+            {errors.email && <p className="error">{errors.email}</p>}
 
             <textarea
               name="message"
               placeholder="Your Message"
               value={formData.message}
-              onChange={HandleChange}
-
+              onChange={handleChange}
             />
-            {Errors.message && <p className="error">{Errors.message}</p>}
+            {errors.message && <p className="error">{errors.message}</p>}
 
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Sending..." : "Send Message"}
@@ -123,11 +164,10 @@ export default function Contact() {
         </h2>
 
         <div className="image-frame">
-          {/* Yaha image add kar sakte ho */}
           <img src="/contact-image.jpg" alt="Contact" />
         </div>
       </div>
 
     </section>
-  )
+  );
 }
