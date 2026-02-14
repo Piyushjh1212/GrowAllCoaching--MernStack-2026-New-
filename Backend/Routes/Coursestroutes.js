@@ -1,9 +1,11 @@
 import express from "express";
-import { getCoursesProducts } from "../Controllers/CoursesController.js";
+import { getAllCourses, getCoursesProducts } from "../Controllers/CoursesController.js";
 
 
 const CoursesRoutes = express.Router();
 CoursesRoutes.post("/Courses", getCoursesProducts);
+
+CoursesRoutes.get("/all/Courses", getAllCourses);
 
 console.log(getCoursesProducts);
 
