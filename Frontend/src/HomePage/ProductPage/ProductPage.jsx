@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import "./Productstyle.css";
+import { Link } from "react-router-dom";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/all/Courses") // backend URL
+    fetch("http://localhost:5000/api/v1/product") // backend URL
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.error(err));
@@ -21,7 +22,10 @@ function Courses() {
             <img src={course.image} alt={course.title} />
             <h2>{course.title}</h2>
             <p>{course.description}</p>
-            <button>Explore Now</button>
+            <Link to={`/course/${course._id}`}>  
+            <button >Explore Now</button>
+            </Link>
+          
           </div>
         ))}
       </div>

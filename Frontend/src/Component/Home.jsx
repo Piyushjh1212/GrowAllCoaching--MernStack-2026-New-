@@ -2,6 +2,8 @@ import React from 'react'
 import ProductPage from '../HomePage/ProductPage/ProductPage'
 import Contact from '../HomePage/ContactForm/Contact'
 import Services from '../HomePage/ServeicesPage/Services'
+import SDEdata from '../HomePage/SDEDataJobs.jsx/SDEData'
+import InstructionPage from '../HomePage/Instruction/InstructionPage'
 
 export default function Home() {
     return (
@@ -29,6 +31,8 @@ export default function Home() {
         </section>
         <ProductPage/>
         <Services/>
+        <SDEdata/>
+        <InstructionPage/>
         <Contact />
        
         </>
