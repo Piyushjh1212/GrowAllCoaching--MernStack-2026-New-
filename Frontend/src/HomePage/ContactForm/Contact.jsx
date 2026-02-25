@@ -164,7 +164,7 @@ export default function Contact() {
         </h2>
 
         <div className="image-frame">
-          <img src="/contact-image.jpg" alt="Contact" />
+          <img src="./image4444.jpg" alt="Contact" />
         </div>
       </div>
 

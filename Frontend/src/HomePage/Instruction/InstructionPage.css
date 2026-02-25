@@ -13,7 +13,7 @@
   width: 450px;
   border-radius: 20px;
   box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-  animation: float 4s ease-in-out infinite;
+  animation: float 1.5s ease-in-out infinite;
 }
 
 @keyframes float {
