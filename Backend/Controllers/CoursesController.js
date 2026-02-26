@@ -1,4 +1,5 @@
 import Course from "../Modals/AddCourseModal.js";
+import CourseModule from "../Modals/CourseModuleModal.js";
 // Add a new course
 export const AddCourse = async (req, res) => {
   try {
@@ -38,5 +39,28 @@ export const getAllCourses = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+export const addModule = async (req, res) => {
+  try {
+    const { title, Course } = req.body;
+
+    if (!title || !Course) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newmodule = new CourseModule({
+      title,
+      Course
+    });
+
+    const savedModule = await newmodule.save();
+
+    res.status(201).json(savedModule);
+    } catch (error) {
+      console.error("Error adding module:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  }
 
 

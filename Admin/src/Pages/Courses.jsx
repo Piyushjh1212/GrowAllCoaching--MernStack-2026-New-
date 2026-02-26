@@ -51,45 +51,58 @@ export default function Courses() {
 
 
     return (
-        <section className='admin-Course-update'>
-            <h2 className='admin-course-update-heading'> Add course</h2>
-            <form onSubmit={HandleCourseSubmit} className='admin-add-course-form'>
-                <input
-                    type="text"
-                    name='title'
-                    placeholder="Course Name"
-                    value={courses.title}
-                    onChange={Handlechange}
-                />
+        <div className='admin-container'>
+            <section className='admin-Course-update'>
+                <h2 className='admin-course-update-heading'> Add course</h2>
+                <form onSubmit={HandleCourseSubmit} className='admin-add-course-form'>
+                    <input
+                        type="text"
+                        name='title'
+                        placeholder="Course Name"
+                        value={courses.title}
+                        onChange={Handlechange}
+                    />
 
-                <input
-                    type="text"
-                    name='description'
-                    placeholder="Course Description"
-                    value={courses.description}
-                    onChange={Handlechange}
+                    <input
+                        type="text"
+                        name='description'
+                        placeholder="Course Description"
+                        value={courses.description}
+                        onChange={Handlechange}
 
-                />
-                <input
-                    type="number"
-                    name='price'
-                    placeholder="Price"
-                    value={courses.price}
-                    onChange={Handlechange}
+                    />
+                    <input
+                        type="number"
+                        name='price'
+                        placeholder="Price"
+                        value={courses.price}
+                        onChange={Handlechange}
 
-                />
-                <input
-                    type="text"
-                    name='image'
-                    placeholder="Course Image URL"
-                    value={courses.image}
-                    onChange={Handlechange}
+                    />
+                    <input
+                        type="text"
+                        name='image'
+                        placeholder="Course Image URL"
+                        value={courses.image}
+                        onChange={Handlechange}
 
-                />
+                    />
 
-                <button type="submit">Add Course</button>
-            </form>
-        </section>
+                    <button type="submit">Add Course</button>
+                </form>
+            </section>
+
+            <section className='admin-Course-update'>
+                <h2 className='admin-course-update-heading'>Add Module</h2>
+                <form action="admin-add-course-form">
+                    <select name="" id=""></select>
+                    <input
+                        type="text"
+                    />
+                </form>
+            </section>
+
+        </div>
     )
 }
 
