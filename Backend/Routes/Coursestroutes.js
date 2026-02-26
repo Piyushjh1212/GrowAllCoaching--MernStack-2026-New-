@@ -1,5 +1,5 @@
 import express from "express";
-import { AddCourse, addModule, getAllCourses } from "../Controllers/CoursesController.js";
+import { AddCourse, addModule, getAllCourses, getCourseWithModules } from "../Controllers/CoursesController.js";
 
 
 const CoursesRoutes = express.Router();
@@ -10,9 +10,12 @@ CoursesRoutes.post("/Courses", AddCourse); // POST /api/v1/courses/product
 
 CoursesRoutes.post("/Courses/module", addModule); // POST /api/v1/courses/module
 
+
+
 // GET: Fetch all courses
 CoursesRoutes.get("/Courses", getAllCourses);
 
+CoursesRoutes.get("/Courses/module/:id", getCourseWithModules)
 
 
 export default CoursesRoutes;

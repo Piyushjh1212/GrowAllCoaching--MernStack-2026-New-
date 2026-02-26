@@ -43,15 +43,17 @@ export const getAllCourses = async (req, res) => {
 
 export const addModule = async (req, res) => {
   try {
-    const { title, Course } = req.body;
+     console.log("Route hit hua ✅");
+  console.log("Body:", req.body);
+    const { title, courseId } = req.body;
 
-    if (!title || !Course) {
+    if (!title || !courseId) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
     const newmodule = new CourseModule({
       title,
-      Course
+      courseId
     });
 
     const savedModule = await newmodule.save();
@@ -62,5 +64,29 @@ export const addModule = async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   }
+
+
+
+export const getCourseWithModules = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    const modules = await CourseModule.find({ courseId: id });
+
+    res.status(200).json({
+      ...course.toObject(),
+      modules
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 
