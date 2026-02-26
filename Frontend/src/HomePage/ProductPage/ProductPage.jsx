@@ -6,7 +6,7 @@ function Courses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/product") // backend URL
+    fetch("http://localhost:5000/api/v1/Courses") // backend URL
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.error(err));

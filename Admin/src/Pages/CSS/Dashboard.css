@@ -1,81 +1,64 @@
-/* Pages/CSS/Dashboard.css */
+/* File: Dashboard.css */
 
-.dashboard-container {
-  display: flex;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
+.admin-Course-update {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
 }
 
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background: #1f2937;
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.admin-course-update-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
 }
 
-.sidebar-link {
-  color: #fff;
-  text-decoration: none;
-  transition: 0.2s;
+.admin-add-course-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.sidebar-link:hover {
-  color: #60a5fa; /* blue highlight on hover */
+.admin-add-course-form input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.2s ease;
 }
 
-.logout {
-  margin-top: auto;
+.admin-add-course-form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.3);
 }
 
-/* Main Content */
-.main-content {
-  flex: 1;
-  background: #f3f4f6;
-  padding: 30px;
+.admin-add-course-form button {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-.main-content h1 {
-  margin-bottom: 10px;
+.admin-add-course-form button:hover {
+    background-color: #0056b3;
 }
 
-.main-content p {
-  margin-bottom: 20px;
+ul {
+    margin-top: 25px;
+    padding-left: 20px;
 }
 
-/* Stats Cards */
-.stats-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.stat-card {
-  flex: 1 1 200px;
-  text-decoration: none;
-  color: #333;
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: 0.3s;
-}
-
-.stat-card h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.stat-card p {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
 }

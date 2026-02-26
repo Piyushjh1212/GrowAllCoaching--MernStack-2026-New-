@@ -1,7 +1,7 @@
 // Pages/Dashboard.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import "./CSS/Dashboard.css"; 
+ 
 
 const Dashboard = () => {
   const stats = [

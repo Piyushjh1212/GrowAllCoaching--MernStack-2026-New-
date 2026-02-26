@@ -1,35 +1,66 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+import Dashboard from "./Pages/Dashboard";
 import Courses from "./Pages/Courses";
 import Modules from "./Pages/Modules";
 import Lectures from "./Pages/Lectures";
 import Users from "./Pages/Users";
-import Dashboard from "./Pages/Dashboard";
 import Login from "./Login/login";
-
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 const App = () => {
-  const token = localStorage.getItem("token");
-  const isAdmin = !!token; // temporary login check
-
   return (
     <Router>
       <Routes>
-        {/* Login Page */}
+        {/* Public Route */}
         <Route path="/login" element={<Login />} />
 
-        {/* Admin protected routes */}
-        {isAdmin ? (
-          <>
-            <Route path="/admin" element={<Dashboard />} />
-            <Route path="/admin/courses" element={<Courses />} />
-            <Route path="/admin/modules/:courseId" element={<Modules />} />
-            <Route path="/admin/lectures/:moduleId" element={<Lectures />} />
-            <Route path="/admin/users" element={<Users />} />
-          </>
-        ) : (
-          <Route path="*" element={<Navigate to="/login" replace />} /> 
-        )}
+        {/* Admin Protected Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/courses"
+          element={
+            <ProtectedRoute>
+              <Courses />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/modules/:courseId"
+          element={
+            <ProtectedRoute>
+              <Modules />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/lectures/:moduleId"
+          element={
+            <ProtectedRoute>
+              <Lectures />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Default route */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
