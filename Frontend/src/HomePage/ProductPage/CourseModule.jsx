@@ -25,9 +25,17 @@ function CourseModule() {
           <div key={module._id} className="product-card">
             <img src="./piyush.jpg" alt="image" />
             <p className="Moduletitle">{module.title}</p>
+            <div className="ModuleTitalPrice">
+               <p className="Moduletitle-Realprice">799 INR/-</p>
+             <p className="Moduletitle-Discountprice">9 INR/-</p>
+
+            </div>
+            
+            
+
             <div className="product-container-box-button">
               <Link to={`/course/${id}/module/${module._id}`}>
-              <button className="Product-container-button" >buy Now</button>
+              <button className="Product-container-button" >Buy Now</button>
               </Link>
               
               <button className="Product-container-button"> Browcher</button>
