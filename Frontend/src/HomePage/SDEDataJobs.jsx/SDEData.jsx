@@ -1,38 +1,92 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./SDEData.css";
-import SDEmaindata from "./SDEmaindata";
 
 const roadmapData = {
   SDE: [
-    { title: "Programming", desc: "Master Java/C++ deeply." },
-    { title: "DSA", desc: "Practice daily problem solving." },
-    { title: "Core CS", desc: "OS, DBMS, CN strong concepts." },
-    { title: "System Design", desc: "Scalable system design." },
-    { title: "Projects", desc: "Build scalable projects." }
+    {
+      title: "Programming",
+      desc: "Master one language deeply (Recommended: Java).",
+      topics: [
+        "Variables & Data Types",
+        "Loops & Conditionals",
+        "Functions / Methods",
+        "OOPS Concepts",
+        "Exception Handling",
+        "Collections Framework",
+        "Multithreading (Basics)"
+      ]
+    },
+    {
+      title: "DSA",
+      desc: "Practice daily structured problem solving.",
+      topics: [
+        "Time & Space Complexity",
+        "Arrays",
+        "Recursion",
+        "Sorting",
+        "Binary Search",
+        "Stack & Queue",
+        "Linked List",
+        "Trees",
+        "Graphs",
+        "Dynamic Programming"
+      ]
+    },
+    {
+      title: "Core CS",
+      desc: "Strong theoretical foundation.",
+      topics: [
+        "Operating System",
+        "DBMS",
+        "Computer Networks",
+        "SQL",
+        "REST API"
+      ]
+    },
+    {
+      title: "System Design",
+      desc: "Design scalable backend systems.",
+      topics: [
+        "Client-Server Architecture",
+        "Load Balancing",
+        "Caching",
+        "Database Scaling",
+        "Microservices"
+      ]
+    },
+    {
+      title: "Projects",
+      desc: "Build real-world scalable applications.",
+      topics: [
+        "Full Stack Web App",
+        "Authentication System",
+        "Payment Integration",
+        "Deployment",
+        "CI/CD Basics"
+      ]
+    }
   ],
-  "Data Analytics": [
-    { title: "Python", desc: "Numpy, Pandas mastery." },
-    { title: "Statistics", desc: "Probability, hypothesis testing." },
-    { title: "Visualization", desc: "Power BI / Tableau." },
-    { title: "SQL", desc: "Advanced queries & joins." }
-  ],
+
   "Frontend Dev": [
-    { title: "HTML/CSS", desc: "Strong layout & responsive design." },
+    { title: "HTML/CSS", desc: "Responsive layouts mastery." },
     { title: "JavaScript", desc: "ES6+ mastery." },
-    { title: "React", desc: "Hooks, state, performance." },
-    { title: "UI/UX", desc: "Design thinking basics." }
+    { title: "React", desc: "Hooks & performance." }
   ],
-  "Backend Dev": [
-    { title: "Node.js", desc: "API building mastery." },
-    { title: "Database", desc: "MongoDB / SQL deep knowledge." },
-    { title: "Auth", desc: "JWT, security." },
-    { title: "Scaling", desc: "Caching & optimization." }
+    "Backend Dev": [
+    { title: "HTML/CSS", desc: "Responsive layouts mastery." },
+    { title: "JavaScript", desc: "ES6+ mastery." },
+    { title: "React", desc: "Hooks & performance." }
+  ]
+,
+   "Data Analytics": [
+    { title: "HTML/CSS", desc: "Responsive layouts mastery." },
+    { title: "JavaScript", desc: "ES6+ mastery." },
+    { title: "React", desc: "Hooks & performance." }
   ],
-  DevOps: [
-    { title: "Linux", desc: "Command line mastery." },
-    { title: "Docker", desc: "Containerization." },
-    { title: "CI/CD", desc: "Automation pipelines." },
-    { title: "Cloud", desc: "AWS / Azure basics." }
+     "UI/UX Design": [
+    { title: "HTML/CSS", desc: "Responsive layouts mastery." },
+    { title: "JavaScript", desc: "ES6+ mastery." },
+    { title: "React", desc: "Hooks & performance." }
   ]
 };
 
@@ -41,53 +95,75 @@ export default function SDEdata() {
   const [active, setActive] = useState(0);
   const detailRef = useRef(null);
 
-  const steps = roadmapData[category];
+  const steps = roadmapData[category] || [];
+
+  // 🔥 reset active safely when category changes
+  useEffect(() => {
+  }, [category]);
 
   const handleStepClick = (index) => {
     setActive(index);
-    detailRef.current.scrollIntoView({ behavior: "smooth" });
+    detailRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   };
 
-  const handleCategoryChange = (cat) => {
-    setCategory(cat);
-    setActive(0);
-  };
+  const currentStep = steps[active];
 
   return (
     <>
-      {/* 🔥 TOP CATEGORY BUTTONS */}
-      <div className="category-buttons">
+      {/* CATEGORY BUTTONS */}
+      <div className="sde-category-buttons">
         {Object.keys(roadmapData).map((cat) => (
           <button
             key={cat}
-            className={category === cat ? "active-btn" : ""}
-            onClick={() => handleCategoryChange(cat)}
+            className={category === cat ? "sde-active-btn" : ""}
+            onClick={() => setCategory(cat)}
           >
             {cat}
           </button>
         ))}
       </div>
 
+      {/* MAIN SECTION */}
       <section className="sde-container">
-        <div className="left-panel">
-          <img src="./SDE.png" alt="Guide" />
+        <div className="sde-left-panel">
+          <img src="/SDE.png" alt="Guide" />
         </div>
 
-        <div className="right-panel">
+        <div className="sde-right-panel">
           {steps.map((step, index) => (
             <div
               key={index}
-              className={`step ${active === index ? "active" : ""}`}
+              className={`step ${active === index ? "sde-step-active" : ""}`}
               onClick={() => handleStepClick(index)}
             >
-              <span className="step-number">{index + 1}</span>
-              {step.title}
+              <div className="sde-step-number">{index + 1}</div>
+              <div className="sde-step-title">{step.title}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <SDEmaindata step={steps[active]} ref={detailRef} />
+      {/* DETAIL SECTION */}
+      {currentStep && (
+        <section className="sde-detail-section" ref={detailRef}>
+          <div className="sde-detail-section-heading">
+            <h2>{currentStep.title}</h2>
+          </div>
+
+          <p>{currentStep.desc}</p>
+
+          {currentStep.topics && (
+            <ul>
+              {currentStep.topics.map((topic, i) => (
+                <li key={i}>{topic}</li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
     </>
   );
 }

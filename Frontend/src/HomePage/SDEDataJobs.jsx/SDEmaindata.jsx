@@ -1,21 +1,39 @@
 import { forwardRef } from "react";
-import "./SDEmaindata.css";
+import "./SDEData.css";
 
-const SDEmaindata = forwardRef(({ step }, ref) => {
-  return (
-    <section className="detail-section" ref={ref}>
-      
-      <div className="detail-left">
-        <div className="vertical-line"></div>
-        <h2>{step.title}</h2>
-      </div>
+const SDEmaindata = forwardRef(
+  ({ step, stepIndex = 0, totalSteps = 0 }, ref) => {
 
-      <div className="detail-right">
-        <p>{step.desc}</p>
-      </div>
+    // 🔥 Safety check (important)
+    if (!step) return null;
 
-    </section>
-  );
-});
+    return (
+      <section className="sde-detail-section" ref={ref}>
+        <div className="sde-detail-header">
+          <span className="sde-step-badge">
+            STEP {stepIndex + 1} / {totalSteps}
+          </span>
+
+          <h2>{step.title}</h2>
+          <p className="sde-duration">Duration: {step.duration}</p>
+        </div>
+
+        <div className="sde-detail-content">
+          <ul>
+            {step.details?.map((item, i) => (
+              <li key={i}>✔ {item}</li>
+            ))}
+          </ul>
+        </div>
+
+        {stepIndex !== totalSteps - 1 && (
+          <div className="sde-next-step">
+            ↓ Next: Step {stepIndex + 2}
+          </div>
+        )}
+      </section>
+    );
+  }
+);
 
 export default SDEmaindata;

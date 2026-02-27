@@ -4,7 +4,7 @@ import Home from './Component/Home'
 import Header from './Component/Header'
 import Footer from './Component/Footer'
 import CourseModule from './HomePage/ProductPage/CourseModule'
-import CourseLecture from './HomePage/ProductPage/CourseLecture'
+import CoursemainLayout from './HomePage/ProductPage/CourseLayoutPage/CoursemainLayout'
 
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/course/:id" element={<CourseModule />} />
-        <Route path="/course/:courseId/module/:moduleId" element={<CourseLecture />} />
+        <Route path="/course/:courseId/module/:moduleId" element={<CoursemainLayout />} />
       </Routes>
       <Footer />
     </BrowserRouter>
