@@ -23,10 +23,10 @@ function CourseModule() {
       <div className="product-container-box">
         {course.modules?.map((module) => (
           <div key={module._id} className="product-card">
-            <img src="./piyush.jpg" alt="image" />
+            <img src={module.Moduleimage} alt="image" />
             <p className="Moduletitle">{module.title}</p>
             <div className="ModuleTitalPrice">
-               <p className="Moduletitle-Realprice">799 INR/-</p>
+               <p className="Moduletitle-Realprice">{module.Realprice || "Price not available"}</p>
              <p className="Moduletitle-Discountprice">9 INR/-</p>
 
             </div>

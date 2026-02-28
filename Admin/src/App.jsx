@@ -5,9 +5,9 @@ import Dashboard from "./Pages/Dashboard";
 import Courses from "./Pages/Courses";
 import Modules from "./Pages/Modules";
 import Lectures from "./Pages/Lectures";
-import Users from "./Pages/Users";
 import Login from "./Login/login";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import Addimages from "./Pages/Addimage";
 
 const App = () => {
   return (
@@ -53,7 +53,7 @@ const App = () => {
           path="/admin/users"
           element={
             <ProtectedRoute>
-              <Users />
+              <Addimages />
             </ProtectedRoute>
           }
         />

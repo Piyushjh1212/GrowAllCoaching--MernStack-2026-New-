@@ -1,9 +1,7 @@
 .Course-main-Layout-container {
   display: flex;
-  gap: 30px;
-  padding: 40px 8%;
   background: #f5f6fa;
-  padding-top: 100px;
+  padding: 50px 50px 0 0px;
 }
 
 /* LEFT */
@@ -41,7 +39,6 @@
   border-radius: 18px;
   overflow: hidden;
   background: black;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 }
 
 .vp-video {
@@ -184,9 +181,9 @@
 
 
 /* CourseSidebar css */
-
 /* SIDEBAR CONTAINER */
 .csb-container {
+  padding: 50px 8%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -200,6 +197,80 @@
   padding: 28px;
   border-radius: 18px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.csb-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* CARD HEADER: Title + Dropdown */
+.csb-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* MODULE DROPDOWN */
+.csb-module-dropdown {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  cursor: pointer;
+  background: #fff;
+  transition: 0.2s;
+}
+.csb-module-dropdown:hover {
+  border-color: #3b82f6;
+}
+
+/* MODULE DROPDOWN STYLING */
+.csb-module-dropdown {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db; /* light gray border */
+  background-color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  cursor: pointer;
+  appearance: none; /* remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  min-width: 160px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Hover Effect */
+.csb-module-dropdown:hover {
+  border-color: #3b82f6; /* blue border on hover */
+  box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+}
+
+/* Focus Effect */
+.csb-module-dropdown:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+/* Custom Arrow */
+.csb-module-dropdown {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><polygon points='0,0 16,0 8,8' fill='%233b82f6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 36px; /* space for arrow */
+}
+
+/* Optional: Smooth transition on select */
+.csb-module-dropdown option {
+  font-weight: 500;
+  padding: 6px;
 }
 
 /* HEADINGS */
@@ -267,8 +338,24 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  max-height: 300px; /* Scroll if too many lessons */
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
+/* Scrollbar */
+.csb-lesson-list::-webkit-scrollbar {
+  width: 6px;
+}
+.csb-lesson-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+.csb-lesson-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* INDIVIDUAL LESSON */
 .csb-lesson-item {
   display: flex;
   justify-content: space-between;
@@ -279,15 +366,16 @@
   transition: 0.3s;
   cursor: pointer;
 }
-
 .csb-lesson-item:hover {
   background: #eef2ff;
+  transform: translateX(2px);
 }
 
 .csb-lesson-item.completed {
   background: #e6f4ea;
 }
 
+/* LESSON LEFT: ICON + TITLE */
 .csb-lesson-left {
   display: flex;
   align-items: center;
@@ -304,6 +392,7 @@
   align-items: center;
   justify-content: center;
   font-size: 14px;
+  transition: 0.3s;
 }
 
 .csb-lesson-item:not(.completed) .csb-icon {

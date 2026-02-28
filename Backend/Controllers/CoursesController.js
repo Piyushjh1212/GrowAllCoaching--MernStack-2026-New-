@@ -45,14 +45,16 @@ export const addModule = async (req, res) => {
   try {
      console.log("Route hit hua ✅");
   console.log("Body:", req.body);
-    const { title, courseId } = req.body;
+    const { title, Moduleimage, Realprice, courseId } = req.body;
 
-    if (!title || !courseId) {
+    if (!title || !Moduleimage || !Realprice || !courseId) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
     const newmodule = new CourseModule({
       title,
+      Moduleimage,
+      Realprice: Number(Realprice),
       courseId
     });
 
@@ -90,3 +92,20 @@ export const getCourseWithModules = async (req, res) => {
 };
 
 
+export const addLecture = async(req, res) =>{
+  try {
+    
+  } catch (error) {
+    
+  }
+    
+}
+
+export const getCourseWithModulesAndLectures = async (req, res) => {
+   try {
+    
+   } catch (error) {
+    
+   }
+  
+  }

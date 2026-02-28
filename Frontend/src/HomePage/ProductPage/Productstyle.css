@@ -26,6 +26,7 @@
 
 .course-card img {
   width: 350px;
+  height: 200px;
   margin-bottom: 20px;
 }
 
@@ -85,7 +86,7 @@
 .product-card img {
   border: 2px solid #e5e7eb;
   width: 100%;
-  height: fit-content;
+  height: 350px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 15px;

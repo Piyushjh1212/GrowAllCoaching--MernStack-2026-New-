@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./CourseLectureLayout.jsx";
+import React, { useState, useRef } from "react";
+import "./CourseLayoutPage.css"; // corrected to CSS
+import CourseLectureDownContent from "./CourseLectureDownContent.jsx";
 
 export default function CourseContent() {
   const videoRef = useRef(null);
@@ -15,6 +16,7 @@ export default function CourseContent() {
   /* PLAY / PAUSE */
   const togglePlay = () => {
     const video = videoRef.current;
+    if (!video) return;
     if (video.paused) {
       video.play();
       setIsPlaying(true);
@@ -27,6 +29,7 @@ export default function CourseContent() {
   /* UPDATE PROGRESS */
   const handleTimeUpdate = () => {
     const video = videoRef.current;
+    if (!video) return;
     const percent = (video.currentTime / video.duration) * 100;
     setProgress(percent);
   };
@@ -34,19 +37,31 @@ export default function CourseContent() {
   /* SEEK */
   const handleSeek = (e) => {
     const video = videoRef.current;
+    if (!video) return;
     const seekTo = (e.target.value / 100) * video.duration;
     video.currentTime = seekTo;
     setProgress(e.target.value);
   };
 
   /* FORWARD / BACK */
-  const forward = () => (videoRef.current.currentTime += 10);
-  const backward = () => (videoRef.current.currentTime -= 10);
+  const forward = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime += 10;
+    setProgress((video.currentTime / video.duration) * 100);
+  };
+
+  const backward = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime -= 10;
+    setProgress((video.currentTime / video.duration) * 100);
+  };
 
   /* FULLSCREEN */
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      wrapperRef.current.requestFullscreen();
+      wrapperRef.current?.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
@@ -64,6 +79,7 @@ export default function CourseContent() {
 
   /* SET PLAYBACK SPEED */
   const changeSpeed = (rate) => {
+    if (!videoRef.current) return;
     videoRef.current.playbackRate = rate;
     setPlaybackRate(rate);
   };
@@ -77,7 +93,7 @@ export default function CourseContent() {
           className="vp-video"
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={() =>
-            setDuration(videoRef.current.duration)
+            setDuration(videoRef.current?.duration || 0)
           }
         />
 
@@ -87,18 +103,18 @@ export default function CourseContent() {
           {/* PROGRESS BAR */}
           <input
             type="range"
+            min="0"
+            max="100"
             value={progress}
             onChange={handleSeek}
             className="vp-progress"
           />
 
           <div className="vp-bottom">
-
             <div className="vp-left">
               <button onClick={togglePlay}>
                 {isPlaying ? "❚❚" : "▶"}
               </button>
-
               <button onClick={backward}>⏪</button>
               <button onClick={forward}>⏩</button>
 
@@ -109,7 +125,6 @@ export default function CourseContent() {
             </div>
 
             <div className="vp-right">
-
               {/* SETTINGS */}
               <div className="vp-settings">
                 <button onClick={() => setShowSettings(!showSettings)}>
@@ -150,6 +165,7 @@ export default function CourseContent() {
           </div>
         </div>
       </div>
+      <CourseLectureDownContent />
     </div>
   );
 }
