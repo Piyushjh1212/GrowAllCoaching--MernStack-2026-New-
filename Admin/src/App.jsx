@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Dashboard from "./Pages/Dashboard";
 import Courses from "./Pages/Courses";
 import Modules from "./Pages/Modules";
-import Lectures from "./Pages/Lectures";
 import Login from "./Login/login";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Addimages from "./Pages/Addimage";
+import Addvideo from "./Pages/Addvideo";
 
 const App = () => {
   return (
@@ -42,10 +42,10 @@ const App = () => {
           }
         />
         <Route
-          path="/admin/lectures/:moduleId"
+          path="/admin/lectures/Video"
           element={
             <ProtectedRoute>
-              <Lectures />
+              <Addvideo />
             </ProtectedRoute>
           }
         />

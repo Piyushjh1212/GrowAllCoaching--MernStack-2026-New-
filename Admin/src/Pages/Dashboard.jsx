@@ -20,6 +20,7 @@ const Dashboard = () => {
         <Link to="/admin" className="sidebar-link">Dashboard</Link>
         <Link to="/admin/courses" className="sidebar-link">Add-Courses</Link>
         <Link to="/admin/users" className="sidebar-link">Add-images</Link>
+        <Link to="/admin/lectures/Video" className="sidebar-link">Add-video</Link>
         <Link
           to="/login"
           className="sidebar-link logout"

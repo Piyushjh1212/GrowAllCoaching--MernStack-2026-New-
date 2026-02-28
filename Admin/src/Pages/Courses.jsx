@@ -2,32 +2,23 @@ import React, { useState, useEffect } from 'react';
 import "./Dashboard.css";
 
 export default function Courses() {
-
   // ===================== STATES =====================
-  // Courses form for adding new course
   const [coursesForm, setCoursesForm] = useState({
     title: "",
     description: "",
     price: "",
     image: ""
   });
+  const [courses, setCourses] = useState([]); // array for .map
+  const [selectedCourseId, setSelectedCourseId] = useState("");
 
-  // Courses list fetched from backend
-  const [courses, setCourses] = useState([]); // Must be array for .map
-
-  // Module form for adding module to a course
   const [moduleForm, setModuleForm] = useState({
     title: "",
     Moduleimage: "",
     Realprice: ""
   });
+  const [modules, setModules] = useState([]); // array for .map
 
-  const [selectedCourseId, setSelectedCourseId] = useState("");
-
-  // Modules list fetched from backend for selected course
-  const [modules, setModules] = useState([]);
-
-  // Lecture form
   const [lectureForm, setLectureForm] = useState({
     title: "",
     videoUrl: ""
@@ -36,31 +27,29 @@ export default function Courses() {
   const [isFree, setIsFree] = useState(false);
 
   // ===================== HANDLERS =====================
-  // Courses form change
   const handleCourseChange = (e) => {
     setCoursesForm({ ...coursesForm, [e.target.name]: e.target.value });
   };
 
-  // Module form change
   const handleModuleChange = (e) => {
     setModuleForm({ ...moduleForm, [e.target.name]: e.target.value });
   };
 
-  // Lecture form change
   const handleLectureChange = (e) => {
     setLectureForm({ ...lectureForm, [e.target.name]: e.target.value });
   };
 
-  // Selected course change
   const handleCourseSelect = (e) => {
     const courseId = e.target.value;
     setSelectedCourseId(courseId);
-    // Fetch modules for this course if backend supports
     if (courseId) {
       fetch(`http://localhost:5000/api/v1/Courses/${courseId}/modules-with-lectures`)
         .then(res => res.json())
         .then(data => setModules(data))
-        .catch(err => console.error(err));
+        .catch(err => {
+          console.error("Error fetching modules:", err);
+          setModules([]);
+        });
     } else {
       setModules([]);
     }
@@ -75,7 +64,6 @@ export default function Courses() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(coursesForm)
       });
-
       const data = await res.json();
       setCourses(prev => [...prev, data]);
       setCoursesForm({ title: "", description: "", price: "", image: "" });
@@ -97,13 +85,9 @@ export default function Courses() {
           courseId: selectedCourseId
         })
       });
-
       const data = await res.json();
-      console.log("Module added:", data);
-      setModuleForm({ title: "", Moduleimage: "", Realprice: "" });
-
-      // Update modules list immediately
       setModules(prev => [...prev, data]);
+      setModuleForm({ title: "", Moduleimage: "", Realprice: "" });
     } catch (error) {
       console.error("Error adding module:", error);
     }
@@ -114,7 +98,7 @@ export default function Courses() {
     if (!selectedCourseId || !selectedModuleId) return alert("Select course & module first");
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/Courses/lecture", {
+      const res = await fetch("http://localhost:5000/api/v1/Courses/Lecture", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -124,7 +108,6 @@ export default function Courses() {
           isFree
         })
       });
-
       const data = await res.json();
       console.log("Lecture added:", data);
       setLectureForm({ title: "", videoUrl: "" });
@@ -145,7 +128,6 @@ export default function Courses() {
   // ===================== JSX =====================
   return (
     <div className='admin-container'>
-
       {/* ========== ADD COURSE ========== */}
       <section className='admin-Course-update'>
         <h2 className='admin-course-update-heading'>Add Course</h2>
@@ -220,7 +202,6 @@ export default function Courses() {
           <button type="submit">Add Lecture</button>
         </form>
       </section>
-
     </div>
   );
 }

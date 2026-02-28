@@ -1,8 +1,9 @@
 // controllers/imageController.js
 import CourseCloudinaryImage from "../Modals/CloudinaryModuleAdd.js";
+import CourseCloudinaryVideo from "../Modals/CloudinaryVideoModals.js";
 
 // Controller to save uploaded image to DB (courseId optional removed)
-export const addCloudinaryImage = async (req, res) => {
+export const addCloudinaryimage = async (req, res) => {
   try {
     if (!req.file || !req.file.path) {
       return res.status(400).json({ message: "Image file missing" });
@@ -19,3 +20,28 @@ export const addCloudinaryImage = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const addCloudinaryVideo = async (req, res) => {
+  try {
+    if (!req.file || !req.file.path) {
+      return res.status(400).json({ message: "Video file missing" });
+    }
+
+    // Agar DB me save karna hai:
+    const newVideo = await CourseCloudinaryVideo.create({
+      Modulevideo: req.file.path
+    });
+
+    res.status(201).json({
+      success: true,
+      url: req.file.path,
+      video: newVideo
+    });
+
+  } catch (error) {
+    console.error("Video upload error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+

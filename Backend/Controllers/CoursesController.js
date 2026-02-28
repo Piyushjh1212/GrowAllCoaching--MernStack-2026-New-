@@ -1,5 +1,6 @@
 import Course from "../Modals/AddCourseModal.js";
 import CourseModule from "../Modals/CourseModuleModal.js";
+import Lecture from "../Modals/CourseLectureModals.js";
 // Add a new course
 export const AddCourse = async (req, res) => {
   try {
@@ -92,20 +93,45 @@ export const getCourseWithModules = async (req, res) => {
 };
 
 
-export const addLecture = async(req, res) =>{
+export const addLecture = async (req, res) => {
   try {
-    
+    const { title, videoUrl, courseId, moduleId, isFree } = req.body;
+
+    // Validation
+    if (!title || !videoUrl || !courseId || !moduleId) {
+      return res.status(400).json({ message: "All required fields must be provided" });
+    }
+
+    // Create lecture
+    const newLecture = await Lecture.create({
+      title,
+      videoUrl,
+      courseId,
+      moduleId,
+      isFree: isFree || false
+    });
+
+    res.status(201).json({ success: true, lecture: newLecture });
   } catch (error) {
-    
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
-    
-}
+};
 
 export const getCourseWithModulesAndLectures = async (req, res) => {
-   try {
-    
-   } catch (error) {
-    
-   }
-  
+  try {
+    const { courseId } = req.params;
+
+    // Fetch course to check existence
+    const course = await Course.findById(courseId);
+    if (!course) return res.status(404).json({ message: "Course not found" });
+
+    // Fetch modules for this course only
+    const modules = await CourseModule.find({ courseId });
+
+    res.status(200).json(modules); // Only modules, no lectures
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
+};

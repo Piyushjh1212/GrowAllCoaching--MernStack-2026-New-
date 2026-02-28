@@ -1,0 +1,76 @@
+/* AddVideo.css */
+
+.add-video-container {
+  font-family: Arial, sans-serif;
+  max-width: 550px;
+  margin: 40px auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fefefe;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+.add-video-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.add-video-container input[type="file"] {
+  display: block;
+  margin: 10px 0 20px 0;
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.add-video-container button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-video-container button:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.add-video-container button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.add-video-progress {
+  margin-top: 12px;
+}
+
+.add-video-progress p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.add-video-progress progress {
+  height: 20px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.add-video-preview {
+  margin-top: 20px;
+}
+
+.add-video-preview video {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+}
