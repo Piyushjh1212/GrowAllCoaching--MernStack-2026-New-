@@ -1,0 +1,131 @@
+[33mcommit fd4a05fec40e1fd747690efefca208b0bab122b2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    add video to clodinary logic done
+
+[33mcommit 5023dccd158a1689f99337948f6368235f107b3f[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    update cludinary setup
+
+[33mcommit bbd609e5f7d0ae80119886d2a1a784b1322cf42e[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    update all
+
+[33mcommit 549f97fc540fb0b83550a194388c1732bbaa0983[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    update the frontend
+
+[33mcommit d8ae64aa70f1c4f7f459095f4d1f4dba14450398[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    add module to the frontend
+
+[33mcommit be1909708e9ef4d18293e37a752f06fa4d8b83e4[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    module backend controller and route complete
+
+[33mcommit f9e6fbf17dafd54f83f91d48a31092486b5fb0f5[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    update the first backend od course product
+
+[33mcommit a6fb77a3e41a53de48abadaa3dcc386bfecb087e[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    Update Admin panel
+
+[33mcommit ad3e229b19eaddc9e7b6ef18e0f3f7f29fd12de1[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    backend course ready
+
+[33mcommit 827d77978416213e44dfb1ef43588d0d0195df82[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    indtruction page update
+
+[33mcommit 11448ee9171538fcd7193e6f5e823d738ee272ed[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    new page main content data
+
+[33mcommit e48f1fd9ad3b3db1fc55be4c8719bf27b351bcbc[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    Courses backend COnnection done
+
+[33mcommit 2f907df7a94830280961afd059b69ff8b8c2e567[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    Courses create at the databse
+
+[33mcommit 301dd1c3433db59e01636579c370665d7566ad59[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    contact form complete , validatio, message sved in mongodb. need to improve security
+
+[33mcommit 24aa3c4c0777a3e5a5bba96c9113e6783b6ea796[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    Contact Form Frontend Ok
+
+[33mcommit 8d710c512922aa7a8e36ca1736b4adc2ed28eaa3[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    frontend contact form and backend files done
+
+[33mcommit 4f87af6e8126fdbe2d3b69d2c42a1e432d01593a[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    update services products footer header
+
+[33mcommit 47ce6b02ff82df84a81c4fc23f51899a84a9bc00[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    change gac image of front
+
+[33mcommit 9cc9d5b332f22e2aef39d11f398b927649b032d4[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    create backend and connect the mongodb database
+
+[33mcommit c9df0270ae2a62ed2306afb1e3fa8fc41b43afdf[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    Frontend js file spa for products
+
+[33mcommit f741e8e41ac16df3a945f57c474305d09d4e6b16[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    Homepageandheaderdesign
+
+[33mcommit 581acdb3b5384f8391208079d6effaa87795a3a0[m
+Author: Piyushjh1212 <piyushjhariya@gmail.com>
+Commit: Piyushjh1212 <piyushjhariya@gmail.com>
+
+    New one
