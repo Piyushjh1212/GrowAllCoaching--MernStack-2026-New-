@@ -18,6 +18,10 @@ function CourseModule() {
 
   if (!course) return <p>Loading...</p>;
 
+  const HandlePaymentSystem = () => {
+    alert("Payment system coming soon!");
+  }
+
   return (
     <div className="products-container">
       <div className="product-container-box">
@@ -35,7 +39,7 @@ function CourseModule() {
 
             <div className="product-container-box-button">
               <Link to={`/course/${id}/module/${module._id}`}>
-              <button className="Product-container-button" >Buy Now</button>
+              <button className="Product-container-button" onClick={HandlePaymentSystem} >Buy Now</button>
               </Link>
               
               <button className="Product-container-button"> Browcher</button>
