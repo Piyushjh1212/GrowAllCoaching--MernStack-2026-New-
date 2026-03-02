@@ -1,6 +1,7 @@
 import React from 'react'
 import './Homepage.css'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false)
@@ -33,7 +34,10 @@ export default function Header() {
             </nav>
 
             <div className="nav-right">
-                <a href="#" className="cta-btn login">Login</a>
+                <Link to="/UserLogin" className="cta-btn login">
+                    Login
+                </Link>
+
                 <a href="#" className="cta-btn signup">Sign Up</a>
             </div>
 

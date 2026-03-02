@@ -8,6 +8,8 @@ import Login from "./Login/login";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Addimages from "./Pages/Addimage";
 import Addvideo from "./Pages/Addvideo";
+import ContactMessages from "./Pages/ContactMessages/ContactMessages";
+
 
 const App = () => {
   return (
@@ -55,10 +57,12 @@ const App = () => {
             <ProtectedRoute>
               <Addimages />
             </ProtectedRoute>
-          }
-        />
+          } />
 
-        {/* Default route */}
+        <Route path="/admin/messages" element={<ProtectedRoute><ContactMessages /></ProtectedRoute>} />
+
+          {/* Default route */}
+        
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

@@ -1,20 +1,34 @@
-// Pages/Dashboard.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
- 
 
 const Dashboard = () => {
+  const [totalMessages, setTotalMessages] = useState(0);
+
+  useEffect(() => {
+    const fetchMessagesCount = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/v1/messages-count");
+        const data = await res.json();
+        if (res.ok) setTotalMessages(data.count);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchMessagesCount();
+  }, []);
+
   const stats = [
     { title: "Total Courses", value: 3, link: "/admin/courses" },
     { title: "Total Modules", value: 9, link: "/admin/courses" },
     { title: "Total Lectures", value: 27, link: "/admin/courses" },
     { title: "Total Users", value: 4, link: "/admin/users" },
+    { title: "Total Messages", value: totalMessages, link: "/admin/messages" }, // dynamic
   ];
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
       <div className="sidebar">
         <h2>Admin Panel</h2>
         <Link to="/admin" className="sidebar-link">Dashboard</Link>
@@ -30,7 +44,6 @@ const Dashboard = () => {
         </Link>
       </div>
 
-      {/* Main Content */}
       <div className="main-content">
         <h1>Dashboard</h1>
         <p>Welcome, Admin! Here's a quick overview:</p>

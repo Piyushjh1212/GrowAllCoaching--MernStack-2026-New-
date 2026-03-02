@@ -1,0 +1,154 @@
+/* Page container - split left and right */
+.hac-login-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Left Image */
+.hac-login-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+
+.hac-login-image img {
+  width: 100%;
+  height: 90%;
+  object-fit: cover;
+}
+
+/* Right Form */
+.hac-login-container {
+  flex: 1;
+  display: flex;
+  margin: 50px;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+.hac-login-form {
+  width: 90%;
+  padding: 40px 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hac-login-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.hac-login-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.hac-login-input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.hac-cta-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.hac-login-btn {
+  background: linear-gradient(135deg, #0890a5, #034050);
+  color: white;
+  height: 43px;
+  margin-top: 10px;
+}
+
+.hac-login-btn:hover {
+  background: linear-gradient(135deg, #066d84, #022f3a);
+}
+
+.hac-signup-btn-small {
+  background-color: #066d84;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.hac-signup-btn-small:hover {
+  background-color: #0890a5;
+}
+
+.hac-signup-text {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hac-login-page {
+    flex-direction: column;
+  }
+
+  .hac-login-image {
+    height: 200px;
+  }
+
+  .hac-login-container {
+    width: 100%;
+  }
+
+  .hac-login-form {
+    width: 90%;
+    margin: 20px 0;
+  }
+}
+
+/* SIgnuppage here  */
+
+/* Signup button like header style */
+.hac-signup-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.hac-signup-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Small login button inside text */
+.hac-login-btn-small {
+  background-color: #4caf50;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.hac-login-btn-small:hover {
+  background-color: #45a049;
+}

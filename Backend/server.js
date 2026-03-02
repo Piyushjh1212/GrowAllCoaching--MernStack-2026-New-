@@ -5,6 +5,7 @@ import Contactroutes from './Routes/ContactRoutes.js'
 import CoursesRoutes from './Routes/Coursestroutes.js';
 import connectDB from './Config/Connectdb.js';
 import CloudinaryRoutes from './Routes/CloudinaryRoutes.js';
+import { contactLimiter } from './Middleware/Contactratelimitermiddlewear.js';
 
 
 
@@ -21,7 +22,7 @@ connectDB();
 
 
 // Routes
-app.use('/api/v1', Contactroutes);
+app.use('/api/v1', Contactroutes , contactLimiter);
 app.use('/api/v1', CoursesRoutes);
 
 // CloudinaryRoutre here 

@@ -5,6 +5,8 @@ import Header from './Component/Header'
 import Footer from './Component/Footer'
 import CourseModule from './HomePage/ProductPage/CourseModule'
 import CoursemainLayout from './HomePage/ProductPage/CourseLayoutPage/CoursemainLayout'
+import LoginPage from './Component/UserLoginPage/Login'
+import SignupPage from './Component/UserLoginPage/Signup'
 
 
 export default function App() {
@@ -13,6 +15,8 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/UserLogin" element={<LoginPage/>} /> 
+        <Route path="/UserSignup" element={<SignupPage/>} />
         <Route path="/course/:id" element={<CourseModule />} />
         <Route path="/course/:courseId/module/:moduleId" element={<CoursemainLayout />} />
       </Routes>

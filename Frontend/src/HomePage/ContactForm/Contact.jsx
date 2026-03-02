@@ -31,14 +31,15 @@ export default function Contact() {
   };
 
   useEffect(() => {
-  if (serverMessage) {
-    const timer = setTimeout(() => {
-      setServerMessage("");
-    }, 1500);
+    if (serverMessage) {
+      const timer = setTimeout(() => {
+        setServerMessage("");
+        setIsSubmitting(false);
+      }, 1500);
 
-    return () => clearTimeout(timer);
-  }
-}, [serverMessage]);
+      return () => clearTimeout(timer);
+    }
+  }, [serverMessage]);
 
 
   // Validation Function
@@ -52,11 +53,13 @@ export default function Contact() {
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
+      newErrors.email = "Invalid email";
     }
 
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
+    } else if (formData.message.trim().split(/\s+/).length < 10) {
+      newErrors.message = "Message must be at least 10 words";
     }
 
     return newErrors;
@@ -104,8 +107,6 @@ export default function Contact() {
       console.error(error);
       setIsSuccess(false);
       setServerMessage("Failed to send message.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -115,6 +116,7 @@ export default function Contact() {
       <div className="contact-left">
         <div className="contact-container">
           <h2>Contact Form</h2>
+          {errors.message && <p className="error">{errors.message}</p>}
 
           <form onSubmit={handleSubmit} noValidate>
 
@@ -124,6 +126,9 @@ export default function Contact() {
               </p>
             )}
 
+            {errors.name && <p className="error">{errors.name}</p>}
+
+
             <input
               type="text"
               name="name"
@@ -131,8 +136,7 @@ export default function Contact() {
               value={formData.name}
               onChange={handleChange}
             />
-            {errors.name && <p className="error">{errors.name}</p>}
-
+            {errors.email && <p className="error">{errors.email}</p>}
             <input
               type="email"
               name="email"
@@ -140,7 +144,7 @@ export default function Contact() {
               value={formData.email}
               onChange={handleChange}
             />
-            {errors.email && <p className="error">{errors.email}</p>}
+
 
             <textarea
               name="message"
@@ -148,7 +152,6 @@ export default function Contact() {
               value={formData.message}
               onChange={handleChange}
             />
-            {errors.message && <p className="error">{errors.message}</p>}
 
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Sending..." : "Send Message"}
