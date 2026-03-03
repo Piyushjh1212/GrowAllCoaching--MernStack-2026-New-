@@ -1,32 +1,56 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
 const LoginPage = () => {
+
+    const navigate = useNavigate();
+
     const [isLoginForm, setIsLoginForm] = useState({
-        email : "",
-        password : ""
-    })
+        email: "",
+        password: ""
+    });
 
     const HandleChangeLogin = (e) => {
-        const { name, value } = e.target; // get field name and value
+        const { name, value } = e.target;
         setIsLoginForm((prev) => ({
             ...prev,
-            [name]: value, // dynamically update the field
+            [name]: value,
         }));
     };
 
-
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log("Email:", isLoginForm.email);
-        console.log("Password:", isLoginForm.password);
-        alert("Login clicked!");
+
+        try {
+            const response = await fetch("http://localhost:5000/api/v1/UserLoginSignup/Login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(isLoginForm),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Login failed");
+            }
+
+            // ✅ Token save
+            localStorage.setItem("token", data.token);
+
+            alert("Login Successful 🔥");
+
+            navigate("/");
+
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (
         <div className="hac-login-page">
-            {/* Left side image */}
             <div className="hac-login-image">
                 <img
                     src="https://res.cloudinary.com/dieboinjz/image/upload/v1772264976/modules/odoslpn3peoglrmazexd.jpg"
@@ -34,7 +58,6 @@ const LoginPage = () => {
                 />
             </div>
 
-            {/* Right side form */}
             <div className="hac-login-container">
                 <form className="hac-login-form" onSubmit={handleLogin}>
                     <h2 className="hac-login-title">Login</h2>
