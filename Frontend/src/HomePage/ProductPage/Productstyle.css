@@ -60,10 +60,16 @@
 /* next css */
 /* Main container */
 
+.Module-Products-Container {
+  text-align: center;
+  font-size: 58px;
+  padding-top: 100px;
+}
+
 
 .product-container-box {
-  padding: 90px;
   display: grid;
+  padding:  30px 60px 60px 60px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
@@ -86,8 +92,8 @@
 .product-card img {
   border: 2px solid #e5e7eb;
   width: 100%;
-  height: 350px;
-  object-fit: cover;
+  height: 300px;
+  object-fit: inherit;
   border-radius: 8px;
   margin-bottom: 15px;
 }
@@ -100,7 +106,7 @@
   color: #111827;
 }
 
-.ModuleTitalPrice{
+.ModuleTitalPrice {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -139,7 +145,7 @@
   border-radius: 5px;
   font-size: 20px;
   font-weight: 100;
-  background: linear-gradient(20deg, #73b79fc6, #8fd4b8);
+  background: linear-gradient(50deg, #066d84, #0a93b2);
   color: white;
   cursor: pointer;
   transition: 0.3s ease;

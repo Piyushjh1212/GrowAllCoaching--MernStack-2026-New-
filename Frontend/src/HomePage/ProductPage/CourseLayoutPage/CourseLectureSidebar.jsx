@@ -2,81 +2,59 @@ import React, { useState, useEffect } from "react";
 import "./CourseLayoutPage.css";
 import { FaArrowDown, FaArrowUp, FaLightbulb } from "react-icons/fa";
 
-export function CourseLectureSidebar({ courseId, setSelectedVideo }) {
-  const [modules, setModules] = useState([]);
-  const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
+export function CourseLectureSidebar({ courseId, currentModuleId, setCurrentModuleId, setSelectedVideo, modules }) {
+  const [lessons, setLessons] = useState([]);
   const [selectedLectureIndex, setSelectedLectureIndex] = useState(0);
   const [expandedLessonIndex, setExpandedLessonIndex] = useState(null);
 
-  // ---------------- FETCH MODULES ----------------
+  // ---------------- FETCH LESSONS FOR CURRENT MODULE ----------------
   useEffect(() => {
-    const fetchModules = async () => {
-      try {
-        if (!courseId) return;
+    if (!currentModuleId || !modules || modules.length === 0) return;
 
-        const res = await fetch(
-          `http://localhost:5000/api/v1/Courses/${courseId}/modules-with-lectures`
-        );
-        const data = await res.json();
-        console.log("Fetched modules:", data);
+    const currentModule = modules.find(
+      (m) => m._id.toString() === currentModuleId.toString()
+    );
 
-        if (data && data.length > 0) {
-          setModules(data);
-          setSelectedModuleIndex(0);
-          setSelectedLectureIndex(0);
+    if (currentModule && currentModule.lessons.length > 0) {
+      setLessons(currentModule.lessons);
+      setSelectedLectureIndex(0);
+      setExpandedLessonIndex(0);
+      setSelectedVideo(currentModule.lessons[0].videoUrl);
+    } else {
+      setLessons([]);
+      setSelectedVideo(null);
+    }
+  }, [currentModuleId, modules, setSelectedVideo]);
 
-          if (data[0]?.lessons?.length > 0) {
-            setSelectedVideo(data[0].lessons[0].videoUrl); // ✅ Video in parent
-            setExpandedLessonIndex(0);
-          }
-        }
-      } catch (err) {
-        console.error("Error fetching modules:", err);
-      }
-    };
-
-    fetchModules();
-  }, [courseId, setSelectedVideo]);
-
-  if (modules.length === 0) return <p>Loading modules...</p>;
-
-  const selectedModule = modules[selectedModuleIndex] || { lessons: [] };
+  if (!lessons || lessons.length === 0) return <p>Loading lectures...</p>;
 
   // ---------------- PROGRESS LOGIC ----------------
   const getTotalDuration = (lessons) => {
-    let totalSeconds = lessons.reduce((sum, l) => {
+    const totalSeconds = lessons.reduce((sum, l) => {
       const [mins, secs] = l.duration.split(":").map(Number);
-      return sum + (mins * 60 + secs);
+      return sum + mins * 60 + secs;
     }, 0);
 
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
-
     return `${hours}h ${minutes}m`;
   };
 
-  const completedLessons = selectedModule.lessons.filter((l) => l.completed)
-    .length;
-  const totalLessons = selectedModule.lessons.length;
+  const completedLessons = lessons.filter((l) => l.completed).length;
+  const totalLessons = lessons.length;
   const progressPercent =
     totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
-  // ---------------- LECTURE CHANGE ----------------
-  const handleLectureChange = (e) => {
-    const idx = parseInt(e.target.value);
-    setSelectedLectureIndex(idx);
-
-    const lesson = selectedModule.lessons[idx];
-    if (lesson) {
-      setSelectedVideo(lesson.videoUrl);
-      setExpandedLessonIndex(idx); // Automatically expand selected lecture
-    }
-  };
-
-  const handleLessonClick = (lesson, idx) => {
+  // ---------------- HANDLE LECTURE CLICK ----------------
+  const handleLectureClick = (lesson, idx) => {
     setSelectedLectureIndex(idx);
     setSelectedVideo(lesson.videoUrl);
     setExpandedLessonIndex(expandedLessonIndex === idx ? null : idx);
+  };
+
+  // ---------------- HANDLE MODULE CLICK (if sidebar shows modules) ----------------
+  const handleModuleClick = (moduleId) => {
+    setCurrentModuleId(moduleId);
   };
 
   return (
@@ -89,7 +67,7 @@ export function CourseLectureSidebar({ courseId, setSelectedVideo }) {
         </p>
         <div className="csb-meta">
           <p>
-            Total duration: <span>{getTotalDuration(selectedModule.lessons)}</span>
+            Total duration: <span>{getTotalDuration(lessons)}</span>
           </p>
           <p>
             Lessons: <span>{totalLessons} videos</span>
@@ -106,20 +84,21 @@ export function CourseLectureSidebar({ courseId, setSelectedVideo }) {
         </div>
       </div>
 
-      {/* ---------------- LECTURE CARD ---------------- */}
+      {/* ---------------- LECTURE LIST ---------------- */}
       <div className="csb-card">
         <div className="csb-card-header">
           <h3 className="csb-heading">Lectures</h3>
         </div>
 
-        {/* ---------------- LESSON LIST ---------------- */}
         <div className="csb-lesson-list">
-          {selectedModule.lessons.map((lesson, lessonIdx) => (
+          {lessons.map((lesson, idx) => (
             <div key={lesson._id}>
-              {/* Lesson Header */}
+              {/* Lecture Header */}
               <div
-                className="csb-lesson-item"
-                onClick={() => handleLessonClick(lesson, lessonIdx)}
+                className={`csb-lesson-item ${
+                  selectedLectureIndex === idx ? "active-lecture" : ""
+                }`}
+                onClick={() => handleLectureClick(lesson, idx)}
               >
                 <div className="csb-lesson-left">
                   <div className="csb-icon">
@@ -130,7 +109,7 @@ export function CourseLectureSidebar({ courseId, setSelectedVideo }) {
 
                 {/* Toggle Arrow */}
                 <span className="csb-duration">
-                  {expandedLessonIndex === lessonIdx ? (
+                  {expandedLessonIndex === idx ? (
                     <FaArrowUp size={15} color="black" />
                   ) : (
                     <FaArrowDown size={15} color="black" />
@@ -138,10 +117,10 @@ export function CourseLectureSidebar({ courseId, setSelectedVideo }) {
                 </span>
               </div>
 
-              {/* Subtitles (only if expanded) */}
-              {expandedLessonIndex === lessonIdx &&
+              {/* Subtitles (if expanded) */}
+              {expandedLessonIndex === idx &&
                 lesson.subtitles?.map((subtitle, subIdx) => (
-                  <div key={`${lessonIdx}-${subIdx}`} className="csb-subtitle-item">
+                  <div key={`${idx}-${subIdx}`} className="csb-subtitle-item">
                     <span className="csb-subtitle-text">{subtitle}</span>
                     <span className="csb-subtitle-duration">{lesson.duration}</span>
                   </div>

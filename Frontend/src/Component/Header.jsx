@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Homepage.css'
 import { Link, useNavigate } from 'react-router-dom'
+import {FaUser  } from 'react-icons/fa'
 
 export default function Header() {
 
@@ -72,7 +73,7 @@ export default function Header() {
                 ) : (
                     <>
                         <button className="user-icon" onClick={() => navigate("/profile")}>
-                            👤
+                            <FaUser />
                         </button>
 
                         <button className="cta-btn login" onClick={handleLogout}>
