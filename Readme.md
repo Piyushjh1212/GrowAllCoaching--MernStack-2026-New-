@@ -1,32 +1,39 @@
 # GrowAll Coaching – Full Stack Web Application
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react)](https://reactjs.org/)
+[![NodeJS](https://img.shields.io/badge/Node.js-18-green?logo=node.js)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.0-green?logo=mongodb)](https://www.mongodb.com/)
+[![Razorpay](https://img.shields.io/badge/Razorpay-Payment-blue)](https://razorpay.com/)
+
+---
 
 ## Project Overview
-**GrowAll Coaching** is a scalable full-stack EdTech platform built to provide students with seamless access to online courses. The platform allows real-time course tracking, progress management, secure authentication, and integrated payment options. It also includes an admin panel to manage courses, users, and analytics efficiently.
+**GrowAll Coaching** is a scalable full-stack EdTech platform built to provide students with seamless access to online courses. The platform allows real-time course tracking, progress management, secure authentication, and integrated payment options. Admins can manage courses, users, and analytics efficiently.
 
-This project was developed as part of GrowAll Coaching's initiative to provide a comprehensive online learning experience.
+This project was developed to provide a comprehensive online learning experience for students.
 
 ---
 
 ## Features
-- **User Features:**
-  - Browse and enroll in online courses.
-  - Track learning progress in real-time.
-  - Secure login and registration using JWT and bcrypt.
-  - Role-Based Access Control (RBAC) for students and admins.
 
-- **Admin Features:**
-  - Add, update, and remove courses.
-  - Manage users and monitor activity.
-  - View analytics for course performance and user engagement.
+### User Features
+- Browse and enroll in online courses.
+- Track learning progress in real-time.
+- Secure login and registration using JWT and bcrypt.
+- Role-Based Access Control (RBAC) for students and admins.
 
-- **Payment Integration:**
-  - Secure payment using Razorpay.
-  - Handles multiple transactions with automatic verification.
+### Admin Features
+- Add, update, and remove courses.
+- Manage users and monitor activity.
+- View analytics for course performance and user engagement.
 
-- **Intern/Team Management:**
-  - Assign tasks and manage interns for content and platform support.
+### Payment Integration
+- Secure payments using Razorpay.
+- Handles multiple transactions with automatic verification.
+
+### Internship / Team Management
+- Assign tasks and manage interns for content and platform support.
 
 ---
 
@@ -34,27 +41,27 @@ This project was developed as part of GrowAll Coaching's initiative to provide a
 - **Frontend:** React.js, HTML5, CSS3, JavaScript (ES6+)
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
-- **Authentication:** JWT, bcrypt, Role-Based Access Control (RBAC)
+- **Authentication:** JWT, bcrypt, RBAC
 - **Payment Gateway:** Razorpay
 - **Cloud & Tools:** AWS, Cloudinary, Git, VS Code
 
 ---
 
 ## Project Structure
+
+```text
 GrowAll-Coaching/
-├── client/ # React frontend
-│ ├── public/
-│ └── src/
-├── server/ # Node.js backend
-│ ├── controllers/
-│ ├── models/
-│ ├── routes/
-│ └── utils/
+├── client/                  # React frontend
+│   ├── public/
+│   └── src/
+├── server/                  # Node.js backend
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   └── utils/
 ├── README.md
 ├── package.json
 └── .env
-
-
 ---
 
 ## Installation & Setup
