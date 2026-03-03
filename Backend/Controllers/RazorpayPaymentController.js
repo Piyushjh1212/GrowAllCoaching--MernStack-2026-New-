@@ -78,7 +78,7 @@ export const RazorpayVerifyPayment = async (req, res) => {
         status: "success",
         validUntil,
       },
-      { new: true }
+      { returnDocument: "after" }
     );
 
     if (!payment) {

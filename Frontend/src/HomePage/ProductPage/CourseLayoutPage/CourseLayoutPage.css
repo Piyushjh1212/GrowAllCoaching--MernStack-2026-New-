@@ -23,67 +23,63 @@
 
 
 /* Course Layout css  */
-/* MAIN CONTAINER */
+/* ==========================
+   COURSE LAYOUT VIDEO PLAYER (YT‑style)
+========================== */
+
+/* CONTAINER */
 .vp-container {
-  padding: 50px 8%;
-  background: #f4f7fb;
-  min-height: 100vh;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
   font-family: "Inter", sans-serif;
+  color: white;
 }
 
-/* VIDEO WRAPPER */
+/* WRAPPER */
 .vp-wrapper {
   position: relative;
-  max-width: 1000px;
-  margin: auto;
-  border-radius: 18px;
+  background: #000;
+  border-radius: 12px;
   overflow: hidden;
-  background: black;
 }
 
+/* VIDEO */
 .vp-video {
   width: 100%;
   display: block;
+  border-radius: 12px;
+  background: black;
 }
 
-/* CONTROLS OVERLAY */
+/* CONTROLS */
 .vp-controls {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 18px 22px;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.85),
-    rgba(0, 0, 0, 0.4),
-    transparent
-  );
-  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);
+  padding: 10px 12px;
+  box-sizing: border-box;
 }
 
 /* PROGRESS BAR */
-.vp-progress {
+.vp-progress-bar {
   width: 100%;
   height: 6px;
-  appearance: none;
-  border-radius: 20px;
-  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  margin-bottom: 8px;
+  position: relative;
 }
 
-.vp-progress::-webkit-slider-thumb {
-  appearance: none;
-  height: 14px;
-  width: 14px;
+.vp-progress-filled {
+  height: 100%;
   background: #2563eb;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.vp-progress::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.1s linear;
 }
 
 /* BOTTOM CONTROL BAR */
@@ -91,94 +87,235 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
 }
 
-.vp-left,
-.vp-right {
+/* LEFT CONTROLS */
+.vp-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
-/* BUTTON STYLE */
-.vp-left button,
-.vp-right button {
+.vp-play-btn {
   background: rgba(255, 255, 255, 0.15);
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   padding: 10px 14px;
-  border-radius: 12px;
+  border-radius: 50%;
+  cursor: pointer;
   transition: all 0.25s ease;
 }
 
-.vp-left button:hover,
-.vp-right button:hover {
+.vp-play-btn:hover {
   background: rgba(255, 255, 255, 0.35);
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
-/* TIME TEXT */
 .vp-time {
   font-size: 14px;
-  opacity: 0.9;
+  color: #ccc;
 }
 
-/* SETTINGS */
+/* RIGHT CONTROLS */
+.vp-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* SETTINGS BUTTON */
 .vp-settings {
   position: relative;
 }
 
-.vp-settings-menu {
-  position: absolute;
-  bottom: 55px;
-  right: 0;
-  background: white;
-  color: #111;
-  padding: 14px;
-  border-radius: 14px;
-  width: 180px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  animation: fadeUp 0.25s ease;
+.vp-settings > button {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.vp-settings-menu p {
-  font-size: 13px;
-  font-weight: 600;
-  margin: 8px 0;
-  color: #444;
+.vp-settings > button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.08);
+}
+
+/* SETTINGS MENU (YT‑like) */
+.vp-settings-menu {
+  position: absolute;
+  bottom: 46px;
+  right: 0;
+  background: rgba(24, 24, 24, 0.92);
+  backdrop-filter: blur(8px) saturate(120%);
+  color: #eee;
+  padding: 12px;
+  border-radius: 12px;
+  min-width: 180px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  z-index: 300;
+  animation: fadeInMenu 0.15s ease-out;
+}
+
+@keyframes fadeInMenu {
+  from { transform: translateY(6px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 .vp-settings-menu button {
-  width: 100%;
-  padding: 6px 8px;
-  border-radius: 8px;
+  padding: 8px 14px;
+  border-radius: 20px;
   border: none;
-  background: transparent;
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e5e5;
   text-align: left;
   font-size: 14px;
-  transition: 0.2s;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .vp-settings-menu button:hover {
-  background: #f1f5f9;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
 }
 
-/* ANIMATION */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.vp-settings-menu p {
+  margin: 0;
+  font-weight: 500;
+  color: #bbb;
+  padding-left: 4px;
 }
 
+/* SPEED MENU (YT‑like Overlay) */
+.vp-speed-menu {
+  position: absolute;
+  top: -230px;
+  right: 0;
+  background: rgba(24, 24, 24, 0.92);
+  backdrop-filter: blur(12px) saturate(120%);
+  color: #eee;
+  padding: 14px;
+  border-radius: 12px;
+  width: 240px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+  z-index: 400;
+  animation: fadeInSpeed 0.15s ease-out;
+}
 
+@keyframes fadeInSpeed {
+  from { transform: translateY(10px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.vp-speed-menu h4 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: #ccc;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.vp-speed-current {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+/* Slider Row */
+.vp-speed-slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.vp-speed-slider input[type="range"] {
+  flex: 1;
+  height: 4px;
+  background: #555;
+  border-radius: 2px;
+  -webkit-appearance: none;
+}
+
+.vp-speed-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border: 2px solid #2563eb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.vp-speed-slider input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* +/- Buttons */
+.vp-speed-slider button {
+  background: rgba(38, 99, 235, 0.15);
+  border: none;
+  padding: 6px 10px;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.vp-speed-slider button:hover {
+  background: #2563eb;
+}
+
+/* Preset Buttons */
+.vp-speed-presets {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.vp-speed-presets button {
+  flex: 1;
+  padding: 8px 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  font-size: 14px;
+  border-radius: 18px;
+  color: #eee;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.vp-speed-presets button.active,
+.vp-speed-presets button:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 600px) {
+  .vp-settings-menu, .vp-speed-menu {
+    width: 180px;
+  }
+  .vp-speed-slider input[type="range"] {
+    height: 3px;
+  }
+  .vp-speed-current {
+    font-size: 16px;
+  }
+}
 /* CourseSidebar css */
 /* ================= CONTAINER ================= */
 /* ---------------- CONTAINER ---------------- */

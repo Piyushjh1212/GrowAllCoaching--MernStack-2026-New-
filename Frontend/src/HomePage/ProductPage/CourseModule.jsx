@@ -116,7 +116,7 @@
 
       return (
         <div className="products-container">
-          <h1>{course.title}</h1>
+          <h1 className="Module-Products-Container">{course.title}</h1>
           <div className="product-container-box">
             {course.modules?.map((module) => {
               const discountPrice = module.Discountprice || module.Realprice;
