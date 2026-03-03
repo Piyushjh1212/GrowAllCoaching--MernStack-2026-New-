@@ -5,7 +5,8 @@ import Contactroutes from './Routes/ContactRoutes.js'
 import CoursesRoutes from './Routes/Coursestroutes.js';
 import connectDB from './Config/Connectdb.js';
 import CloudinaryRoutes from './Routes/CloudinaryRoutes.js';
-import { contactLimiter } from './Middleware/Contactratelimitermiddlewear.js';
+import UserLoginSignup from './Routes/UserSignupRoutes.js';
+import RazorpayPaymentRoute from './Routes/RazorpayPaymentRoutes.js';
 
 
 
@@ -20,14 +21,21 @@ app.use(express.json());
 dotenv.config();
 connectDB();
 
+console.log("JWT SECRET:", process.env.JWT_SECRET);
 
 // Routes
-app.use('/api/v1', Contactroutes , contactLimiter);
+app.use('/api/v1', Contactroutes);
 app.use('/api/v1', CoursesRoutes);
 
 // CloudinaryRoutre here 
-
 app.use('/api/v1/cloudinary', CloudinaryRoutes);
+
+// LoginSignup Routes
+app.use('/api/v1/UserLoginSignup', UserLoginSignup) 
+
+// Razorpay Routeshere
+
+app.use('/api/v1/Razorpay', RazorpayPaymentRoute)
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

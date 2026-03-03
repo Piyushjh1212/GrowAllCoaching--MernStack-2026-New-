@@ -1,14 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Homepage.css'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Header() {
+
     const [isOpen, setIsOpen] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    const navigate = useNavigate()
 
     const HandleClick = () => {
         setIsOpen(!isOpen)
     }
+
+  useEffect(() => {
+    const checkLogin = () => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    };
+
+    checkLogin();
+
+    window.addEventListener("storage", checkLogin);
+
+    return () => {
+        window.removeEventListener("storage", checkLogin);
+    };
+}, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        setIsLoggedIn(false)
+        navigate("/")
+    }
+
     return (
 
         <header className="navbar">
@@ -30,15 +55,32 @@ export default function Header() {
                     <a href="#">Support</a>
                     <a href="#">Investors</a>
                 </div>
-
             </nav>
 
             <div className="nav-right">
-                <Link to="/UserLogin" className="cta-btn login">
-                    Login
-                </Link>
 
-                <a href="#" className="cta-btn signup">Sign Up</a>
+                {!isLoggedIn ? (
+                    <>
+                        <Link to="/UserLogin" className="cta-btn login">
+                            Login
+                        </Link>
+
+                        <Link to="/UserSignUp" className="cta-btn signup">
+                            Sign Up
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <button className="user-icon" onClick={() => navigate("/profile")}>
+                            👤
+                        </button>
+
+                        <button className="cta-btn login" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </>
+                )}
+
             </div>
 
             <div className="menu-toggle" onClick={HandleClick}>☰</div>

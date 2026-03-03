@@ -1,57 +1,162 @@
-import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import "./Productstyle.css";
+    import { useParams } from "react-router-dom";
+    import { useEffect, useState } from "react";
+    import "./Productstyle.css";
 
-function CourseModule() {
-  const { id } = useParams();
-  const [course, setCourse] = useState(null);
+    function CourseModule() {
+      const { id } = useParams();
+      const [course, setCourse] = useState(null);
+      const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/Courses/module/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("API Response:", data); // 🔥 check this once
-        setCourse(data);
-      })
-      .catch((err) => console.error(err));
-  }, [id]);
+      // Track purchased modules with validity
+      const [purchasedModules, setPurchasedModules] = useState([]);
 
-  if (!course) return <p>Loading...</p>;
+      // 1️⃣ Fetch course + user purchased modules
+      useEffect(() => {
+        const fetchCourseAndPurchases = async () => {
+          try {
+            const token = localStorage.getItem("token");
 
-  const HandlePaymentSystem = () => {
-    alert("Payment system coming soon!");
-  }
+            // Fetch course modules
+            const courseRes = await fetch(`http://localhost:5000/api/v1/Courses/module/${id}`);
+            const courseData = await courseRes.json();
+            setCourse(courseData);
 
-  return (
-    <div className="products-container">
-      <div className="product-container-box">
-        {course.modules?.map((module) => (
-          <div key={module._id} className="product-card">
-            <img src={module.Moduleimage} alt="image" />
-            <p className="Moduletitle">{module.title}</p>
-            <div className="ModuleTitalPrice">
-               <p className="Moduletitle-Realprice">{module.Realprice || "Price not available"}</p>
-             <p className="Moduletitle-Discountprice">9 INR/-</p>
+            // Fetch user's purchased modules
+            if (token) {
+              const userRes = await fetch("http://localhost:5000/api/v1/UserLoginSignup/profile", {
+                headers: { Authorization: `Bearer ${token}` },
+              });
+              const userData = await userRes.json();
+              setPurchasedModules(userData.purchasedModules || []);
+            }
+          } catch (err) {
+            console.error("Error fetching data:", err);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchCourseAndPurchases();
+      }, [id]);
 
-            </div>
-            
-            
+      if (loading) return <p>Loading...</p>;
+      if (!course) return <p>Course not found</p>;
 
-            <div className="product-container-box-button">
-              <Link to={`/course/${id}/module/${module._id}`}>
-              <button className="Product-container-button" onClick={HandlePaymentSystem} >Buy Now</button>
-              </Link>
-              
-              <button className="Product-container-button"> Browcher</button>
-            </div>
+      // Helper to check if module is purchased and still valid
+      const isModuleValid = (moduleId) => {
+        const pm = purchasedModules.find((m) => m.module === moduleId);
+        if (!pm) return false;
+        return new Date() <= new Date(pm.expiryDate);
+      };
 
+      // 2️⃣ Payment handler
+      const handlePayment = async (moduleId, amount) => {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) {
+            alert("Please login first!");
+            return;
+          }
+
+          // Create order in backend
+          const orderRes = await fetch("http://localhost:5000/api/v1/Razorpay/createPayment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ moduleId, amount }),
+          });
+
+          const orderData = await orderRes.json();
+          if (!orderData.success) {
+            alert("Payment creation failed");
+            return;
+          }
+
+          // Razorpay options
+          const options = {
+            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+            amount: orderData.order.amount,
+            currency: "INR",
+            name: "Grow All Coaching",
+            description: "Module Purchase",
+            order_id: orderData.order.id,
+            handler: async (response) => {
+              const verifyRes = await fetch("http://localhost:5000/api/v1/Razorpay/verifyPayment", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ ...response, moduleId }),
+              });
+
+              const verifyData = await verifyRes.json();
+              if (verifyData.success) {
+                alert("Payment Successful 🎉");
+
+                // Update purchasedModules with validity
+                setPurchasedModules((prev) => [
+                  ...prev,
+                  { module: moduleId, validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
+                ]);
+              } else {
+                alert("Payment verification failed");
+              }
+            },
+            theme: { color: "#3399cc" },
+          };
+
+          new window.Razorpay(options).open();
+        } catch (error) {
+          console.error("Payment error:", error);
+          alert("Something went wrong with payment");
+        }
+      };
+
+      return (
+        <div className="products-container">
+          <h1>{course.title}</h1>
+          <div className="product-container-box">
+            {course.modules?.map((module) => {
+              const discountPrice = module.Discountprice || module.Realprice;
+              const isPurchased = isModuleValid(module._id);
+
+              return (
+                <div key={module._id} className="product-card">
+                  <img src={module.Moduleimage} alt={module.title} />
+                  <p className="Moduletitle">{module.title}</p>
+
+                  <div className="ModuleTitalPrice">
+                    <p className="Moduletitle-Realprice">{module.Realprice || "Price not available"}</p>
+                    <p className="Moduletitle-Discountprice">{discountPrice} INR/-</p>
+                  </div>
+
+                  <div className="product-container-box-button">
+                    {isPurchased ? (
+                      <button
+                        className="Product-container-button"
+                        onClick={() => (window.location.href = `/course/${id}/module/${module._id}`)}
+                      >
+                        Watch Video
+                      </button>
+                    ) : (
+                      <button
+                        className="Product-container-button"
+                        onClick={() => handlePayment(module._id, discountPrice)}
+                      >
+                        Buy Now
+                      </button>
+                    )}
+
+                    <button className="Product-container-button">Brochure</button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
+        </div>
+      );
+    }
 
-
-      </div>
-    </div>
-  );
-}
-
-export default CourseModule;
+    export default CourseModule;

@@ -1,6 +1,6 @@
 import rateLimit from "express-rate-limit";
 
-export const contactLimiter = rateLimit({
+export const ContactLimiter = rateLimit({
     windowMs: 60 * 1000,   // minute
       max: 5,              // 1 IP se max 5 requests per minute
     message: {
