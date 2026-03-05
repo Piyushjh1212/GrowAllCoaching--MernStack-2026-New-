@@ -128,7 +128,7 @@
                   <p className="Moduletitle">{module.title}</p>
 
                   <div className="ModuleTitalPrice">
-                    <p className="Moduletitle-Realprice">{module.Realprice || "Price not available"}</p>
+                    <p className="Moduletitle-Realprice">{module.Realprice || "Price not available"} INR/-</p>
                     <p className="Moduletitle-Discountprice">{discountPrice} INR/-</p>
                   </div>
 

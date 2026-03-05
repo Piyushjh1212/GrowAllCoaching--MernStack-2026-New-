@@ -108,7 +108,9 @@ export function CourseLectureSidebar({ courseId, currentModuleId, setCurrentModu
                 </div>
 
                 {/* Toggle Arrow */}
+                
                 <span className="csb-duration">
+                  <button className="csb-demo-button">Demo Video</button>
                   {expandedLessonIndex === idx ? (
                     <FaArrowUp size={15} color="black" />
                   ) : (

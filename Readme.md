@@ -1,4 +1,4 @@
-# GrowAll Coaching – Full Stack Web Application
+# Grow All Coaching – Full Stack Web Application
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react)](https://reactjs.org/)
@@ -63,6 +63,8 @@ GrowAll-Coaching/
 ├── package.json
 └── .env
 ---
+
+
 
 ## Installation & Setup
 

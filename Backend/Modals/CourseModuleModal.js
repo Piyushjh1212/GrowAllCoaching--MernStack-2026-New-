@@ -15,6 +15,10 @@ const courseModuleSchema = new mongoose.Schema({
         required: true
 
     },
+    Discountprice:{
+        type: Number,
+        required: true
+    },
     courseId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",
