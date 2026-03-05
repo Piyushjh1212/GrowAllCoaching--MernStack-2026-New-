@@ -15,6 +15,12 @@ const app = express();
 
 // middleware
 app.use(cors());
+// Razorpay Webhook
+app.use(
+  "/api/v1/Razorpay/webhook",
+  express.raw({ type: "application/json" })
+);
+
 app.use(express.json());
 
 // database connection
@@ -36,6 +42,7 @@ app.use('/api/v1/UserLoginSignup', UserLoginSignup)
 // Razorpay Routeshere
 
 app.use('/api/v1/Razorpay', RazorpayPaymentRoute)
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

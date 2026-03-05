@@ -3,6 +3,7 @@ import crypto from "crypto";
 import Payment from "../Modals/RazorpayPaymentModal.js";
 import CourseModule from "../Modals/CourseModuleModal.js"; // jo bhi tumhara module model hai
 import UserSignup from "../Modals/UserSignupModal.js"
+import { sendEmail } from "../Services/EmailServices.js";
 
 
 // 💳 Create Payment
@@ -101,5 +102,97 @@ export const RazorpayVerifyPayment = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Payment verification failed" });
+  }
+};
+
+export const RazorpayWebhook = async (req, res) => {
+  try {
+
+    const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
+
+    const signature = req.headers["x-razorpay-signature"];
+
+    const body = JSON.stringify(req.body);
+
+    const expectedSignature = crypto
+      .createHmac("sha256", webhookSecret)
+      .update(body)
+      .digest("hex");
+
+    if (signature !== expectedSignature) {
+      return res.status(400).json({ message: "Invalid webhook signature" });
+    }
+
+    const event = req.body.event;
+
+    // ✅ Payment Success
+    if (event === "payment.captured") {
+
+      const paymentData = req.body.payload.payment.entity;
+
+      const payment = await Payment.findOne({
+        razorpayOrderId: paymentData.order_id
+      });
+
+      if (!payment) {
+        return res.status(404).json({ message: "Payment not found" });
+      }
+
+      payment.status = "success";
+      payment.razorpayPaymentId = paymentData.id;
+      await payment.save();
+
+      // user fetch
+      const user = await UserSignup.findById(payment.user);
+
+      // 📧 send email
+      await sendEmail({
+        to: user.email,
+        subject: "Payment Successful - Growall Coaching",
+        html: `
+        <h2>Payment Successful</h2>
+        <p>Your course payment has been completed successfully.</p>
+        <p>You can now access your module.</p>
+        `
+      });
+
+    }
+
+    // ❌ Payment Failed
+    if (event === "payment.failed") {
+
+      const paymentData = req.body.payload.payment.entity;
+
+      const payment = await Payment.findOne({
+        razorpayOrderId: paymentData.order_id
+      });
+
+      if (!payment) {
+        return res.status(404).json({ message: "Payment not found" });
+      }
+
+      payment.status = "failed";
+      await payment.save();
+
+      const user = await UserSignup.findById(payment.user);
+
+      // 📧 failed email
+      await sendEmail({
+        to: user.email,
+        subject: "Payment Failed - Growall Coaching",
+        html: `
+        <h2>Payment Failed</h2>
+        <p>Your payment attempt was unsuccessful.</p>
+        <p>Please try again.</p>
+        `
+      });
+
+    }
+
+    res.status(200).json({ success: true });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Webhook error" });
   }
 };

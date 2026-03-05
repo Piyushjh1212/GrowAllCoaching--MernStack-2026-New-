@@ -115,8 +115,8 @@
 
 .Moduletitle-Realprice {
   text-align: center;
-  font-size: 14px;
-  color: #888;
+  font-size: 15px;
+  color: #9CA3AF;
   text-decoration: line-through;
   margin-top: 5px;
 }
@@ -124,7 +124,7 @@
 .Moduletitle-Discountprice {
   text-align: center;
   font-size: 18px;
-  color: #e53935;
+  color: #16A34A;
   font-weight: bold;
   margin-top: 5px;
 }

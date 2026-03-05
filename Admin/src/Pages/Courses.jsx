@@ -18,7 +18,8 @@ export default function Courses() {
   const [moduleForm, setModuleForm] = useState({
     title: "",
     Moduleimage: "",
-    Realprice: ""
+    Realprice: "",
+    Discountprice: ""
   });
 
   const [modules, setModules] = useState([]);
@@ -126,7 +127,8 @@ export default function Courses() {
       setModuleForm({
         title: "",
         Moduleimage: "",
-        Realprice: ""
+        Realprice: "",
+        Discountprice: ""
       });
 
     } catch (error) {
@@ -195,6 +197,7 @@ export default function Courses() {
 
           <input name="price" type="number" placeholder="Price"
             value={coursesForm.price} onChange={handleCourseChange} />
+            
 
           <input name="image" placeholder="Image URL"
             value={coursesForm.image} onChange={handleCourseChange} />
@@ -222,8 +225,11 @@ export default function Courses() {
           <input name="Moduleimage" placeholder="Module Image URL"
             value={moduleForm.Moduleimage} onChange={handleModuleChange} />
 
-          <input name="Realprice" type="number" placeholder="Module Price"
+          <input name="Realprice" type="number" placeholder="Module Real Price"
             value={moduleForm.Realprice} onChange={handleModuleChange} />
+
+             <input name="Discountprice" type="number" placeholder="Module Discount Price"
+            value={moduleForm.Discountprice} onChange={handleModuleChange} />
 
           <button type="submit">Add Module</button>
         </form>

@@ -429,6 +429,14 @@
 }
 
 /* ---------------- ICON ---------------- */
+.csb-demo-button{
+  background: transparent;
+  border: transparent;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #2563eb;
+
+}
 .csb-icon {
   color: #ffb400;
   display: flex;
