@@ -97,20 +97,16 @@
 }
 
 .vp-play-btn {
-  background: rgba(255, 255, 255, 0.15);
   border: none;
-  color: white;
+  background: transparent;
+  color: #4caf50;
   font-size: 24px;
   padding: 10px 14px;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.25s ease;
 }
 
-.vp-play-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-  transform: scale(1.2);
-}
+
 
 .vp-time {
   font-size: 14px;
