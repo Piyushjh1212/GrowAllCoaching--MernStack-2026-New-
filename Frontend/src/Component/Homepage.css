@@ -165,6 +165,14 @@
     .menu-toggle {
         display: block;
     }
+    .cta-btn{
+      display: none;
+    }
+    .user-icon{
+      margin-right: 0;
+      position: relative;
+      margin-left: 40px;  
+    }
 }
 
 
