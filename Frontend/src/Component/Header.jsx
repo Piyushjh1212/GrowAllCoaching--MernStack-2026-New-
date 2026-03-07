@@ -72,7 +72,7 @@ export default function Header() {
                     </>
                 ) : (
                     <>
-                        <button className="user-icon" onClick={() => navigate("/profile")}>
+                        <button className="user-icon" onClick={() => navigate("/UserProfileDashboard")}>
                             <FaUser />
                         </button>
 

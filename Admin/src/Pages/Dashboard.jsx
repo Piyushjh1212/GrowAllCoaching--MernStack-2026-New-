@@ -23,7 +23,8 @@ const Dashboard = () => {
     { title: "Total Courses", value: 3, link: "/admin/courses" },
     { title: "Total Modules", value: 9, link: "/admin/courses" },
     { title: "Total Lectures", value: 27, link: "/admin/courses" },
-    { title: "Total Users", value: 4, link: "/admin/users" },
+    { title: "Total Users", value: 45, link: "/admin/users" },
+    { title: "Total Revenue", value: "45 K ", link: "/admin/Paymentsystemrecord" },
     { title: "Total Messages", value: totalMessages, link: "/admin/messages" }, // dynamic
   ];
 
