@@ -8,6 +8,8 @@ import CoursemainLayout from './HomePage/ProductPage/CourseLayoutPage/Coursemain
 import LoginPage from './Component/UserLoginPage/Login'
 import SignupPage from './Component/UserLoginPage/Signup'
 import UserDashboard from './Component/ProfilePage.jsx/ProfileUserDashboard'
+import { PrivateRoute } from './Route/PrivateRoute'
+import { PublicRoute } from './Route/PublicRoute'
 
 
 
@@ -16,12 +18,14 @@ export default function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/UserProfileDashboard" element={<UserDashboard/>}/>
-        <Route path="/UserLogin" element={<LoginPage/>} /> 
-        <Route path="/UserSignup" element={<SignupPage/>} />
-        <Route path="/course/:id" element={<CourseModule />} />
-        <Route path="/course/:courseId/module/:moduleId" element={<CoursemainLayout />} />
+        <Route path="/" element={
+         <Home />
+        } />
+        <Route path="/UserProfileDashboard" element={<PrivateRoute><UserDashboard/></PrivateRoute>}/>
+        <Route path="/UserLogin" element={<PublicRoute><LoginPage/></PublicRoute>} /> 
+        <Route path="/UserSignup" element={<PublicRoute><SignupPage/></PublicRoute>} />
+        <Route path="/course/:id" element={<PrivateRoute><CourseModule /></PrivateRoute>} />
+        <Route path="/course/:courseId/module/:moduleId" element={<PrivateRoute><CoursemainLayout /><UserDashboard/></PrivateRoute>} />
       </Routes>
       <Footer />
     </BrowserRouter>
