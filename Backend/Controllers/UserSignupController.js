@@ -5,6 +5,8 @@ export const UserSignupController = async (req, res) => {
   try {
     const { name, email, password, confirmPassword } = req.body;
 
+    
+
     // 1️⃣ Check empty fields
     if (!name || !email || !password || !confirmPassword) {
       return res.status(400).json({ message: "All fields required" });

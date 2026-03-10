@@ -7,6 +7,7 @@ import connectDB from './Config/Connectdb.js';
 import CloudinaryRoutes from './Routes/CloudinaryRoutes.js';
 import UserLoginSignup from './Routes/UserSignupRoutes.js';
 import RazorpayPaymentRoute from './Routes/RazorpayPaymentRoutes.js';
+import CoursesCommentRoutes from './Routes/CourseCommentRoutes.js';
 
 
 
@@ -40,8 +41,10 @@ app.use('/api/v1/cloudinary', CloudinaryRoutes);
 app.use('/api/v1/UserLoginSignup', UserLoginSignup) 
 
 // Razorpay Routeshere
-
 app.use('/api/v1/Razorpay', RazorpayPaymentRoute)
+
+// Comment Api 
+app.use('/api/v1', CoursesCommentRoutes)
 
 
 app.get('/', (req, res) => {
