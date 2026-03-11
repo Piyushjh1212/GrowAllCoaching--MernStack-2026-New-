@@ -6,19 +6,20 @@ function Courses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/Courses") // backend URL
+    const API = import.meta.env.VITE_API_PRODUCTPAGE_URL;
+    fetch(`${API}/Courses`) // backend URL
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.error(err));
   }, []);
 
   return (
-    <section className="courses-section">
-      <h1 className="courses-title">Courses We Offer</h1>
+    <section className="crs-courses-section">
+      <h1 className="crs-courses-title">Courses We Offer</h1>
 
-      <div className="courses-container">
+      <div className="crs-courses-container">
         {courses.map((course) => (
-          <div className="course-card" key={course._id}>
+          <div className="crs-course-card" key={course._id}>
             <img src={course.image} alt={course.title} />
             <h2>{course.title}</h2>
             <p>{course.description}</p>

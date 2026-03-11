@@ -1,4 +1,6 @@
-/* Page container - split left and right */
+/*    Login Page style      */
+/* ________________________ */
+
 .hac-login-page {
   display: flex;
   min-height: 100vh;
@@ -43,6 +45,29 @@
   text-align: center;
   margin-bottom: 30px;
   color: #333;
+}
+
+/* Remaining attempts / retry message */
+.hac-login-attempts {
+    background-color: #fff4e5; /* light orange background */
+    color: #d9534f;            /* red-ish text for warning */
+    border: 1px solid #f0ad4e; /* orange border */
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Optional: fade animation for message */
+.hac-login-attempts.fade {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 .hac-login-label {
@@ -120,7 +145,12 @@
   }
 }
 
-/* SIgnuppage here  */
+/* ----------------------------
+   ---------------------------- 
+       Signup Page style      
+   ----------------------------
+   ---------------------------- */
+
 
 /* Signup button like header style */
 .hac-signup-btn {

@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 import Dashboard from "./Pages/Dashboard";
 import Courses from "./Pages/Courses";
-import Modules from "./Pages/Modules";
 import Login from "./Login/login";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Addimages from "./Pages/Addimage";
 import Addvideo from "./Pages/Addvideo";
 import ContactMessages from "./Pages/ContactMessages/ContactMessages";
+import PaymentSystemRecord from "./Pages/PaymentSystemRecord";
 
 
 const App = () => {
@@ -36,10 +36,10 @@ const App = () => {
           }
         />
         <Route
-          path="/admin/modules/:courseId"
+          path="/admin/Paymentsystemrecord"
           element={
             <ProtectedRoute>
-              <Modules />
+              <PaymentSystemRecord />
             </ProtectedRoute>
           }
         />

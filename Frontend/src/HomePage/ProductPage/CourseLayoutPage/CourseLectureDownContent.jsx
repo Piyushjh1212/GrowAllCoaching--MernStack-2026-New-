@@ -1,100 +1,212 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { FaClock, FaUserGraduate, FaVideo, FaStar } from "react-icons/fa";
 import { FiShare2, FiDownload, FiStar } from "react-icons/fi";
 import "./CourseLectureDownContent.css";
 
 export default function CourseLectureDownContent() {
-    return (
-        <>
-            <div className="lecture-down-content">
-                {/* Header */}
-                <div className="lecture-header">
-                    <h2>Introduction to HTML</h2>
-                    <button className="mark-complete">
-                        <FiStar /> Give Ratings
-                    </button>
-                </div>
 
-                {/* Description */}
-                <p className="lecture-description">
-                    Learn the structure and semantics of modern HTML5. Understand document
-                    structure, semantic elements, and best practices for accessible web
-                    development.
-                </p>
+  const { lectureId } = useParams();
+  console.log("Lecture ID:", lectureId);
+  const token = localStorage.getItem("token");
 
-                {/* Stats */}
-                <div className="lecture-stats">
-                    <span>
-                        <FaClock /> 10 mins
-                    </span>
-                    <span>
-                        <FaUserGraduate /> Beginner
-                    </span>
-                    <span>
-                        <FaVideo /> Video
-                    </span>
-                    <span>
-                        <FaUserGraduate /> 2.1k students
-                    </span>
-                    <span className="rating">
-                        <FaStar /> 4.8
-                    </span>
-                </div>
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
 
-                {/* Actions */}
-                <div className="lecture-actions">
-                    <button>
-                        <FiDownload /> Resources
-                    </button>
-                    <button>
-                        <FiShare2 /> Share
-                    </button>
-                </div>
-            </div>
-            <div className="lecture-comments">
-                <h3>Discussion</h3>
+  // Fetch comments
+  const fetchComments = async () => {
+    try {
 
-                {/* Comment Input */}
-                <div>
+      const res = await fetch(`http://localhost:5000/api/v1/get-all-comments/${lectureId}`);
 
-                </div>
-                <div className="comment-input">
-                    <input type="text" placeholder="Write a comment..." />
-                    <button>Comment</button>
-                </div>
+      const data = await res.json();
 
-                {/* Comment List */}
-                <div className="comments-list">
-                    <div className="comment">
-                        <strong>Piyush Jhariya:</strong> Great lecture, really clear!
-                    </div>
-                    <div className="comment">
-                        <strong>Student123:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>Swastika:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>minal Singh:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>kuldeep Mishra:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>Prince:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>Kunal:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>Akhil Rahangdale:</strong> Can you explain semantic tags again?
-                    </div>
-                    <div className="comment">
-                        <strong>Ies ke Yadavji:</strong> Can you explain semantic tags again?
-                    </div>
-                </div>
-            </div>
-        </>
+      if (res.ok) {
+        setComments(data.comments);
+      }
 
-    );
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  // 🔹 Load comments when page loads
+  useEffect(() => {
+
+    if (lectureId) {
+      fetchComments();
+    }
+
+  }, [lectureId]);
+
+  //  Post comment
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    if (!comment.trim()) {
+      alert("Please write a comment");
+      return;
+    }
+
+    if (!token) {
+      alert("User not logged in");
+      return;
+    }
+
+    try {
+
+      const res = await fetch("http://localhost:5000/api/v1/comments", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+
+        body: JSON.stringify({
+          comment: comment,
+          lectureId: lectureId
+        })
+
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+
+        setComment("");
+
+        fetchComments(); // 🔥 refresh comments
+
+      } else {
+
+        alert(data.message || "Failed to save comment");
+
+      }
+
+    } catch (error) {
+
+      console.error("Error:", error);
+      alert("Server error");
+
+    }
+
+  };
+
+  return (
+    <>
+      <div className="lecture-down-content">
+
+        <div className="lecture-header">
+          <h2>Introduction to HTML</h2>
+
+          <button className="mark-complete">
+            <FiStar /> Give Ratings
+          </button>
+        </div>
+
+        <p className="lecture-description">
+          Learn the structure and semantics of modern HTML5.
+        </p>
+
+        <div className="lecture-stats">
+          <span><FaClock /> 10 mins</span>
+          <span><FaUserGraduate /> Beginner</span>
+          <span><FaVideo /> Video</span>
+          <span><FaUserGraduate /> 2.1k students</span>
+          <span className="rating"><FaStar /> 4.8</span>
+        </div>
+
+        <div className="lecture-actions">
+          <button>
+            <FiDownload /> Resources
+          </button>
+
+          <button>
+            <FiShare2 /> Share
+          </button>
+        </div>
+
+      </div>
+
+      {/* Comment Section */}
+
+      <div className="comment-section">
+
+        <h2 className="comment-section-heading">Post Comment</h2>
+
+        <form onSubmit={handleSubmit}>
+
+          <input
+            type="text"
+            placeholder="Write a comment..."
+            value={comment}
+            required
+            onChange={(e) => setComment(e.target.value)}
+          />
+
+          <button type="submit">
+            Submit
+          </button>
+
+        </form>
+
+        {/*  Comment List */}
+
+      <div className="comment-list">
+
+  {comments.length === 0 ? (
+    <p className="no-comment">No comments yet</p>
+  ) : (
+
+    comments.map((item) => (
+
+      <div key={item._id} className="comment-card">
+
+        {/* PROFILE ICON */}
+        <div className="comment-avatar">
+          <img
+            src={item.userImage || "https://i.pravatar.cc/40"}
+            alt="profile"
+          />
+        </div>
+
+        {/* COMMENT CONTENT */}
+        <div className="comment-content">
+
+          <div className="comment-header">
+            <span className="comment-user">
+              {item.userName || "Anonymous"}
+            </span>
+
+            <span className="comment-time">
+              just now
+            </span>
+          </div>
+
+          <p className="comment-text">
+            {item.comment}
+          </p>
+
+          <div className="comment-actions">
+            <span>👍 Like</span>
+            <span>💬 Reply</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    ))
+
+  )}
+
+</div>
+
+      </div>
+
+    </>
+  );
 }

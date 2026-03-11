@@ -1,11 +1,17 @@
 import UserSignup from '../Modals/UserSignupModal.js'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import sanitizeHtml from "sanitize-html";
+
 export const UserSignupController = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    let { name, email, password, confirmPassword } = req.body;
 
-    
+    // Sanitize inputs to prevent XSS
+    name = sanitizeHtml(name?.trim() || "");
+    email = sanitizeHtml(email?.trim().toLowerCase() || "");
+    password = sanitizeHtml(password?.trim() || "");
+    confirmPassword = sanitizeHtml(confirmPassword?.trim() || "");
 
     // 1️⃣ Check empty fields
     if (!name || !email || !password || !confirmPassword) {
@@ -38,7 +44,7 @@ export const UserSignupController = async (req, res) => {
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "10s" }
     );
 
     res.status(201).json({
@@ -76,7 +82,7 @@ export const UserLoginController = async (req, res) => {
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "10s" }
     );
 
     res.status(200).json({

@@ -1,71 +1,148 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CourseLayoutPage.css";
-import CourseLectureLayout from './CourseLectureLayout';
-import { CourseLectureSidebar } from './CourseLectureSidebar';
+import CourseLectureLayout from "./CourseLectureLayout";
+import { CourseLectureSidebar } from "./CourseLectureSidebar";
 
 export default function CoursemainLayout() {
-  const { courseId, moduleId } = useParams();
+
+  const { courseId, moduleId, lectureId } = useParams();
   const navigate = useNavigate();
 
   const [modules, setModules] = useState([]);
   const [currentModuleId, setCurrentModuleId] = useState(moduleId || null);
-  const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ---------------- FETCH MODULES WITH LECTURES ----------------
+  // ---------------- FETCH MODULES ----------------
   useEffect(() => {
+
     const fetchModules = async () => {
+
       try {
-        if (!courseId) return;
 
         const res = await fetch(
           `http://localhost:5000/api/v1/Courses/${courseId}/modules-with-lectures`
         );
+
         const data = await res.json();
 
-        if (data.length > 0) {
+        if (Array.isArray(data) && data.length > 0) {
+
           setModules(data);
 
-          // Auto select first module if URL param is not present
           if (!moduleId) {
-            setCurrentModuleId(data[0]._id.toString());
+            setCurrentModuleId(data[0]._id);
           }
+
         }
+
         setLoading(false);
-      } catch (err) {
-        console.error("Error fetching modules:", err);
+
+      } catch (error) {
+
+        console.error("Error fetching modules:", error);
         setLoading(false);
+
       }
+
     };
 
-    fetchModules();
+    if (courseId) {
+      fetchModules();
+    }
+
   }, [courseId, moduleId]);
 
-  // ---------------- UPDATE URL WHEN MODULE CHANGES ----------------
+
+
+  // ---------------- UPDATE URL WHEN MODULE CHANGE ----------------
   useEffect(() => {
-    if (currentModuleId && currentModuleId !== moduleId) {
-      navigate(`/course/${courseId}/module/${currentModuleId}`, { replace: true });
+
+    if (!currentModuleId) return;
+
+    if (currentModuleId !== moduleId) {
+
+      navigate(
+        `/course/${courseId}/module/${currentModuleId}`,
+        { replace: true }
+      );
+
     }
+
   }, [currentModuleId, navigate, courseId, moduleId]);
 
+
+
+  // ---------------- FIND CURRENT LECTURE ----------------
+  const selectedLecture = useMemo(() => {
+
+    if (!lectureId || modules.length === 0) return null;
+
+    for (let module of modules) {
+
+      const lecture = module.lectures?.find(
+        (lec) => lec._id.toString() === lectureId.toString()
+      );
+
+      const lesson = module.lessons?.find(
+        (lec) => lec._id.toString() === lectureId.toString()
+      );
+
+      const selected = lecture || lesson;
+
+      if (selected) {
+        return selected;
+      }
+
+    }
+
+    return null;
+
+  }, [lectureId, modules]);
+
+
+  const selectedVideo = selectedLecture?.videoUrl || null;
+  const currentLectureId = selectedLecture?._id || null;
+
+
+
+  // ---------------- LOADING ----------------
   if (loading) return <p>Loading modules...</p>;
-  if (modules.length === 0) return <p>No modules found for this course.</p>;
+
+
 
   return (
-    <div className='Course-main-Layout-container'>
-        <div className="course-main-layout-left-container">
-            <CourseLectureLayout selectedVideo={selectedVideo} />
-        </div>
-        <div className="course-main-layout-right-container">
-            <CourseLectureSidebar 
-                courseId={courseId} 
-                currentModuleId={currentModuleId} 
-                setCurrentModuleId={setCurrentModuleId}  // ✅ pass setter to sidebar
-                setSelectedVideo={setSelectedVideo} 
-                modules={modules} 
-            />
-        </div>
+
+    <div className="Course-main-Layout-container">
+
+      {/* ---------------- VIDEO PLAYER ---------------- */}
+
+      <div className="course-main-layout-left-container">
+
+        <CourseLectureLayout
+          selectedVideo={selectedVideo}
+          currentLectureId={currentLectureId}
+        />
+
+      </div>
+
+
+
+      {/* ---------------- SIDEBAR ---------------- */}
+
+      <div className="course-main-layout-right-container">
+
+        <CourseLectureSidebar
+          modules={modules}
+          courseId={courseId}
+          currentModuleId={currentModuleId}
+          setCurrentModuleId={setCurrentModuleId}
+        />
+
+      </div>
+
     </div>
+
   );
+
 }
