@@ -8,27 +8,25 @@ import CloudinaryRoutes from './Routes/CloudinaryRoutes.js';
 import UserLoginSignup from './Routes/UserSignupRoutes.js';
 import RazorpayPaymentRoute from './Routes/RazorpayPaymentRoutes.js';
 import CoursesCommentRoutes from './Routes/CourseCommentRoutes.js';
-
-
+import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
 
 
 const app = express();
 
 // middleware
 app.use(cors());
-// Razorpay Webhook
-app.use(
-  "/api/v1/Razorpay/webhook",
-  express.raw({ type: "application/json" })
-);
+
+app.use(helmet());
 
 app.use(express.json());
+
+app.use(mongoSanitize());
 
 // database connection
 dotenv.config();
 connectDB();
 
-console.log("JWT SECRET:", process.env.JWT_SECRET);
 
 // Routes
 app.use('/api/v1', Contactroutes);
@@ -56,3 +54,10 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
 
+
+
+// Razorpay Webhook
+// app.use(
+//   "/api/v1/Razorpay/webhook",
+//   express.raw({ type: "application/json" })
+// );

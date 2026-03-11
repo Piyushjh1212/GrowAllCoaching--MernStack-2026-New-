@@ -1,7 +1,8 @@
 import express from "express";
-import { protect } from "../Middleware/authmiddlewear.js";
+
 import { RazorpayCreatePayment, RazorpayVerifyPayment, RazorpayWebhook } from "../Controllers/RazorpayPaymentController.js";
 import paymentLimiter from "../Middleware/Paymentratelimitmiddlewear.js";
+import { protect } from "../Middleware/Userauthmiddlewear.js";
 
 const RazorpayPaymentRoute = express.Router()
 

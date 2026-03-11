@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+import "./StyleLoginPage.css";
 
 const LoginPage = () => {
+
+    const [attemptsLeft, setAttemptsLeft] = useState(null);
+    const [retryAfter, setRetryAfter] = useState(null);
 
     const navigate = useNavigate();
 
@@ -34,20 +37,29 @@ const LoginPage = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || "Login failed");
+                // Agar backend remainingAttempts bhej raha hai
+                if (data.remainingAttempts !== undefined && data.retryAfter !== undefined) {
+                    setAttemptsLeft(data.remainingAttempts);
+                    setRetryAfter(data.retryAfter);
+                }
+                alert(data.message || "Login failed");
+                return;
             }
 
             // ✅ Token save
             localStorage.setItem("token", data.token);
 
-            alert("Login Successful 🔥");
-
+            setAttemptsLeft(null);
+            setRetryAfter(null);
             navigate("/");
+            navigate(0);
 
         } catch (error) {
             alert(error.message);
         }
     };
+
+    
 
     return (
         <div className="hac-login-page">
@@ -59,9 +71,15 @@ const LoginPage = () => {
             </div>
 
             <div className="hac-login-container">
+
                 <form className="hac-login-form" onSubmit={handleLogin}>
                     <h2 className="hac-login-title">Login</h2>
-
+                    {attemptsLeft !== null && (
+                        <p className="hac-login-attempts">
+                            You have {attemptsLeft} attempt{attemptsLeft !== 1 ? "s" : ""} left.
+                            {retryAfter > 0 && ` Try again after ${Math.ceil(retryAfter / 60)} min.`}
+                        </p>
+                    )}
                     <label className="hac-login-label">Email</label>
                     <input
                         type="email"
