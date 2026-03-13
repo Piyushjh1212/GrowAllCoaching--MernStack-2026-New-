@@ -8,11 +8,14 @@ import CloudinaryRoutes from './Routes/CloudinaryRoutes.js';
 import UserLoginSignup from './Routes/UserSignupRoutes.js';
 import RazorpayPaymentRoute from './Routes/RazorpayPaymentRoutes.js';
 import CoursesCommentRoutes from './Routes/CourseCommentRoutes.js';
-import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
+import SecuritysuspiousRoutes from './Routes/SecuritysuspiousRoutes.js';
+import { customSanitize } from './Middleware/CustomSanitizecloneMiddlewear.js';
 
 
 const app = express();
+
+app.use(customSanitize);
 
 // middleware
 app.use(cors());
@@ -20,8 +23,6 @@ app.use(cors());
 app.use(helmet());
 
 app.use(express.json());
-
-app.use(mongoSanitize());
 
 // database connection
 dotenv.config();
@@ -43,6 +44,10 @@ app.use('/api/v1/Razorpay', RazorpayPaymentRoute)
 
 // Comment Api 
 app.use('/api/v1', CoursesCommentRoutes)
+
+// Suspiouslogs
+
+app.use('/api/v1/', SecuritysuspiousRoutes)
 
 
 app.get('/', (req, res) => {

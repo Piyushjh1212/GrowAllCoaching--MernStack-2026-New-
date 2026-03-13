@@ -1,69 +1,114 @@
+// Middleware/UserAuthMiddleware.js
 import jwt from "jsonwebtoken";
-import UserSignup from "../Modals/UserSignupModal.js"
+import UserSignup from "../Modals/UserSignupModal.js";
 import rateLimit from "express-rate-limit";
-import slowdown from 'express-slow-down'
+import slowDown from "express-slow-down";
+import { logSecurityEventHelper } from "../Helpers/SuspiouslogHelper.js"; // logging helper
 
-
+// ----------------------- PROTECT -----------------------
 export const protect = async (req, res, next) => {
   try {
     let token;
 
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
     }
 
     if (!token) {
+      await logSecurityEventHelper({
+        endpoint: req.originalUrl,
+        method: req.method,
+        ip: req.ip,
+        type: "protect-block",
+        message: "No token provided"
+      });
       return res.status(401).json({ message: "Not authorized, no token" });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    if (!decoded?.id) {
+      return res.status(401).json({ message: "Invalid token payload" });
+    }
+
     req.user = await UserSignup.findById(decoded.id).select("-password");
 
-    // ✅ extra safety
     if (!req.user) {
+      await logSecurityEventHelper({
+        endpoint: req.originalUrl,
+        method: req.method,
+        ip: req.ip,
+        type: "protect-block",
+        message: "Token valid but user not found"
+      });
       return res.status(401).json({ message: "User not found" });
     }
 
     next();
-
   } catch (error) {
+    await logSecurityEventHelper({
+      endpoint: req.originalUrl,
+      method: req.method,
+      ip: req.ip,
+      type: "protect-block",
+      message: "Token failed or expired"
+    });
     res.status(401).json({ message: "Not authorized, token failed" });
   }
 };
 
-
+// ----------------------- LOGIN RATE LIMITER -----------------------
 export const LoginrateLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 15 minutes
-  max: 5, // max 5 requests per windowMs
-  standardHeaders: true, // Send rate limit info in headers
-  legacyHeaders: false, // Disable `X-RateLimit-*` headers
-  handler: (req, res) => {
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: async (req, res) => {
     const retryAfter = Math.ceil((req.rateLimit.resetTime - Date.now()) / 1000);
     const remaining = req.rateLimit.limit - req.rateLimit.current;
 
+    await logSecurityEventHelper({
+      endpoint: req.originalUrl,
+      method: req.method,
+      ip: req.ip,
+      userId: req.user?._id || null,
+      type: "rate-limit",
+      message: `Too many login requests. Remaining attempts: ${remaining}`
+    });
+
     res.status(429).json({
       message: "Too many login attempts! Try again later.",
-      remainingAttempts: remaining > 0 ? remaining : 0, // remaining attempts
-      retryAfter: retryAfter
+      remainingAttempts: remaining > 0 ? remaining : 0,
+      retryAfter
     });
   }
 });
 
+// ----------------------- SIGNUP RATE LIMITER -----------------------
 export const SignuprateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10, // max 10 signups per hour from same IP
-  message: {
-    message: "Too many signup attempts, please try again later"
-  },
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: async (req, res) => {
+    await logSecurityEventHelper({
+      endpoint: req.originalUrl,
+      method: req.method,
+      ip: req.ip,
+      type: "rate-limit",
+      message: "Too many signup requests"
+    });
+
+    res.status(429).json({
+      message: "Too many signup attempts, please try again later"
+    });
+  }
 });
 
-
-export const speedSlowDownLimiter = slowdown({
+// ----------------------- SLOWDOWN -----------------------
+export const speedSlowDownLimiter = slowDown({
   windowMs: 15 * 60 * 1000, // 15 minutes
   delayAfter: 3,            // 3 requests ke baad delay
-  delayMs: () => 1000             // 1 sec per extra request
-})
+  delayMs: () => 1000       // 1 second per extra request
+  // ✅ onLimitReached option removed because it's deprecated in new versions
+});
