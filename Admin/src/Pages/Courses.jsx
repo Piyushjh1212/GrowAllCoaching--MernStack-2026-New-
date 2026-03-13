@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Dashboard.css";
+import "../Pages/Dashboard/Dashboard.css";
 
 export default function Courses() {
 

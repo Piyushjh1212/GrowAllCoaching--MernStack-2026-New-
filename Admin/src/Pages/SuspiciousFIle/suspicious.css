@@ -1,0 +1,69 @@
+/* SecurityDashboard.css */
+
+/* Main container */
+.ss-security-dashboard {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+/* Title */
+.ss-security-dashboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 28px;
+}
+
+/* Table wrapper for scrolling */
+.ss-security-dashboard-table-wrapper {
+  overflow-x: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 10px;
+}
+
+/* Table styling */
+.ss-security-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* for horizontal scroll if needed */
+}
+
+.ss-security-dashboard th,
+.ss-security-dashboard td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.ss-security-dashboard th {
+  background-color: #0d6efd; /* bootstrap primary blue */
+  color: #fff;
+  font-weight: 600;
+  position: sticky;
+  top: 0; /* table header sticks on scroll */
+}
+
+.ss-security-dashboard tr:hover {
+  background-color: #f1f1f1;
+}
+
+.ss-security-dashboard td {
+  color: #555;
+  font-size: 14px;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+  .ss-security-dashboard table {
+    font-size: 12px;
+  }
+
+  .ss-security-dashboard th, 
+  .ss-security-dashboard td {
+    padding: 8px 10px;
+  }
+}

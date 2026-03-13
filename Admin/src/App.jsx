@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import Dashboard from "./Pages/Dashboard";
 import Courses from "./Pages/Courses";
 import Login from "./Login/login";
 import ProtectedRoute from "./Components/ProtectedRoute";
@@ -9,6 +8,8 @@ import Addimages from "./Pages/Addimage";
 import Addvideo from "./Pages/Addvideo";
 import ContactMessages from "./Pages/ContactMessages/ContactMessages";
 import PaymentSystemRecord from "./Pages/PaymentSystemRecord";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import SecuritySuspiciousDashboard from "./Pages/SuspiciousFIle/Suspicious";
 
 
 const App = () => {
@@ -60,6 +61,10 @@ const App = () => {
           } />
 
         <Route path="/admin/messages" element={<ProtectedRoute><ContactMessages /></ProtectedRoute>} />
+
+        <Route path="/admin/s4558875655ious" element={<ProtectedRoute><SecuritySuspiciousDashboard /></ProtectedRoute>} />
+
+
 
           {/* Default route */}
         

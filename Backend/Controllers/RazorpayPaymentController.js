@@ -196,3 +196,29 @@ export const RazorpayWebhook = async (req, res) => {
     res.status(500).json({ message: "Webhook error" });
   }
 };
+
+
+export const TotalPaymentamountCount = async (req, res) => {
+  try {
+    const result = await Payment.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: "$amount" }
+        }
+      }
+    ]);
+
+    const totalAmount = result[0]?.totalAmount || 0;
+
+    res.status(200).json({
+      success: true,
+      totalAmount
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+
+}
