@@ -10,6 +10,7 @@ import ContactMessages from "./Pages/ContactMessages/ContactMessages";
 import PaymentSystemRecord from "./Pages/PaymentSystemRecord";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SecuritySuspiciousDashboard from "./Pages/SuspiciousFIle/Suspicious";
+import UploadVideo from "./Pages/AWSVideoUpload/AWVideoUpload";
 
 
 const App = () => {
@@ -59,6 +60,9 @@ const App = () => {
               <Addimages />
             </ProtectedRoute>
           } />
+
+        <Route path="/admin/UploadVideo" element={<ProtectedRoute><UploadVideo /></ProtectedRoute>} />
+
 
         <Route path="/admin/messages" element={<ProtectedRoute><ContactMessages /></ProtectedRoute>} />
 
