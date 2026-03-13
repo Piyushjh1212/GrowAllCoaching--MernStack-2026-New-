@@ -85,6 +85,7 @@ function CourseModule() {
         currency: "INR",
         name: "Grow All Coaching",
         description: "Module Purchase",
+        image: "https://res.cloudinary.com/dieboinjz/image/upload/v1772387672/GacImages/cjgywtxrv1g6etyve2rl.jpg", 
         order_id: orderData.order.id,
         handler: async (response) => {
           const verifyRes = await fetch("http://localhost:5000/api/v1/Razorpay/verifyPayment", {
