@@ -10,11 +10,7 @@ import ContactMessages from "./Pages/ContactMessages/ContactMessages";
 import PaymentSystemRecord from "./Pages/PaymentSystemRecord";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SecuritySuspiciousDashboard from "./Pages/SuspiciousFIle/Suspicious";
-<<<<<<< HEAD
-import UploadVideo from "./Pages/AWSVideoUpload/AWVideoUpload";
-=======
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
-
+import UploadVideo from "./Pages/AWSVideoUpload/AWVideoUpload"; // Ensure this file exists
 
 const App = () => {
   return (
@@ -62,22 +58,34 @@ const App = () => {
             <ProtectedRoute>
               <Addimages />
             </ProtectedRoute>
-          } />
+          }
+        />
+        <Route
+          path="/admin/UploadVideo"
+          element={
+            <ProtectedRoute>
+              <UploadVideo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/messages"
+          element={
+            <ProtectedRoute>
+              <ContactMessages />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/suspicious"
+          element={
+            <ProtectedRoute>
+              <SecuritySuspiciousDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-<<<<<<< HEAD
-        <Route path="/admin/UploadVideo" element={<ProtectedRoute><UploadVideo /></ProtectedRoute>} />
-
-
-=======
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
-        <Route path="/admin/messages" element={<ProtectedRoute><ContactMessages /></ProtectedRoute>} />
-
-        <Route path="/admin/s4558875655ious" element={<ProtectedRoute><SecuritySuspiciousDashboard /></ProtectedRoute>} />
-
-
-
-          {/* Default route */}
-        
+        {/* Default / Catch-all Routes */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

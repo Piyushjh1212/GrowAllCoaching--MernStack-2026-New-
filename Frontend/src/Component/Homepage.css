@@ -1,5 +1,6 @@
-/* Header style here */
-
+/* =================== */
+/* HEADER / NAVBAR */
+/* =================== */
 .navbar {
     position: fixed;
     width: 100%;
@@ -7,13 +8,13 @@
     padding: 0 100px;
     display: flex;
     align-items: center;
-    background: #ffffffb0;
     justify-content: space-between;
+    background: #ffffffb0;
     border-bottom: 1px solid #eee;
     z-index: 999;
 }
 
-/* Left */
+/* LEFT */
 .nav-left {
     display: flex;
     align-items: center;
@@ -28,23 +29,11 @@
     font-size: 16px;
 }
 
-/* Center */
-/* For toggle system */
-
-.nav-center {
-  display: none;
-}
-
-.nav-center.active {
-  display: block;
-}
-
-
+/* CENTER MENU */
 .nav-center {
     display: flex;
+    gap: 30px;
 }
-
-
 
 .nav-center .menu-list {
     display: flex;
@@ -57,135 +46,54 @@
     font-size: 15px;
 }
 
-.nav-center  a:hover {
+.nav-center .menu-list a:hover {
     color: #000;
 }
 
-/* Common button style */
+/* CTA / USER PROFILE BUTTONS */
+.cta-user-login-signup-btn {
+    display: flex;
+    gap: 10px;
+}
 
-<<<<<<< HEAD
-.cta-User-profole-login{
-  display: flex;
-  gap: 20px;
-
-  
+.cta-user-profile-logout {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .user-icon {
-    background-color: white; /* green background */
+    background-color: white;
     color: #066d84;
-    border: 1px solid black; /* default border remove */
-    border-radius: 50%; /* circular button */
-    width: 45px; /* width of button */
-    height: 45px; /* height of button */
-    font-size: 20px; /* icon size */
-    cursor: pointer; /* pointer on hover */
-    transition: all 0.3s ease; /* smooth hover effect */
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-=======
-.user-icon {
-    background-color: white; /* green background */
-    color: #066d84;
-    border: 1px solid black; /* default border remove */
-    border-radius: 50%; /* circular button */
-    width: 45px; /* width of button */
-    height: 45px; /* height of button */
-    font-size: 20px; /* icon size */
-    margin-right: 20px;
-    cursor: pointer; /* pointer on hover */
-    transition: all 0.3s ease; /* smooth hover effect */
-}
-
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 .user-icon:hover {
-    background-color: #10829fc4; /* slightly darker green on hover */
-    transform: scale(1.1); /* subtle zoom effect */
-}
-
-<<<<<<< HEAD
-.cta-user-login-signup-btn{
-  display: flex;
-  gap: 10px;
+    background-color: #10829fc4;
+    transform: scale(1.1);
 }
 
 .cta-btn {
-  padding: 10px 25px;
-  text-decoration: none;
-=======
-.cta-btn {
-  display: inline-block;
-  padding: 10px 25px;
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
-  font-size: 16px;
-  border: 2px solid white;
-  color: #fff;
-  background: linear-gradient(135deg, #066d84, #022f3a); /* Dark blue-teal gradient */
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+    display: inline-block;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: 2px solid white;
+    color: #fff;
+    background: linear-gradient(135deg, #066d84, #022f3a);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-/* Hover effect */
 .cta-btn:hover {
-  background: linear-gradient(135deg, #0890a5, #034050); /* Slightly lighter on hover */
+    background: linear-gradient(135deg, #0890a5, #034050);
 }
-
-/* Active / click effect */
-.cta-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-}
-
-
-/* ===================== */
-/* 💻 TABLET */
-/* ===================== */
-@media (max-width: 1024px) {
-    .navbar {
-        padding: 0 40px;
-    }
-
-    .nav-center {
-        gap: 20px;
-    }
-}
-
-/* ===================== */
-/* 📱 MOBILE */
-/* ===================== */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 20px;
-    }
-
-    /* hide center menu */
-    .nav-center {
-        display: none;
-        position: absolute;
-        top: 70px;
-        right: 0;
-        
-    }
-
-    .menu-list{
-        display: flex;
-        flex-direction: column;
-        background: #fff;
-        width: 200px;
-        padding: 10px;
-    }
-
-    .menu-list a {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-    }
-    /* CTA smaller */
-    .cta-btn {
-        font-size: 14px;
-    }
-}
-
 
 .cta-menu-toggle {
     display: none;
@@ -193,29 +101,67 @@
     cursor: pointer;
 }
 
-/* Mobile only */
+/* =================== */
+/* RESPONSIVE TABLET */
+/* =================== */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 0 40px;
+    }
+}
+
+/* =================== */
+/* RESPONSIVE MOBILE */
+/* =================== */
 @media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-center {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #fff;
+        width: 200px;
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 998;
+    }
+
+    .nav-center.active {
+        display: flex;
+    }
+
+    .menu-list {
+        flex-direction: column;
+    }
+
+    .menu-list a {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .cta-btn {
+        display: none;
+        font-size: 14px;
+    }
+
+    .user-icon {
+        margin-right: 0;
+        margin-left: 40px;
+    }
+
     .cta-menu-toggle {
         display: block;
     }
-    .cta-btn{
-      display: none;
-    }
-<<<<<<< HEAD
-=======
-    .user-icon{
-      margin-right: 0;
-      position: relative;
-      margin-left: 40px;  
-    }
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 }
 
-
-
-/* Home design */
-
-
+/* =================== */
+/* HERO SECTION */
+/* =================== */
 .hero {
     padding: 120px 20px 140px;
     text-align: center;
@@ -228,7 +174,6 @@
     height: 100vh;
 }
 
-/* Top small text */
 .hero-top {
     font-size: 13px;
     letter-spacing: 1px;
@@ -236,7 +181,6 @@
     margin-bottom: 30px;
 }
 
-/* Main heading */
 .hero-title {
     max-width: 800px;
     margin: 0 auto 25px;
@@ -246,7 +190,6 @@
     color: #000;
 }
 
-/* Subtitle */
 .hero-sub {
     max-width: 620px;
     margin: 0 auto 45px;
@@ -255,7 +198,6 @@
     line-height: 1.6;
 }
 
-/* CTA button */
 .hero-btn {
     padding: 16px 36px;
     width: fit-content;
@@ -268,150 +210,145 @@
     transition: background 0.3s ease;
 }
 
-.button-context{
+.hero-btn:hover {
+    background: linear-gradient(135deg, #066d84, #022f3a);
+}
+
+.button-context {
     display: flex;
     justify-content: center;
 }
 
-.hero-btn:hover {
-      background: linear-gradient(135deg, #066d84, #022f3a);
-}
-
-
-/* footer section design */
-
+/* =================== */
+/* FOOTER SECTION */
+/* =================== */
 .creative-footer {
-  background: linear-gradient(135deg, #066d84, #022f3a);
-  color: white;
-  padding-top: 60px;
-  position: relative;
-  overflow: hidden;
+    background: linear-gradient(135deg, #066d84, #022f3a);
+    color: white;
+    padding-top: 60px;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Decorative top curve */
 .creative-footer::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  background: white;
-  border-bottom-left-radius: 100% 50px;
-  border-bottom-right-radius: 100% 50px;
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: white;
+    border-bottom-left-radius: 100% 50px;
+    border-bottom-right-radius: 100% 50px;
 }
 
 .footer-content {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 10%;
-  gap: 40px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
-.footer-span{
+.footer-span {
     text-decoration: underline;
     cursor: pointer;
-    color: rgba(243, 236, 236, 0.949);
+    color: rgba(243, 236, 236, 0.95);
 }
 
 .footer-brand h2 {
-  font-size: 26px;
-  margin-bottom: 15px;
+    font-size: 26px;
+    margin-bottom: 15px;
 }
 
 .footer-brand p {
-  max-width: 300px;
-  line-height: 1.6;
+    max-width: 300px;
+    line-height: 1.6;
 }
 
 .footer-links h3,
 .footer-contact h3 {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .footer-links ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .footer-links li {
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .footer-links li:hover {
-  transform: translateX(5px);
-  color: #ffdd57;
+    transform: translateX(5px);
+    color: #ffdd57;
 }
 
 .footer-contact p {
-  margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 .social-icons span {
-  font-size: 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .social-icons span:hover {
-  transform: scale(1.2);
-  color: #ffdd57;
+    transform: scale(1.2);
+    color: #ffdd57;
 }
 
 .footer-bottom {
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-  background: rgba(0, 0, 0, 0.2);
-  font-size: 14px;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 14px;
 }
 
 .social-icons a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  border-radius: 20%;
-  margin-right: 15px;
-  color: white;
-  transition: 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 20%;
+    margin-right: 15px;
+    color: white;
+    transition: 0.3s ease;
 }
 
-/* Brand Colors */
 .social-icons .instagram {
-  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
 }
 
 .social-icons .twitter {
-  background: #1DA1F2;
+    background: #1DA1F2;
 }
 
 .social-icons .facebook {
-  background: #1877F2;
+    background: #1877F2;
 }
 
 .social-icons .youtube {
-  background: #FF0000;
+    background: #FF0000;
 }
 
-/* Hover Effect */
 .social-icons a:hover {
-  transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-
-/* Responsive */
+/* FOOTER MOBILE */
 @media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
-  }
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
 }
-

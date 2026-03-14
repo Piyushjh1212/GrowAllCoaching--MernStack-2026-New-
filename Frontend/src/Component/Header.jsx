@@ -1,43 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import './Homepage.css'
-import { Link, useNavigate } from 'react-router-dom'
-<<<<<<< HEAD
-import { FaUser } from 'react-icons/fa'
-=======
-import {FaUser  } from 'react-icons/fa'
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
+import React, { useState, useEffect } from 'react';
+import './Homepage.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-    const [isOpen, setIsOpen] = useState(false)
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-    const navigate = useNavigate()
-
-    const HandleClick = () => {
-        setIsOpen(!isOpen)
-    }
-
-<<<<<<< HEAD
-    useEffect(() => {
-        const checkLogin = () => {
-            const token = localStorage.getItem("token");
-            setIsLoggedIn(!!token);
-        };
-
-        checkLogin();
-
-        window.addEventListener("storage", checkLogin);
-
-        return () => {
-            window.removeEventListener("storage", checkLogin);
-        };
-    }, []);
-=======
   useEffect(() => {
     const checkLogin = () => {
-        const token = localStorage.getItem("token");
-        setIsLoggedIn(!!token);
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
     };
 
     checkLogin();
@@ -45,94 +23,57 @@ export default function Header() {
     window.addEventListener("storage", checkLogin);
 
     return () => {
-        window.removeEventListener("storage", checkLogin);
+      window.removeEventListener("storage", checkLogin);
     };
-}, []);
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
+  }, []);
 
-    const handleLogout = () => {
-        localStorage.removeItem("token")
-        setIsLoggedIn(false)
-        navigate("/")
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
-    return (
+  return (
+    <header className="navbar">
+      {/* LEFT: Logo & Brand */}
+      <div className="nav-left">
+        <img
+          src="https://res.cloudinary.com/dieboinjz/image/upload/v1772387672/GacImages/cjgywtxrv1g6etyve2rl.jpg"
+          alt="Nova Logo"
+          className="logo"
+        />
+        <span className="brand">
+          Grow All Coaching <br /> & IT solutions
+        </span>
+      </div>
 
-        <header className="navbar">
-            <div className="nav-left">
-                <img
-                    src="https://res.cloudinary.com/dieboinjz/image/upload/v1772387672/GacImages/cjgywtxrv1g6etyve2rl.jpg"
-                    alt="Nova Logo"
-                    className="logo"
-                />
-                <span className="brand">
-                    Grow All Coaching <br /> & IT solutions
-                </span>
-            </div>
+      {/* CENTER: Menu Links */}
+      <nav className={isOpen ? "nav-center active" : "nav-center"}>
+        <div className='menu-list'>
+          <a href="#">Company</a>
+          <a href="#">Contact</a>
+          <a href="#">Support</a>
+          <a href="#">Investors</a>
+        </div>
+      </nav>
 
-            <nav className={isOpen ? "nav-center active" : "nav-center"}>
-                <div className='menu-list'>
-                    <a href="#">Company</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Support</a>
-                    <a href="#">Investors</a>
-                </div>
-            </nav>
-
-            <div className="nav-right">
-
-                {!isLoggedIn ? (
-                    <>
-<<<<<<< HEAD
-                        <div className='cta-user-login-signup-btn'>
-                            <Link to="/UserLogin" className="cta-btn login">
-                                Login
-                            </Link>
-
-                            <Link to="/UserSignUp" className="cta-btn signup">
-                                Sign Up
-                            </Link>
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <div className='cta-User-profole-login'>
-                            <button className="user-icon" onClick={() => navigate("/UserProfileDashboard")}>
-                                <FaUser />
-                            </button>
-
-                            <button className="cta-btn login" onClick={handleLogout}>
-                                Logout
-                            </button>
-                            <div className="cta-menu-toggle" onClick={HandleClick}>☰</div>
-                        </div>
-
-=======
-                        <Link to="/UserLogin" className="cta-btn login">
-                            Login
-                        </Link>
-
-                        <Link to="/UserSignUp" className="cta-btn signup">
-                            Sign Up
-                        </Link>
-                    </>
-                ) : (
-                    <>
-                        <button className="user-icon" onClick={() => navigate("/UserProfileDashboard")}>
-                            <FaUser />
-                        </button>
-
-                        <button className="cta-btn login" onClick={handleLogout}>
-                            Logout
-                        </button>
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
-                    </>
-                )}
-
-            </div>
-
-
-
-        </header>
-    )
+      {/* RIGHT: Login / User */}
+      <div className="nav-right">
+        {!isLoggedIn ? (
+          <div className='cta-user-login-signup-btn'>
+            <Link to="/UserLogin" className="cta-btn login">Login</Link>
+            <Link to="/UserSignUp" className="cta-btn signup">Sign Up</Link>
+          </div>
+        ) : (
+          <div className='cta-user-profile-logout'>
+            <button className="user-icon" onClick={() => navigate("/UserProfileDashboard")}>
+              <FaUser />
+            </button>
+            <button className="cta-btn login" onClick={handleLogout}>Logout</button>
+            <div className="cta-menu-toggle" onClick={toggleMenu}>☰</div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
 }

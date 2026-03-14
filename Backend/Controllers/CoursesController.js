@@ -103,29 +103,20 @@ export const addLecture = async (req, res) => {
       duration,
       completed,
       videoUrl,
-<<<<<<< HEAD
-      videoKey,
-=======
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
+      videoKey, // agar aapko videoKey rakhna hai
       isFree,
       subtitles
     } = req.body;
 
     // ✅ Basic Validation
-<<<<<<< HEAD
     if (!courseId || !moduleId || !title || !videoUrl || !videoKey) {
-=======
-    if (!courseId || !moduleId || !title || !videoUrl) {
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       return res.status(400).json({
-        message: "Course, Module, Title and Video URL are required"
+        message: "Course, Module, Title, Video URL and Video Key are required"
       });
     }
 
     // ✅ Ensure subtitles is always an array
-    const formattedSubtitles = Array.isArray(subtitles)
-      ? subtitles
-      : [];
+    const formattedSubtitles = Array.isArray(subtitles) ? subtitles : [];
 
     // ✅ Create Lecture
     const newLecture = await Lecture.create({
@@ -135,10 +126,7 @@ export const addLecture = async (req, res) => {
       duration: duration || "00:00",
       completed: completed || false,
       videoUrl,
-<<<<<<< HEAD
-      videoKey,
-=======
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
+      videoKey, // include only if needed
       isFree: isFree || false,
       subtitles: formattedSubtitles
     });
