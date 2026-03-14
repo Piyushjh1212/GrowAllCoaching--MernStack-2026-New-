@@ -1,124 +1,198 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Productstyle.css";
 
 function CourseModule() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [paymentloading, SetPaymentLoading] = useState(false)
-
-  // Track purchased modules with validity
+  const [paymentloading, setPaymentLoading] = useState(false);
   const [purchasedModules, setPurchasedModules] = useState([]);
 
-
-
-  // 1️⃣ Fetch course + user purchased modules
+  // Fetch course + user purchased modules
   useEffect(() => {
     const fetchCourseAndPurchases = async () => {
       try {
         const token = localStorage.getItem("token");
 
         // Fetch course modules
-        const courseRes = await fetch(`http://localhost:5000/api/v1/Courses/module/${id}`);
+        const courseRes = await fetch(
+          `http://localhost:5000/api/v1/Courses/module/${id}`
+        );
         const courseData = await courseRes.json();
         setCourse(courseData);
 
         // Fetch user's purchased modules
         if (token) {
-          const userRes = await fetch("http://localhost:5000/api/v1/UserLoginSignup/profile", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
+          const userRes = await fetch(
+            "http://localhost:5000/api/v1/UserLoginSignup/profile",
+            {
+              method: "GET", // explicitly GET
+              headers: {
+                "Content-Type": "application/json", // ✅ add this
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
           const userData = await userRes.json();
+
+          // check for auth error
+          if (userRes.status === 401) {
+            console.log("Not authorized, token invalid or expired");
+            // optional: redirect to login
+            navigate("/login");
+            return;
+          }
+
           setPurchasedModules(userData.purchasedModules || []);
         }
       } catch (err) {
-        console.error("Error fetching data:", err);
+        console.error("Fetch error:", err);
       } finally {
         setLoading(false);
       }
     };
+
     fetchCourseAndPurchases();
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
   if (!course) return <p>Course not found</p>;
 
-  // Helper to check if module is purchased and still valid
-  const isModuleValid = (moduleId) => {
-    const pm = purchasedModules.find((m) => m.module === moduleId);
-    if (!pm) return false;
-    return new Date() <= new Date(pm.expiryDate);
+  // ✅ Helper: get purchase info for a module
+  const getPurchasedModule = (moduleId) => {
+    return purchasedModules.find(
+      (m) => m.module?.toString() === moduleId?.toString()
+    );
   };
 
-  // 2️⃣ Payment handler
-  const handlePayment = async (moduleId, amount) => {
+  // Payment handler
+  const handlePayment = async (moduleId) => {
     if (paymentloading) return;
-    try {
-      SetPaymentLoading(true)
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("Please login first!");
-        return;
-      }
 
-      // Create order in backend
-      const orderRes = await fetch("http://localhost:5000/api/v1/Razorpay/createPayment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ moduleId, amount }),
-      });
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login first!");
+      return;
+    }
+
+    try {
+      setPaymentLoading(true);
+
+      // 1️⃣ Create order in backend
+      const orderRes = await fetch(
+        "http://localhost:5000/api/v1/Razorpay/createPayment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ moduleId }),
+        }
+      );
 
       const orderData = await orderRes.json();
+
       if (!orderData.success) {
-        alert("Payment creation failed");
+        alert(orderData.message || "Payment creation failed");
         return;
       }
 
-      // Razorpay options
+      // 2️⃣ Razorpay options
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        key: orderData.key,
         amount: orderData.order.amount,
         currency: "INR",
         name: "Grow All Coaching",
         description: "Module Purchase",
-        image: "https://res.cloudinary.com/dieboinjz/image/upload/v1772387672/GacImages/cjgywtxrv1g6etyve2rl.jpg", 
+        image:
+          "https://res.cloudinary.com/dieboinjz/image/upload/v1772387672/GacImages/cjgywtxrv1g6etyve2rl.jpg",
         order_id: orderData.order.id,
+
+        // Payment success
         handler: async (response) => {
-          const verifyRes = await fetch("http://localhost:5000/api/v1/Razorpay/verifyPayment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ ...response, moduleId }),
-          });
+          try {
+            const verifyRes = await fetch(
+              "http://localhost:5000/api/v1/Razorpay/verifyPayment",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ ...response, moduleId }),
+              }
+            );
 
-          const verifyData = await verifyRes.json();
-          if (verifyData.success) {
-            alert("Payment Successful 🎉");
+            const verifyData = await verifyRes.json();
 
-            // Update purchasedModules with validity
-            setPurchasedModules((prev) => [
-              ...prev,
-              { module: moduleId, validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
-            ]);
-          } else {
-            alert("Payment verification failed");
+            if (verifyData.success) {
+              alert("Payment Successful 🎉");
+
+              const expiryDate = new Date(
+                Date.now() + 30 * 24 * 60 * 60 * 1000
+              );
+
+              setPurchasedModules((prev) => [
+                ...prev,
+                { module: moduleId, expiryDate },
+              ]);
+            } else {
+              alert("Payment verification failed");
+            }
+          } catch (err) {
+            console.error("Verify error:", err);
           }
         },
+
+        // Modal dismiss (user cancelled)
+        modal: {
+          ondismiss: async () => {
+            await fetch(
+              "http://localhost:5000/api/v1/Razorpay/paymentFailed",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ orderId: orderData.order.id }),
+              }
+            );
+            console.log("Payment cancelled");
+          },
+        },
+
+        prefill: { name: "User" },
         theme: { color: "#0a93b2" },
       };
 
-      new window.Razorpay(options).open();
+      const rzp = new window.Razorpay(options);
+
+      // Payment failed event
+      rzp.on("payment.failed", async function () {
+        await fetch("http://localhost:5000/api/v1/Razorpay/paymentFailed", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ orderId: orderData.order.id }),
+        });
+
+        alert("Payment Failed ❌");
+      });
+
+      rzp.open();
     } catch (error) {
       console.error("Payment error:", error);
       alert("Something went wrong with payment");
     } finally {
-      SetPaymentLoading(false);
+      setPaymentLoading(false);
     }
   };
 
@@ -128,7 +202,12 @@ function CourseModule() {
       <div className="cm-product-grid">
         {course.modules?.map((module) => {
           const discountPrice = module.Discountprice || module.Realprice;
-          const isPurchased = isModuleValid(module._id);
+
+          // ✅ Check purchased module & expiry
+          const purchasedModule = getPurchasedModule(module._id);
+          const stillValid =
+            purchasedModule &&
+            new Date() <= new Date(purchasedModule.expiryDate);
 
           return (
             <div key={module._id} className="cm-product-card">
@@ -136,23 +215,33 @@ function CourseModule() {
               <p className="cm-module-name">{module.title}</p>
 
               <div className="cb-cm-price-box">
-                <p className="cm-Moduletitle-Realprice">{module.Realprice || "Price not available"} INR/-</p>
-                <p className="cm-Moduletitle-Discountprice">{discountPrice} INR/-</p>
+                <p className="cm-Moduletitle-Realprice">
+                  {module.Realprice} INR/-
+                </p>
+                <p className="cm-Moduletitle-Discountprice">
+                  {discountPrice} INR/-
+                </p>
               </div>
 
               <div className="cm-button-box">
-                {isPurchased ? (
+                {stillValid ? (
                   <button
                     className="cm-btn cm-buy-btn"
-                    onClick={() => (window.location.href = `/course/${id}/module/${module._id}`)}
+                    onClick={() =>
+                      navigate(`/course/${id}/module/${module._id}`)
+                    }
                   >
                     Watch Video
+                  </button>
+                ) : purchasedModule ? (
+                  <button className="cm-btn cm-expired-btn">
+                    Expired - Buy Again
                   </button>
                 ) : (
                   <button
                     className="cm-btn cm-brochure-btn"
                     disabled={paymentloading}
-                    onClick={() => handlePayment(module._id, discountPrice)}
+                    onClick={() => handlePayment(module._id)}
                   >
                     {paymentloading ? "Processing..." : "Buy Now"}
                   </button>

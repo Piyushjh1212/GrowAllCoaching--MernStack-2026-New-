@@ -63,6 +63,13 @@
 
 /* Common button style */
 
+.cta-User-profole-login{
+  display: flex;
+  gap: 20px;
+
+  
+}
+
 .user-icon {
     background-color: white; /* green background */
     color: #066d84;
@@ -71,7 +78,6 @@
     width: 45px; /* width of button */
     height: 45px; /* height of button */
     font-size: 20px; /* icon size */
-    margin-right: 20px;
     cursor: pointer; /* pointer on hover */
     transition: all 0.3s ease; /* smooth hover effect */
 }
@@ -81,9 +87,14 @@
     transform: scale(1.1); /* subtle zoom effect */
 }
 
+.cta-user-login-signup-btn{
+  display: flex;
+  gap: 10px;
+}
+
 .cta-btn {
-  display: inline-block;
   padding: 10px 25px;
+  text-decoration: none;
   font-size: 16px;
   border: 2px solid white;
   color: #fff;
@@ -154,24 +165,19 @@
 }
 
 
-.menu-toggle {
+.cta-menu-toggle {
     display: none;
-    font-size: 26px;
+    font-size: 30px;
     cursor: pointer;
 }
 
 /* Mobile only */
 @media (max-width: 768px) {
-    .menu-toggle {
+    .cta-menu-toggle {
         display: block;
     }
     .cta-btn{
       display: none;
-    }
-    .user-icon{
-      margin-right: 0;
-      position: relative;
-      margin-left: 40px;  
     }
 }
 

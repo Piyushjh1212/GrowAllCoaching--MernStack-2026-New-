@@ -19,7 +19,7 @@
 
 .hac-login-image img {
   width: 100%;
-  height: 90%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -27,7 +27,6 @@
 .hac-login-container {
   flex: 1;
   display: flex;
-  margin: 50px;
   justify-content: center;
   align-items: center;
   background: #ffffff;

@@ -7,7 +7,7 @@ export const UserSignupController = async (req, res) => {
   try {
 
     // 1️⃣ Raw input (attack detection)
-    const rawData = req.Body;
+    const rawData = req.body;
 
     const suspiciousPattern = /<script|onerror|onload|javascript:/i;
 
@@ -22,7 +22,7 @@ export const UserSignupController = async (req, res) => {
     }
 
     // 2️⃣ Use sanitized data from middleware
-    const { name, email, password, confirmPassword } = req.sanitizedBody;
+    const { name, email, password, confirmPassword, profilePic } = req.sanitizedBody;
 
     // 3️⃣ Empty fields
     if (!name || !email || !password || !confirmPassword) {
@@ -99,7 +99,8 @@ export const UserSignupController = async (req, res) => {
     const user = await UserSignup.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      profilePic
     });
 
     // 🔟 Generate JWT
@@ -248,6 +249,3 @@ export const UserLoginController = async (req, res) => {
   }
 };
 
-export const GatAlltheUser = () =>{
-
-}

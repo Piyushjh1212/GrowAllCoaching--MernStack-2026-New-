@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CourseLayoutPage.css";
+import "./CourseLectureDownContent.css";
 import CourseLectureLayout from "./CourseLectureLayout";
 import { CourseLectureSidebar } from "./CourseLectureSidebar";
+import CourseLectureDownContent from "./CourseLectureDownContent";
 
 export default function CoursemainLayout() {
 
@@ -12,6 +14,9 @@ export default function CoursemainLayout() {
   const [modules, setModules] = useState([]);
   const [currentModuleId, setCurrentModuleId] = useState(moduleId || null);
   const [loading, setLoading] = useState(true);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+
 
   // ---------------- FETCH MODULES ----------------
   useEffect(() => {
@@ -30,8 +35,23 @@ export default function CoursemainLayout() {
 
           setModules(data);
 
+          const firstModule = data[0];
+          const firstLecture =
+            firstModule.lectures?.[0] || firstModule.lessons?.[0];
+
+          // ✅ AUTO SELECT FIRST LECTURE
+          if (!lectureId && firstLecture) {
+
+            navigate(
+              `/course/${courseId}/module/${firstModule._id}/lecture/${firstLecture._id}`,
+              { replace: true }
+            );
+
+          }
+
+          // set current module
           if (!moduleId) {
-            setCurrentModuleId(data[0]._id);
+            setCurrentModuleId(firstModule._id);
           }
 
         }
@@ -51,7 +71,7 @@ export default function CoursemainLayout() {
       fetchModules();
     }
 
-  }, [courseId, moduleId]);
+  }, [courseId, lectureId, moduleId, navigate]);
 
 
 
@@ -101,8 +121,61 @@ export default function CoursemainLayout() {
   }, [lectureId, modules]);
 
 
-  const selectedVideo = selectedLecture?.videoUrl || null;
   const currentLectureId = selectedLecture?._id || null;
+
+
+
+  // ---------------- FETCH VIDEO ----------------
+  useEffect(() => {
+
+    const fetchVideoURL = async () => {
+
+      if (!selectedLecture) return;
+
+      if (selectedLecture.videoKey) {
+
+        try {
+
+          const res = await fetch(
+            `http://localhost:5000/api/presigned/video/${selectedLecture._id}`
+          );
+
+          const data = await res.json();
+
+          console.log("Received pre-signed URL:", data.videoURL);
+
+          setSelectedVideo(data.videoURL || null);
+
+        } catch (err) {
+
+          console.error("Failed to fetch pre-signed URL", err);
+          setSelectedVideo(null);
+
+        }
+
+      }
+
+      else if (selectedLecture.videoUrl) {
+
+        console.log("Using direct videoUrl:", selectedLecture.videoUrl);
+
+        setSelectedVideo(selectedLecture.videoUrl);
+
+      }
+
+      else {
+
+        console.log("No video available");
+
+        setSelectedVideo(null);
+
+      }
+
+    };
+
+    fetchVideoURL();
+
+  }, [selectedLecture]);
 
 
 
@@ -115,8 +188,7 @@ export default function CoursemainLayout() {
 
     <div className="Course-main-Layout-container">
 
-      {/* ---------------- VIDEO PLAYER ---------------- */}
-
+      {/* VIDEO PLAYER */}
       <div className="course-main-layout-left-container">
 
         <CourseLectureLayout
@@ -124,12 +196,13 @@ export default function CoursemainLayout() {
           currentLectureId={currentLectureId}
         />
 
+        <CourseLectureDownContent />
+
       </div>
 
 
 
-      {/* ---------------- SIDEBAR ---------------- */}
-
+      {/* SIDEBAR */}
       <div className="course-main-layout-right-container">
 
         <CourseLectureSidebar

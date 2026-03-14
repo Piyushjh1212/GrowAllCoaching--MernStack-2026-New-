@@ -103,12 +103,13 @@ export const addLecture = async (req, res) => {
       duration,
       completed,
       videoUrl,
+      videoKey,
       isFree,
       subtitles
     } = req.body;
 
     // ✅ Basic Validation
-    if (!courseId || !moduleId || !title || !videoUrl) {
+    if (!courseId || !moduleId || !title || !videoUrl || !videoKey) {
       return res.status(400).json({
         message: "Course, Module, Title and Video URL are required"
       });
@@ -127,6 +128,7 @@ export const addLecture = async (req, res) => {
       duration: duration || "00:00",
       completed: completed || false,
       videoUrl,
+      videoKey,
       isFree: isFree || false,
       subtitles: formattedSubtitles
     });

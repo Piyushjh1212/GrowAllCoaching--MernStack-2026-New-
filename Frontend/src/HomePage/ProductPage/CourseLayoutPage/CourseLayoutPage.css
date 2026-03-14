@@ -1,3 +1,195 @@
+/* GacVideos */
+/* ==========================
+   GAC VIDEO PLAYER STYLES
+   (Conflict-free with prefix)
+========================== */
+
+/* WRAPPER */
+.gac-vp-wrapper{
+  position: relative;
+  width: 100%;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+/* VIDEO */
+.gac-vp-video{
+  width: 100%;
+  display: block;
+  background: black;
+}
+
+/* CONTROLS */
+.gac-vp-controls{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 14px;
+  box-sizing: border-box;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0)
+  );
+}
+
+/* PROGRESS BAR */
+.gac-vp-progress-bar{
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 3px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.gac-vp-progress-filled{
+  height: 100%;
+  background: #2563eb;
+  width: 0%;
+  border-radius: 3px;
+  transition: width .1s linear;
+}
+
+/* BOTTOM CONTROL BAR */
+.gac-vp-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* LEFT CONTROLS */
+.gac-vp-left{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gac-vp-play-btn{
+  border: none;
+  background: transparent;
+  color: #4caf50;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.gac-vp-time{
+  font-size: 14px;
+  color: #ddd;
+}
+
+/* RIGHT CONTROLS */
+.gac-vp-right{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gac-vp-right button{
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.gac-vp-right button:hover{
+  background: rgba(255,255,255,0.3);
+}
+
+/* SETTINGS */
+.gac-vp-settings{
+  position: relative;
+}
+
+/* SETTINGS MENU */
+.gac-vp-settings-menu{
+  position: absolute;
+  bottom: 42px;
+  right: 0;
+  background: rgba(24,24,24,0.95);
+  backdrop-filter: blur(8px);
+  padding: 12px;
+  border-radius: 10px;
+  min-width: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 200;
+  box-shadow: 0 10px 20px rgba(0,0,0,.5);
+}
+
+.gac-vp-settings-menu button{
+  background: rgba(255,255,255,0.08);
+  border: none;
+  padding: 8px 10px;
+  border-radius: 20px;
+  color: #eee;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.gac-vp-settings-menu button:hover{
+  background: rgba(255,255,255,0.2);
+}
+
+.gac-vp-settings-menu p{
+  font-size: 13px;
+  color: #bbb;
+  margin: 4px 0;
+}
+
+/* SUBTITLE MENU */
+.gac-vp-subtitle-menu{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gac-vp-subtitle-menu button.active{
+  background: #2563eb;
+  color: white;
+}
+
+/* SPEED MENU */
+.gac-vp-speed-menu{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* QUALITY MENU */
+.gac-vp-quality-menu{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+
+  .gac-vp-play-btn{
+    font-size: 18px;
+  }
+
+  .gac-vp-time{
+    font-size: 12px;
+  }
+
+  .gac-vp-settings-menu{
+    min-width: 140px;
+  }
+
+}
+
+
+
+/* CourseMainLayout  */
 .Course-main-Layout-container {
   display: flex;
   background: #f5f6fa;
@@ -20,6 +212,8 @@
     flex-direction: column;
   }
 }
+
+
 
 
 /* Course Layout css  */

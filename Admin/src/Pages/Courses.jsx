@@ -23,20 +23,20 @@ export default function Courses() {
   });
 
   const [modules, setModules] = useState([]);
+  const [selectedModuleId, setSelectedModuleId] = useState("");
 
   // ===================== LECTURE STATE =====================
   const [lectureForm, setLectureForm] = useState({
     title: "",
     videoUrl: "",
+    videoKey: "",
     duration: "",
     subtitles: ["", "", "", "", ""]
   });
 
-  const [selectedModuleId, setSelectedModuleId] = useState("");
   const [isFree, setIsFree] = useState(false);
 
   // ===================== HANDLERS =====================
-
   const handleCourseChange = (e) => {
     setCoursesForm({ ...coursesForm, [e.target.name]: e.target.value });
   };
@@ -161,6 +161,7 @@ export default function Courses() {
       setLectureForm({
         title: "",
         videoUrl: "",
+        videoKey: "",
         duration: "",
         subtitles: ["", "", "", "", ""]
       });
@@ -190,22 +191,20 @@ export default function Courses() {
         <form onSubmit={handleCourseSubmit}>
 
           <input name="title" placeholder="Course Name"
-            value={coursesForm.title} onChange={handleCourseChange} />
+            value={coursesForm.title || ""} onChange={handleCourseChange} />
 
           <input name="description" placeholder="Description"
-            value={coursesForm.description} onChange={handleCourseChange} />
+            value={coursesForm.description || ""} onChange={handleCourseChange} />
 
           <input name="price" type="number" placeholder="Price"
-            value={coursesForm.price} onChange={handleCourseChange} />
-            
+            value={coursesForm.price || ""} onChange={handleCourseChange} />
 
           <input name="image" placeholder="Image URL"
-            value={coursesForm.image} onChange={handleCourseChange} />
+            value={coursesForm.image || ""} onChange={handleCourseChange} />
 
           <button type="submit">Add Course</button>
         </form>
       </section>
-
 
       {/* ================= MODULE ================= */}
       <section className="admin-section">
@@ -220,21 +219,20 @@ export default function Courses() {
           </select>
 
           <input name="title" placeholder="Module Title"
-            value={moduleForm.title} onChange={handleModuleChange} />
+            value={moduleForm.title || ""} onChange={handleModuleChange} />
 
           <input name="Moduleimage" placeholder="Module Image URL"
-            value={moduleForm.Moduleimage} onChange={handleModuleChange} />
+            value={moduleForm.Moduleimage || ""} onChange={handleModuleChange} />
 
           <input name="Realprice" type="number" placeholder="Module Real Price"
-            value={moduleForm.Realprice} onChange={handleModuleChange} />
+            value={moduleForm.Realprice } onChange={handleModuleChange} />
 
-             <input name="Discountprice" type="number" placeholder="Module Discount Price"
-            value={moduleForm.Discountprice} onChange={handleModuleChange} />
+          <input name="Discountprice" type="number" placeholder="Module Discount Price"
+            value={moduleForm.Discountprice } onChange={handleModuleChange} />
 
           <button type="submit">Add Module</button>
         </form>
       </section>
-
 
       {/* ================= LECTURE ================= */}
       <section className="admin-section">
@@ -257,28 +255,25 @@ export default function Courses() {
           </select>
 
           <input name="title" placeholder="Lecture Title"
-            value={lectureForm.title}
-            onChange={handleLectureChange} />
+            value={lectureForm.title || ""} onChange={handleLectureChange} />
 
           <input name="videoUrl" placeholder="Video URL"
-            value={lectureForm.videoUrl}
-            onChange={handleLectureChange} />
+            value={lectureForm.videoUrl || ""} onChange={handleLectureChange} />
+
+          <input name="videoKey" placeholder="Video Key"
+            value={lectureForm.videoKey || ""} onChange={handleLectureChange} />
 
           <input name="duration" placeholder="Duration (10:25)"
-            value={lectureForm.duration}
-            onChange={handleLectureChange} />
+            value={lectureForm.duration || ""} onChange={handleLectureChange} />
 
           <h4>Subtitles</h4>
-
           {lectureForm.subtitles.map((sub, index) => (
             <input
               key={index}
               type="text"
               placeholder={`Subtitle ${index + 1}`}
-              value={sub}
-              onChange={(e) =>
-                handleSubtitleChange(index, e.target.value)
-              }
+              value={sub || ""}
+              onChange={(e) => handleSubtitleChange(index, e.target.value)}
             />
           ))}
 
@@ -290,10 +285,8 @@ export default function Courses() {
           </label>
 
           <button type="submit">Add Lecture</button>
-
         </form>
       </section>
-
     </div>
   );
 }

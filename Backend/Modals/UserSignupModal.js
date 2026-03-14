@@ -15,12 +15,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    profilePic: {
+      type: String,
+      default: ""
+    },
     purchasedModules: [
       {
         module: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModule" },
         expiryDate: Date,
       },
     ],
+
   },
   { timestamps: true }
 );

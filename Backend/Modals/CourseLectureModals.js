@@ -21,7 +21,6 @@ const lectureSchema = new mongoose.Schema(
       trim: true
     },
 
-    // ✅ Correct Way - Array of Subtitles
     subtitles: [
       {
         type: String,
@@ -41,7 +40,12 @@ const lectureSchema = new mongoose.Schema(
 
     videoUrl: {
       type: String,
-      required: true
+      required: false // optional now, because we'll fetch via presigned URL
+    },
+
+    videoKey: {
+      type: String,
+      required: false // this is the S3 key for pre-signed URL
     },
 
     isFree: {

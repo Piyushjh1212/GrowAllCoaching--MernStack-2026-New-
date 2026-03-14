@@ -12,6 +12,7 @@ import RazorpayPaymentRoute from './Routes/RazorpayPaymentRoutes.js';
 import CoursesCommentRoutes from './Routes/CourseCommentRoutes.js';
 import SecuritysuspiousRoutes from './Routes/SecuritysuspiousRoutes.js';
 import AWSRoutes from './Routes/AWSRoutes.js';
+import PresignedUrlRoutes from './Routes/GetpresignedurlRoutes.js';
 
 const app = express();
 
@@ -43,6 +44,8 @@ app.use('/api/v1', CoursesCommentRoutes);
 app.use('/api/v1', SecuritysuspiousRoutes);
 
 app.use('/api/v1/AWS', AWSRoutes);
+// PreSignedUrls Routes 
+app.use('/api/presigned', PresignedUrlRoutes)
 
 
 app.get('/', (req, res) => {

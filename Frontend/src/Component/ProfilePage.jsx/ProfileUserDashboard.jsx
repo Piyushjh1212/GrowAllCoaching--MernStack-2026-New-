@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserDashboard.css";
 import EditProfile from "./EditProfile/EditProile";
 
@@ -25,12 +25,36 @@ const courses = [
 
 const UserDashboard = () => {
   const [showEditModal, setShowEditModal] = useState(false);
+  const [user, setUser ] = useState({});
 
-  const [user, setUser] = useState({
-    name: "Sarah Johnson",
-    email: "Sarah.johnson@example.com",
-    profilePic: "https://randomuser.me/api/portraits/women/44.jpg"
-  });
+  useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/UserLoginSignup/profile", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setUser({
+          name: data.name,
+          email: data.email,
+          profilePic: data.profilePic,
+          JoiningDate: data.JoiningDate
+          
+        });
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchUser();
+}, []);
 
   return (
     <div className="ud-dashboard">
@@ -40,7 +64,7 @@ const UserDashboard = () => {
 
         <div className="ud-profile-card">
           <img
-            src={user.profilePic}
+            src={user.profilePic || "https://tse4.mm.bing.net/th/id/OIP.FkQDxKdriMvRdcRm9X7ZFAHaHX?rs=1&pid=ImgDetMain&o=7&rm=3"}
             alt="profile"
             className="ud-profile-img"
           />
@@ -58,7 +82,9 @@ const UserDashboard = () => {
 
         <div className="ud-info-card">
           <p className="ud-info-title">Joined</p>
-          <h4 className="ud-info-value">Jan 15, 2024</h4>
+          <h4 className="ud-info-value">
+            {user.JoiningDate || "Loading..."}
+          </h4>
         </div>
 
         <div className="ud-info-card">
