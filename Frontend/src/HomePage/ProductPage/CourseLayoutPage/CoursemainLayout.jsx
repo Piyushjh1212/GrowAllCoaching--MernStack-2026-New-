@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./CourseLayoutPage.css";
+<<<<<<< HEAD
 import "./CourseLectureDownContent.css";
 import CourseLectureLayout from "./CourseLectureLayout";
 import { CourseLectureSidebar } from "./CourseLectureSidebar";
 import CourseLectureDownContent from "./CourseLectureDownContent";
+=======
+import CourseLectureLayout from "./CourseLectureLayout";
+import { CourseLectureSidebar } from "./CourseLectureSidebar";
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
 export default function CoursemainLayout() {
 
@@ -14,9 +19,12 @@ export default function CoursemainLayout() {
   const [modules, setModules] = useState([]);
   const [currentModuleId, setCurrentModuleId] = useState(moduleId || null);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
   const [selectedVideo, setSelectedVideo] = useState(null);
 
 
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
   // ---------------- FETCH MODULES ----------------
   useEffect(() => {
@@ -35,6 +43,7 @@ export default function CoursemainLayout() {
 
           setModules(data);
 
+<<<<<<< HEAD
           const firstModule = data[0];
           const firstLecture =
             firstModule.lectures?.[0] || firstModule.lessons?.[0];
@@ -52,6 +61,10 @@ export default function CoursemainLayout() {
           // set current module
           if (!moduleId) {
             setCurrentModuleId(firstModule._id);
+=======
+          if (!moduleId) {
+            setCurrentModuleId(data[0]._id);
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
           }
 
         }
@@ -71,7 +84,11 @@ export default function CoursemainLayout() {
       fetchModules();
     }
 
+<<<<<<< HEAD
   }, [courseId, lectureId, moduleId, navigate]);
+=======
+  }, [courseId, moduleId]);
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
 
 
@@ -121,10 +138,15 @@ export default function CoursemainLayout() {
   }, [lectureId, modules]);
 
 
+<<<<<<< HEAD
+=======
+  const selectedVideo = selectedLecture?.videoUrl || null;
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   const currentLectureId = selectedLecture?._id || null;
 
 
 
+<<<<<<< HEAD
   // ---------------- FETCH VIDEO ----------------
   useEffect(() => {
 
@@ -179,6 +201,8 @@ export default function CoursemainLayout() {
 
 
 
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   // ---------------- LOADING ----------------
   if (loading) return <p>Loading modules...</p>;
 
@@ -188,7 +212,12 @@ export default function CoursemainLayout() {
 
     <div className="Course-main-Layout-container">
 
+<<<<<<< HEAD
       {/* VIDEO PLAYER */}
+=======
+      {/* ---------------- VIDEO PLAYER ---------------- */}
+
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       <div className="course-main-layout-left-container">
 
         <CourseLectureLayout
@@ -196,13 +225,21 @@ export default function CoursemainLayout() {
           currentLectureId={currentLectureId}
         />
 
+<<<<<<< HEAD
         <CourseLectureDownContent />
 
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       </div>
 
 
 
+<<<<<<< HEAD
       {/* SIDEBAR */}
+=======
+      {/* ---------------- SIDEBAR ---------------- */}
+
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       <div className="course-main-layout-right-container">
 
         <CourseLectureSidebar

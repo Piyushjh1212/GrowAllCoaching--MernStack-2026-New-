@@ -63,6 +63,7 @@
 
 /* Common button style */
 
+<<<<<<< HEAD
 .cta-User-profole-login{
   display: flex;
   gap: 20px;
@@ -82,11 +83,27 @@
     transition: all 0.3s ease; /* smooth hover effect */
 }
 
+=======
+.user-icon {
+    background-color: white; /* green background */
+    color: #066d84;
+    border: 1px solid black; /* default border remove */
+    border-radius: 50%; /* circular button */
+    width: 45px; /* width of button */
+    height: 45px; /* height of button */
+    font-size: 20px; /* icon size */
+    margin-right: 20px;
+    cursor: pointer; /* pointer on hover */
+    transition: all 0.3s ease; /* smooth hover effect */
+}
+
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 .user-icon:hover {
     background-color: #10829fc4; /* slightly darker green on hover */
     transform: scale(1.1); /* subtle zoom effect */
 }
 
+<<<<<<< HEAD
 .cta-user-login-signup-btn{
   display: flex;
   gap: 10px;
@@ -95,6 +112,11 @@
 .cta-btn {
   padding: 10px 25px;
   text-decoration: none;
+=======
+.cta-btn {
+  display: inline-block;
+  padding: 10px 25px;
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   font-size: 16px;
   border: 2px solid white;
   color: #fff;
@@ -179,6 +201,14 @@
     .cta-btn{
       display: none;
     }
+<<<<<<< HEAD
+=======
+    .user-icon{
+      margin-right: 0;
+      position: relative;
+      margin-left: 40px;  
+    }
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 }
 
 

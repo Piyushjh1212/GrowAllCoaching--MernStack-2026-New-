@@ -103,13 +103,20 @@ export const addLecture = async (req, res) => {
       duration,
       completed,
       videoUrl,
+<<<<<<< HEAD
       videoKey,
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       isFree,
       subtitles
     } = req.body;
 
     // ✅ Basic Validation
+<<<<<<< HEAD
     if (!courseId || !moduleId || !title || !videoUrl || !videoKey) {
+=======
+    if (!courseId || !moduleId || !title || !videoUrl) {
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       return res.status(400).json({
         message: "Course, Module, Title and Video URL are required"
       });
@@ -128,7 +135,10 @@ export const addLecture = async (req, res) => {
       duration: duration || "00:00",
       completed: completed || false,
       videoUrl,
+<<<<<<< HEAD
       videoKey,
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
       isFree: isFree || false,
       subtitles: formattedSubtitles
     });

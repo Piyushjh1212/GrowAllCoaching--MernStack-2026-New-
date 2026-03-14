@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 import "./UserDashboard.css";
 import EditProfile from "./EditProfile/EditProile";
 
@@ -25,6 +29,7 @@ const courses = [
 
 const UserDashboard = () => {
   const [showEditModal, setShowEditModal] = useState(false);
+<<<<<<< HEAD
   const [user, setUser ] = useState({});
 
   useEffect(() => {
@@ -55,6 +60,14 @@ const UserDashboard = () => {
 
   fetchUser();
 }, []);
+=======
+
+  const [user, setUser] = useState({
+    name: "Sarah Johnson",
+    email: "Sarah.johnson@example.com",
+    profilePic: "https://randomuser.me/api/portraits/women/44.jpg"
+  });
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
   return (
     <div className="ud-dashboard">
@@ -64,7 +77,11 @@ const UserDashboard = () => {
 
         <div className="ud-profile-card">
           <img
+<<<<<<< HEAD
             src={user.profilePic || "https://tse4.mm.bing.net/th/id/OIP.FkQDxKdriMvRdcRm9X7ZFAHaHX?rs=1&pid=ImgDetMain&o=7&rm=3"}
+=======
+            src={user.profilePic}
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
             alt="profile"
             className="ud-profile-img"
           />
@@ -82,9 +99,13 @@ const UserDashboard = () => {
 
         <div className="ud-info-card">
           <p className="ud-info-title">Joined</p>
+<<<<<<< HEAD
           <h4 className="ud-info-value">
             {user.JoiningDate || "Loading..."}
           </h4>
+=======
+          <h4 className="ud-info-value">Jan 15, 2024</h4>
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
         </div>
 
         <div className="ud-info-card">

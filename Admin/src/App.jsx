@@ -10,7 +10,10 @@ import ContactMessages from "./Pages/ContactMessages/ContactMessages";
 import PaymentSystemRecord from "./Pages/PaymentSystemRecord";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SecuritySuspiciousDashboard from "./Pages/SuspiciousFIle/Suspicious";
+<<<<<<< HEAD
 import UploadVideo from "./Pages/AWSVideoUpload/AWVideoUpload";
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
 
 const App = () => {
@@ -61,9 +64,12 @@ const App = () => {
             </ProtectedRoute>
           } />
 
+<<<<<<< HEAD
         <Route path="/admin/UploadVideo" element={<ProtectedRoute><UploadVideo /></ProtectedRoute>} />
 
 
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
         <Route path="/admin/messages" element={<ProtectedRoute><ContactMessages /></ProtectedRoute>} />
 
         <Route path="/admin/s4558875655ious" element={<ProtectedRoute><SecuritySuspiciousDashboard /></ProtectedRoute>} />

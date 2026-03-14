@@ -19,7 +19,11 @@
 
 .hac-login-image img {
   width: 100%;
+<<<<<<< HEAD
   height: 100%;
+=======
+  height: 90%;
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   object-fit: cover;
 }
 
@@ -27,6 +31,10 @@
 .hac-login-container {
   flex: 1;
   display: flex;
+<<<<<<< HEAD
+=======
+  margin: 50px;
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   justify-content: center;
   align-items: center;
   background: #ffffff;

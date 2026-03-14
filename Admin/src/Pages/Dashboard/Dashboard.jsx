@@ -96,7 +96,11 @@ const formatIndianNumber = (num) => {
         <Link to="/admin" className="sidebar-link">Dashboard</Link>
         <Link to="/admin/courses" className="sidebar-link">Add-Courses</Link>
         <Link to="/admin/users" className="sidebar-link">Add-images</Link>
+<<<<<<< HEAD
         <Link to="/admin/UploadVideo" className="sidebar-link">Add-video</Link>
+=======
+        <Link to="/admin/lectures/Video" className="sidebar-link">Add-video</Link>
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
         <Link
           to="/login"
           className="sidebar-link logout"

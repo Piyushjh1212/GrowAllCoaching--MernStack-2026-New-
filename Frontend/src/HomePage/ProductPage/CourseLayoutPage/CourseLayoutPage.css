@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* GacVideos */
 /* ==========================
    GAC VIDEO PLAYER STYLES
@@ -190,6 +191,8 @@
 
 
 /* CourseMainLayout  */
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 .Course-main-Layout-container {
   display: flex;
   background: #f5f6fa;
@@ -214,8 +217,11 @@
 }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 /* Course Layout css  */
 /* ==========================
    COURSE LAYOUT VIDEO PLAYER (YT‑style)

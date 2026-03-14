@@ -27,7 +27,18 @@ export default function App() {
         <Route path="/UserSignup" element={<PublicRoute><SignupPage /></PublicRoute>} />
         <Route path="/course/:id" element={<PrivateRoute><CourseModule /></PrivateRoute>} />
         <Route path="/course/:courseId/module/:moduleId/lecture/:lectureId" element={<PrivateRoute><CoursemainLayout /></PrivateRoute>} />
+<<<<<<< HEAD
         <Route path="/course/:courseId/module/:moduleId" element={<PrivateRoute><CoursemainLayout /></PrivateRoute>}/>
+=======
+        <Route
+          path="/course/:courseId/module/:moduleId"
+          element={
+            <PrivateRoute>
+              <CoursemainLayout />
+            </PrivateRoute>
+          }
+        />
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
       </Routes>
       <Footer />

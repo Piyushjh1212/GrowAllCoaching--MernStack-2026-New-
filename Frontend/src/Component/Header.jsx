@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './Homepage.css'
 import { Link, useNavigate } from 'react-router-dom'
+<<<<<<< HEAD
 import { FaUser } from 'react-icons/fa'
+=======
+import {FaUser  } from 'react-icons/fa'
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
 export default function Header() {
 
@@ -14,6 +18,7 @@ export default function Header() {
         setIsOpen(!isOpen)
     }
 
+<<<<<<< HEAD
     useEffect(() => {
         const checkLogin = () => {
             const token = localStorage.getItem("token");
@@ -28,6 +33,22 @@ export default function Header() {
             window.removeEventListener("storage", checkLogin);
         };
     }, []);
+=======
+  useEffect(() => {
+    const checkLogin = () => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    };
+
+    checkLogin();
+
+    window.addEventListener("storage", checkLogin);
+
+    return () => {
+        window.removeEventListener("storage", checkLogin);
+    };
+}, []);
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 
     const handleLogout = () => {
         localStorage.removeItem("token")
@@ -62,6 +83,7 @@ export default function Header() {
 
                 {!isLoggedIn ? (
                     <>
+<<<<<<< HEAD
                         <div className='cta-user-login-signup-btn'>
                             <Link to="/UserLogin" className="cta-btn login">
                                 Login
@@ -85,6 +107,25 @@ export default function Header() {
                             <div className="cta-menu-toggle" onClick={HandleClick}>☰</div>
                         </div>
 
+=======
+                        <Link to="/UserLogin" className="cta-btn login">
+                            Login
+                        </Link>
+
+                        <Link to="/UserSignUp" className="cta-btn signup">
+                            Sign Up
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <button className="user-icon" onClick={() => navigate("/UserProfileDashboard")}>
+                            <FaUser />
+                        </button>
+
+                        <button className="cta-btn login" onClick={handleLogout}>
+                            Logout
+                        </button>
+>>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
                     </>
                 )}
 
