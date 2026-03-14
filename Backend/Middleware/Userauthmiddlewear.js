@@ -4,6 +4,7 @@ import UserSignup from "../Modals/UserSignupModal.js";
 import rateLimit from "express-rate-limit";
 import slowDown from "express-slow-down";
 import { logSecurityEventHelper } from "../Helpers/SuspiouslogHelper.js"; // logging helper
+import Admin from "../Modals/AdminModal.js";
 
 // ----------------------- PROTECT -----------------------
 export const protect = async (req, res, next) => {
@@ -54,6 +55,39 @@ export const protect = async (req, res, next) => {
       message: "Token failed or expired"
     });
     res.status(401).json({ message: "Not authorized, token failed" });
+  }
+};
+
+// -----------------------  ADMIN PROTECT MIDDLEWEAR -----------------------
+export const adminProtect = async (req, res, next) => {
+  try {
+
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({ message: "No token provided" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const admin = await Admin.findById(decoded.id).select("-password");
+
+    if (!admin) {
+      return res.status(401).json({ message: "Admin not found" });
+    }
+
+    req.admin = admin;
+
+    next();
+
+  } catch (error) {
+
+    console.log(error.message);
+
+    res.status(401).json({ message: "Admin not authorized" });
+
   }
 };
 
@@ -111,4 +145,26 @@ export const speedSlowDownLimiter = slowDown({
   delayAfter: 3,            // 3 requests ke baad delay
   delayMs: () => 1000       // 1 second per extra request
   // ✅ onLimitReached option removed because it's deprecated in new versions
+});
+
+export const AdminRegisterLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes window
+  max: 3, // max 3 registration attempts per IP in 5 mins
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false,  // Disable `X-RateLimit-*` headers
+  handler: async (req, res) => {
+    // log the blocked attempt
+    await logSecurityEventHelper({
+      endpoint: req.originalUrl,
+      method: req.method,
+      ip: req.ip,
+      userId: null,
+      type: "rate-limit",
+      message: "Too many admin registration attempts"
+    });
+
+    res.status(429).json({
+      message: "Too many registration attempts! Try again later."
+    });
+  }
 });

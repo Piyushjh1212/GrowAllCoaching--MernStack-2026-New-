@@ -13,6 +13,7 @@ import CoursesCommentRoutes from './Routes/CourseCommentRoutes.js';
 import SecuritysuspiousRoutes from './Routes/SecuritysuspiousRoutes.js';
 import AWSRoutes from './Routes/AWSRoutes.js';
 import PresignedUrlRoutes from './Routes/GetpresignedurlRoutes.js';
+import AdminLoginRoute from './Routes/AdminLoginRoutes.js';
 
 const app = express();
 
@@ -39,8 +40,9 @@ app.use('/api/v1', CoursesRoutes);
 
 // CloudinaryRoutre here 
 app.use('/api/v1/cloudinary', CloudinaryRoutes);
-// LoginSignup Routes
+// Login/Signup Routes
 app.use('/api/v1/UserLoginSignup', UserLoginSignup);
+app.use('/api/v1/admin', AdminLoginRoute);
 // Razorpay Routeshere
 app.use('/api/v1/Razorpay', RazorpayPaymentRoute);
 // Comment Api 

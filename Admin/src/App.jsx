@@ -11,6 +11,7 @@ import PaymentSystemRecord from "./Pages/PaymentSystemRecord";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SecuritySuspiciousDashboard from "./Pages/SuspiciousFIle/Suspicious";
 import UploadVideo from "./Pages/AWSVideoUpload/AWVideoUpload"; // Ensure this file exists
+import AdminDashboard from "./Login/Dashboard";
 
 const App = () => {
   return (
@@ -19,12 +20,12 @@ const App = () => {
         {/* Public Route */}
         <Route path="/login" element={<Login />} />
 
-        {/* Admin Protected Routes */}
+          {/* Admin Protected Routes */}
         <Route
           path="/admin"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <AdminDashboard />
             </ProtectedRoute>
           }
         />

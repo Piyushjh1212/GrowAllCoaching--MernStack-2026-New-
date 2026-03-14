@@ -26,7 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTotalSuspiciousLogs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/totalsuspiciouslogs-count");
+        const res = await fetch("http://localhost:5000/api/v1/totalsuspiouslogs-count");
         const data = await res.json();
         if (res.ok) setTotalSuspiciousLogs(data.count);
       } catch (err) {
