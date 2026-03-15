@@ -5,11 +5,12 @@ import {
   RazorpayVerifyPayment,
   RazorpayWebhook,
   TotalPaymentamountCount,
-  RazorpayPaymentFailed
+  RazorpayPaymentFailed,
+  GetPaymentamoutRecord
 } from "../Controllers/RazorpayPaymentController.js";
 
 import paymentLimiter from "../Middleware/Paymentratelimitmiddlewear.js";
-import { protect } from "../Middleware/Userauthmiddlewear.js";
+import { adminProtect, protect } from "../Middleware/Userauthmiddlewear.js";
 
 const RazorpayPaymentRoute = express.Router();
 
@@ -26,6 +27,9 @@ RazorpayPaymentRoute.post("/paymentFailed", protect, RazorpayPaymentFailed);
 RazorpayPaymentRoute.post("/webhook", RazorpayWebhook);
 
 // ✅ Total Revenue / Payment Count
-RazorpayPaymentRoute.get("/totalRevenue-Count", protect, TotalPaymentamountCount);
+RazorpayPaymentRoute.get("/totalrevenueCount",adminProtect,  TotalPaymentamountCount);
+
+// Get Total Payment List 
+RazorpayPaymentRoute.get("/GetPaymentList", GetPaymentamoutRecord);
 
 export default RazorpayPaymentRoute;

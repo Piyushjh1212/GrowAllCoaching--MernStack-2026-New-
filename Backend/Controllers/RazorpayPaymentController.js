@@ -184,3 +184,32 @@ export const TotalPaymentamountCount = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+// 📄 Get all payment records
+export const GetPaymentamoutRecord = async (req, res) => {
+  try {
+    const payments = await Payment.find()
+      .sort({ createdAt: -1 }); // latest first
+
+    if (!payments || payments.length === 0) {
+      return res.status(200).json({ success: true, payments: [] });
+    }
+
+    // Map to safe JSON without populate
+    const safePayments = payments.map(p => ({
+      _id: p._id,
+      user: p.user || null,       // ObjectId
+      module: p.module || null,   // ObjectId
+      amount: p.amount || 0,
+      status: p.status || "pending",
+      createdAt: p.createdAt,
+      razorpayOrderId: p.razorpayOrderId || "",
+      razorpayPaymentId: p.razorpayPaymentId || "",
+      expiryDate: p.expiryDate || null
+    }));
+
+    res.status(200).json({ success: true, payments: safePayments });
+  } catch (error) {
+    console.error("GetPaymentamoutRecord Error:", error.message);
+    res.status(500).json({ success: false, message: "Failed to fetch payment records" });
+  }
+};

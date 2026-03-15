@@ -1,44 +1,106 @@
-.contact-table-container {
-  padding: 1.5rem;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+/* Main container */
+.cmsg-container {
+  max-height: 90vh;
+  min-width: fit-content;
+  padding: 20px;
+  border-radius: 12px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
-.contact-table-container h2 {
+/* Title */
+.cmsg-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0d3b66;
+  margin-bottom: 15px;
   text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
+}
+
+/* Table wrapper for scroll */
+.cmsg-table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Scrollbar styling */
+.cmsg-table-wrapper::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+.cmsg-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 10px;
+}
+.cmsg-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0,119,182,0.6);
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+.cmsg-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,119,182,0.9);
+}
+
+/* Firefox scrollbar */
+.cmsg-table-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,119,182,0.6) rgba(0,0,0,0.05);
+}
+
+/* Table styling */
+.cmsg-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.cmsg-table th,
+.cmsg-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
   color: #333;
 }
 
-.contact-table {
-  width: 100%;
-  border-collapse: collapse;
+.cmsg-table th {
+  background-color: #0077b6;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
-.contact-table th,
-.contact-table td {
-  text-align: left;
-  padding: 12px 15px;
-  border-bottom: 1px solid #ddd;
+.cmsg-row:hover {
+  background-color: rgba(224, 247, 250, 0.9);
 }
 
-.contact-table th {
-  background-color: #4caf50;
-  color: white;
-  text-transform: uppercase;
-}
-
-.contact-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-.loading,
-.error,
-.no-messages {
+/* Loading, error, no messages */
+.cmsg-loading,
+.cmsg-error,
+.cmsg-no-messages {
   text-align: center;
-  margin: 1rem 0;
+  padding: 15px;
+  font-style: italic;
+  color: #555;
+}
+
+/* Search input styling */
+.cmsg-search {
+  width: 30%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+}
+
+.cmsg-search::placeholder{
   color: #555;
 }

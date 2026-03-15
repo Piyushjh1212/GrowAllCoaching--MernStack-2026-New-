@@ -1,0 +1,144 @@
+/* Container */
+.cs-ad-container{
+  width: 95%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Section Card */
+.cs-ad-section{
+  background: #ffffff;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Title */
+.cs-ad-title{
+  margin-bottom: 18px;
+  font-size: 22px;
+  color: #222;
+}
+
+/* Form Layout */
+.cs-ad-form{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Full width fields */
+.cs-ad-form textarea,
+.cs-ad-form button,
+.cs-ad-form h4,
+.cs-ad-checkbox{
+  grid-column: span 2;
+}
+
+/* Inputs */
+.cs-ad-input{
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.cs-ad-select{
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 100%;
+}
+
+/* Focus effect */
+.cs-ad-input:focus,
+.cs-ad-select:focus{
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Button */
+.cs-ad-btn{
+  margin-top: 10px;
+  padding: 12px;
+  background: linear-gradient(135deg,#007bff,#0056d2);
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cs-ad-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+}
+
+/* Subtitle Title */
+.cs-ad-subtitle-title{
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* Checkbox */
+.cs-ad-checkbox{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+/* ============================= */
+/* TABLET RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 900px){
+
+  .cs-ad-form{
+    grid-template-columns: 1fr;
+  }
+
+  .cs-ad-form textarea,
+  .cs-ad-form button,
+  .cs-ad-form h4,
+  .cs-ad-checkbox{
+    grid-column: span 1;
+  }
+
+}
+
+/* ============================= */
+/* MOBILE RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 500px){
+
+  .cs-ad-container{
+    padding: 15px;
+  }
+
+  .cs-ad-section{
+    padding: 18px;
+  }
+
+  .cs-ad-title{
+    font-size: 20px;
+  }
+
+  .cs-ad-input,
+  .cs-ad-select{
+    font-size: 13px;
+    padding: 9px;
+  }
+
+  .cs-ad-btn{
+    font-size: 14px;
+    padding: 10px;
+  }
+
+}

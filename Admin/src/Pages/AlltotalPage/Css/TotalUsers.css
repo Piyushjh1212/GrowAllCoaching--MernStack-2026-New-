@@ -1,0 +1,56 @@
+/* Container */
+.tu-container {
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 100vh;
+  margin: 20px auto;
+}
+
+/* Heading */
+.tu-heading {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 100;
+  text-align: center;
+}
+
+/* Search input */
+.tu-search {
+  width: 30%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background: #efe9e973;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 16px;
+}
+
+.tu-search::placeholder{
+    color: #444;
+}
+/* Table styling */
+.tu-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.9) transparent;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tu-table th,
+.tu-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tu-table th {
+  background-color: rgba(245, 245, 245, 0.9) transparent;
+  font-weight: 600;
+}
+
+.tu-row:hover {
+  background-color: rgba(224, 247, 250, 0.9);
+}

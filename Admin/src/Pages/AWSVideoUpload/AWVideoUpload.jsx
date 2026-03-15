@@ -1,6 +1,8 @@
+// Video file me sanitize nhi lagta ok kyu hacker yhna attack hi nhi kerta
 import React, { useState } from "react";
+import "./AWSVideoUpload.css";
 
-const UploadVideo = () => {
+const AWSUploadVideo = () => {
     const [video, setVideo] = useState(null);
     const [uploading, setUploading] = useState(false);
 
@@ -18,68 +20,53 @@ const UploadVideo = () => {
                 body: formData,
             });
 
-            if (!res.ok) {
-                let errMsg = "Upload failed";
-                try {
-                    const errData = await res.json();
-                    errMsg = errData.message || errMsg;
-                } catch (parseError) {
-                    console.error("Failed to parse error response:", parseError);
-                }
-                throw new Error(errMsg);
-            }
-
             const data = await res.json();
             alert(data.message);
-            setVideo(null); // reset input
+            setVideo(null);
         } catch (err) {
             console.error(err);
-            alert(err.message || "Upload failed");
+            alert("Upload failed");
         } finally {
             setUploading(false);
         }
     };
 
     return (
-        <div style={{ maxWidth: "500px", margin: "20px auto", textAlign: "center" }}>
-            <h2>Upload Video</h2>
+        <div className="aws-upload-container">
+            <h2 className="aws-upload-title">Upload Video to AWS</h2>
 
-            {/* Video Preview */}
             {video && (
                 <video
                     src={URL.createObjectURL(video)}
                     controls
-                    width="100%"
-                    style={{ marginBottom: "10px" }}
+                    className="aws-video-preview"
                 />
             )}
 
-            {/* Video Input */}
             <input
                 type="file"
                 accept="video/*"
+                className="aws-file-input"
                 onChange={(e) => {
                     setVideo(e.target.files[0]);
                     e.target.value = null;
                 }}
                 disabled={uploading}
-                style={{ margin: "10px 0", width: "100%" }}
             />
 
-            {/* Upload Button */}
             <button
                 onClick={handleUpload}
                 disabled={!video || uploading}
-                style={{
-                    padding: "10px 20px",
-                    width: "100%",
-                    cursor: !video || uploading ? "not-allowed" : "pointer",
-                }}
+                className="aws-upload-btn"
             >
                 {uploading ? "Uploading..." : "Upload"}
             </button>
+
+            {uploading && (
+                <p className="aws-uploading-text">Uploading video to AWS...</p>
+            )}
         </div>
     );
 };
 
-export default UploadVideo;
+export default AWSUploadVideo;

@@ -1,0 +1,102 @@
+/* Container */
+.tp-container {
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+.tp-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #0d3b66;
+  margin-bottom: 15px;
+}
+
+/* Search input */
+.tp-search {
+  width: 30%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.tp-search:focus {
+  border-color: #0077b6;
+}
+
+/* Table wrapper for scrolling */
+.tp-table-wrapper {
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+/* Table */
+.tp-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.tp-table th,
+.tp-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.tp-table th {
+  background-color: #0077b6;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.tp-row:hover {
+  background-color: rgba(0, 119, 182, 0.05);
+}
+
+/* Status colors */
+.tp-status.success {
+  color: green;
+  font-weight: 600;
+}
+.tp-status.failed {
+  color: red;
+  font-weight: 600;
+}
+.tp-status.pending {
+  color: orange;
+  font-weight: 600;
+}
+
+/* Scrollbar styling */
+.tp-table-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+.tp-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0,119,182,0.5);
+  border-radius: 5px;
+}
+.tp-table-wrapper::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+}
+
+/* Loading/Error/No data */
+.tp-loading, .tp-error, .tp-no-data {
+  text-align: center;
+  padding: 15px;
+  font-size: 16px;
+  color: #555;
+}
+.tp-error { color: red; }

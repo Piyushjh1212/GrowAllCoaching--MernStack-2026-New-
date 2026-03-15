@@ -3,6 +3,7 @@ import './ContactMessageshow.css';
 
 export default function ContactMessagesTable() {
   const [messages, setMessages] = useState([]);
+  const [search, setSearch] = useState(""); // search state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -14,7 +15,7 @@ export default function ContactMessagesTable() {
 
         if (!res.ok) throw new Error(data.message || "Failed to fetch");
 
-        setMessages(data.data); // array of messages
+        setMessages(data.data);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -26,35 +27,52 @@ export default function ContactMessagesTable() {
     fetchMessages();
   }, []);
 
-  if (loading) return <p className="loading">Loading messages...</p>;
-  if (error) return <p className="error">{error}</p>;
-  if (messages.length === 0) return <p className="no-messages">No messages yet.</p>;
+  if (loading) return <p className="cmsg-loading">Loading messages...</p>;
+  if (error) return <p className="cmsg-error">{error}</p>;
+  if (messages.length === 0) return <p className="cmsg-no-messages">No messages yet.</p>;
+
+  // Filter messages by search (name or email)
+  const filteredMessages = messages.filter(msg =>
+    msg.name.toLowerCase().includes(search.toLowerCase()) ||
+    msg.email.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="contact-table-container">
-      <h2>Contact Messages</h2>
-      <table className="contact-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Message</th>
-            <th>Date</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {messages.map(msg => (
-            <tr key={msg._id}>
-              <td>{msg.name}</td>
-              <td>{msg.email}</td>
-              <td>{msg.message}</td>
-              <td>{new Date(msg.createdAt).toLocaleDateString()}</td>
-              <td>{new Date(msg.createdAt).toLocaleTimeString()}</td>
+    <div className="cmsg-container">
+      <h2 className="cmsg-title">Contact Messages ({filteredMessages.length})</h2>
+
+      <input
+        type="text"
+        placeholder="Search by name or email..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="cmsg-search"
+      />
+
+      <div className="cmsg-table-wrapper">
+        <table className="cmsg-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Date</th>
+              <th>Time</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredMessages.map(msg => (
+              <tr key={msg._id} className="cmsg-row">
+                <td>{msg.name}</td>
+                <td>{msg.email}</td>
+                <td>{msg.message}</td>
+                <td>{new Date(msg.createdAt).toLocaleDateString()}</td>
+                <td>{new Date(msg.createdAt).toLocaleTimeString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import express from "express";
 import { GatAlltheUser, UserLoginController, UserSignupController } from "../Controllers/UserSignupController.js";
-import { LoginrateLimiter, protect, SignuprateLimiter, speedSlowDownLimiter } from "../Middleware/Userauthmiddlewear.js";
+import { adminProtect, LoginrateLimiter, protect, SignuprateLimiter, speedSlowDownLimiter } from "../Middleware/Userauthmiddlewear.js";
 import { customSanitize } from "../Middleware/CustomSanitizecloneMiddlewear.js";
 import UserSignup from "../Modals/UserSignupModal.js";
 
@@ -35,7 +35,7 @@ UserLoginSignup.get("/profile", protect, (req, res) => {
 });
 
 // Total users count
-UserLoginSignup.get("/totalUser-count", async (req, res) => {
+UserLoginSignup.get("/totalUser-count", adminProtect ,async (req, res) => {
   try {
     const count = await UserSignup.countDocuments();
     res.status(200).json({ success: true, count });
@@ -46,6 +46,8 @@ UserLoginSignup.get("/totalUser-count", async (req, res) => {
 });
 
 // Get all users
-UserLoginSignup.get("/Get-all-theUser", GatAlltheUser);
+UserLoginSignup.get("/Get-all-theUser",adminProtect , GatAlltheUser);
+
+
 
 export default UserLoginSignup;

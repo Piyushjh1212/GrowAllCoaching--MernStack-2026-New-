@@ -1,0 +1,68 @@
+.aws-upload-container {
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.aws-upload-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.aws-video-preview {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+}
+
+.aws-file-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.aws-file-input:hover {
+  border-color: #007bff;
+  background: #f5f9ff;
+}
+
+.aws-upload-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #007bff, #0056d2);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.aws-upload-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.3);
+}
+
+.aws-upload-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.aws-uploading-text {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+}
