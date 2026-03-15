@@ -1,64 +1,112 @@
-/* File: Dashboard.css */
-
-.admin-Course-update {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    font-family: Arial, sans-serif;
+/* Container */
+.cs-ad-dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #87ceeb, #e0f7fa); /* sky to soft ocean */
 }
 
-.admin-course-update-heading {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-    font-size: 24px;
+/* Sidebar */
+.cs-ad-sidebar {
+  width: 250px;
+  background: linear-gradient(to bottom, #0288d1, #26c6da); /* ocean waves gradient */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 3px 0 12px rgba(0,0,0,0.2);
+  border-radius: 0 20px 20px 0;
 }
 
-.admin-add-course-form {
-    display: flex;
+.cs-ad-sidebar-title {
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cs-ad-sidebar-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.cs-ad-sidebar-link:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateX(5px);
+}
+
+/* Logout button */
+.cs-ad-logout {
+  margin-top: auto;
+  background: #ff6f61; /* soft coral color */
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.cs-ad-logout:hover {
+  background: #e85c50;
+  transform: translateY(-2px);
+}
+
+/* Main Content */
+.cs-ad-main-content {
+  flex: 1;
+  padding: 30px;
+  background: linear-gradient(to bottom, #e0f7fa, #b3e5fc); /* soft ocean gradient */
+  overflow-y: auto;
+  color: #013a63;
+  border-radius: 20px 0 0 20px;
+}
+
+/* Stats Cards */
+.cs-ad-stats-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.cs-ad-stat-card {
+  flex: 1 1 200px;
+  padding: 20px;
+  background: linear-gradient(145deg, #81d4fa, #4fc3f7); /* lighter ocean wave feel */
+  border-radius: 16px;
+  color: #013a63;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cs-ad-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cs-ad-dashboard-container {
     flex-direction: column;
-    gap: 15px;
-}
-
-.admin-add-course-form input {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.2s ease;
-}
-
-.admin-add-course-form input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0,123,255,0.3);
-}
-
-.admin-add-course-form button {
-    padding: 12px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.admin-add-course-form button:hover {
-    background-color: #0056b3;
-}
-
-ul {
-    margin-top: 25px;
-    padding-left: 20px;
-}
-
-ul li {
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 16px;
+  }
+  .cs-ad-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    border-radius: 0;
+  }
+  .cs-ad-sidebar-link {
+    flex: 1;
+    margin: 5px;
+    text-align: center;
+  }
+  .cs-ad-stats-cards {
+    flex-direction: column;
+  }
 }
