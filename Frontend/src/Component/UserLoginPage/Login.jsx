@@ -46,7 +46,7 @@ const LoginPage = () => {
                 return;
             }
 
-            // ✅ Token save
+            //  Token save
             localStorage.setItem("token", data.token);
 
             setAttemptsLeft(null);

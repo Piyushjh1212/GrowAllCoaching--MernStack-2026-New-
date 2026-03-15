@@ -1,14 +1,10 @@
-/*    Login Page style      */
-/* ________________________ */
-
-.hac-login-page {
+.sp-pg-page {
   display: flex;
   min-height: 100vh;
   font-family: Arial, sans-serif;
 }
 
-/* Left Image */
-.hac-login-image {
+.sp-pg-image {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -17,175 +13,134 @@
   background: #f0f2f5;
 }
 
-.hac-login-image img {
+.sp-pg-image img {
   width: 100%;
-<<<<<<< HEAD
   height: 100%;
-=======
-  height: 90%;
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   object-fit: cover;
 }
 
-/* Right Form */
-.hac-login-container {
+.sp-pg-container {
   flex: 1;
   display: flex;
-<<<<<<< HEAD
-=======
   margin: 50px;
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  background: #fff;
+  border-radius: 10px;
 }
 
-.hac-login-form {
+.sp-pg-form {
   width: 90%;
   padding: 40px 30px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
 }
 
-.hac-login-title {
+.sp-pg-title {
   text-align: center;
   margin-bottom: 30px;
   color: #333;
 }
 
-/* Remaining attempts / retry message */
-.hac-login-attempts {
-    background-color: #fff4e5; /* light orange background */
-    color: #d9534f;            /* red-ish text for warning */
-    border: 1px solid #f0ad4e; /* orange border */
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-}
-
-/* Optional: fade animation for message */
-.hac-login-attempts.fade {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-.hac-login-label {
+.sp-pg-label {
   margin-bottom: 5px;
   font-weight: bold;
   color: #555;
 }
 
-.hac-login-input {
+.sp-pg-input {
   padding: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
 }
 
-.hac-cta-btn {
-  padding: 10px 20px;
+.sp-pg-btn {
+  background: linear-gradient(135deg, #0890a5, #034050);
+  color: #fff;
+  height: 43px;
   border-radius: 6px;
   font-weight: 500;
   font-size: 14px;
-  text-decoration: none;
-  transition: 0.3s;
+  margin-top: 15px;
   border: none;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.hac-login-btn {
-  background: linear-gradient(135deg, #0890a5, #034050);
-  color: white;
-  height: 43px;
-  margin-top: 10px;
-}
-
-.hac-login-btn:hover {
+.sp-pg-btn:hover {
   background: linear-gradient(135deg, #066d84, #022f3a);
 }
 
-.hac-signup-btn-small {
-  background-color: #066d84;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 5px;
-  font-size: 13px;
-  margin-left: 5px;
+.sp-pg-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
-.hac-signup-btn-small:hover {
+.sp-pg-login-btn-small {
+  background-color: #066d84;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 13px;
+  text-decoration: none;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.sp-pg-login-btn-small:hover {
   background-color: #0890a5;
 }
 
-.hac-signup-text {
+.sp-pg-text {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 25px;
   font-size: 14px;
 }
 
-/* Responsive */
+/* Password strength indicator */
+.sp-pg-password-strength {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.sp-pg-password-strength.weak {
+  color: red;
+}
+
+.sp-pg-password-strength.medium {
+  color: orange;
+}
+
+.sp-pg-password-strength.strong {
+  color: green;
+}
+
+/* Password errors list */
+.sp-pg-password-errors {
+  color: red;
+  margin: 0 0 10px 10px;
+  font-size: 13px;
+  list-style-type: disc;
+}
+
 @media (max-width: 900px) {
-  .hac-login-page {
+  .sp-pg-page {
     flex-direction: column;
   }
 
-  .hac-login-image {
+  .sp-pg-image {
     height: 200px;
   }
 
-  .hac-login-container {
+  .sp-pg-container {
     width: 100%;
-  }
-
-  .hac-login-form {
-    width: 90%;
     margin: 20px 0;
   }
-}
 
-/* ----------------------------
-   ---------------------------- 
-       Signup Page style      
-   ----------------------------
-   ---------------------------- */
-
-
-/* Signup button like header style */
-.hac-signup-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.hac-signup-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Small login button inside text */
-.hac-login-btn-small {
-  background-color: #4caf50;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 5px;
-  font-size: 13px;
-  margin-left: 5px;
-}
-
-.hac-login-btn-small:hover {
-  background-color: #45a049;
+  .sp-pg-form {
+    width: 90%;
+  }
 }
