@@ -1,0 +1,217 @@
+/* ===============================
+   COURSE SIDEBAR
+================================ */
+
+.csb-container {
+  padding: 16px;
+  margin-top: 30px;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===============================
+   CARD
+================================ */
+
+.csb-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* ===============================
+   HEADINGS
+================================ */
+
+.csb-heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.csb-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   META INFO
+================================ */
+
+.csb-meta p {
+  font-size: 13px;
+  color: #666;
+  margin: 3px 0;
+}
+
+.csb-meta span {
+  font-weight: 600;
+  color: #222;
+}
+
+/* ===============================
+   PROGRESS BAR
+================================ */
+
+.csb-progress-wrapper {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.csb-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #e4e4e4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.csb-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#4caf50,#2ecc71);
+  transition: width 0.3s ease;
+}
+
+.csb-progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===============================
+   LECTURE LIST
+================================ */
+
+.csb-lesson-list {
+  margin-top: 10px;
+}
+
+/* ===============================
+   LECTURE ITEM
+================================ */
+
+.csb-lesson-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
+}
+
+.csb-lesson-item:hover {
+  background: #f4f6fa;
+}
+
+/* ACTIVE LECTURE */
+
+.active-lecture {
+  background: #eef4ff;
+  border-left: 4px solid #2563eb;
+}
+
+/* ===============================
+   LEFT SIDE
+================================ */
+
+.csb-lesson-left {
+  display: flex;
+  align-items: center;
+}
+
+.csb-icon {
+  color: #f6b100;
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+}
+
+.csb-lesson-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #222;
+}
+
+/* ===============================
+   RIGHT SIDE
+================================ */
+
+.csb-duration {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* DEMO BUTTON */
+
+.csb-demo-button{
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.csb-demo-button:hover{
+  text-decoration: underline;
+}
+
+/* ===============================
+   SUBTITLE LIST
+================================ */
+
+.csb-subtitle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 38px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 13px;
+  color: #555;
+}
+
+.csb-subtitle-text {
+  flex: 1;
+}
+
+.csb-subtitle-duration {
+  font-size: 12px;
+  color: #777;
+}
+
+/* BULLET DOT */
+
+.csb-subtitle-item::before {
+  content: "•";
+  color: #4caf50;
+  margin-right: 8px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+
+  .csb-container {
+    padding: 10px;
+  }
+
+  .csb-card {
+    padding: 14px;
+  }
+
+  .csb-lesson-title {
+    font-size: 14px;
+  }
+
+}

@@ -30,7 +30,8 @@ UserLoginSignup.get("/profile", protect, (req, res) => {
     name: req.user.name,
     email: req.user.email,
     JoiningDate: new Date(req.user.createdAt).toLocaleDateString(),
-    profilePic: req.user.profilePic
+    profilePic: req.user.profilePic,
+    purchasedModules: req.user.purchasedModules
   });
 });
 

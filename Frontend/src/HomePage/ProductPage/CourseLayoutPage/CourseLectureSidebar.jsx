@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import "./CourseLayoutPage.css";
+import "./CourseLectureSidebar.css";
 import { FaArrowDown, FaArrowUp, FaLightbulb } from "react-icons/fa";
 
 export function CourseLectureSidebar({

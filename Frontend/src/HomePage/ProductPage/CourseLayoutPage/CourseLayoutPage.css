@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-/* GacVideos */
 /* ==========================
    GAC VIDEO PLAYER STYLES
-   (Conflict-free with prefix)
 ========================== */
 
 /* WRAPPER */
@@ -173,7 +170,6 @@
 
 /* RESPONSIVE */
 @media (max-width:768px){
-
   .gac-vp-play-btn{
     font-size: 18px;
   }
@@ -185,49 +181,36 @@
   .gac-vp-settings-menu{
     min-width: 140px;
   }
-
 }
 
+/* ==========================
+   COURSE MAIN LAYOUT
+========================== */
 
-
-/* CourseMainLayout  */
-=======
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
 .Course-main-Layout-container {
   display: flex;
   background: #f5f6fa;
   padding: 50px 50px 0 0px;
 }
 
-/* LEFT */
 .course-main-layout-left-container {
   flex: 2;
 }
 
-/* RIGHT */
 .course-main-layout-right-container {
   flex: 1;
 }
 
-/* Responsive */
 @media (max-width: 1000px) {
   .Course-main-Layout-container {
     flex-direction: column;
   }
 }
 
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 42eae80c144738479691a32c1b7ab090dbef131c
-/* Course Layout css  */
 /* ==========================
-   COURSE LAYOUT VIDEO PLAYER (YT‑style)
+   COURSE VIDEO PLAYER
 ========================== */
 
-/* CONTAINER */
 .vp-container {
   width: 100%;
   max-width: 900px;
@@ -237,7 +220,6 @@
   color: white;
 }
 
-/* WRAPPER */
 .vp-wrapper {
   position: relative;
   margin-top: 40px;
@@ -246,7 +228,6 @@
   overflow: hidden;
 }
 
-/* VIDEO */
 .vp-video {
   width: 100%;
   display: block;
@@ -254,7 +235,6 @@
   background: black;
 }
 
-/* CONTROLS */
 .vp-controls {
   position: absolute;
   bottom: 0;
@@ -264,7 +244,6 @@
   box-sizing: border-box;
 }
 
-/* PROGRESS BAR */
 .vp-progress-bar {
   width: 100%;
   height: 6px;
@@ -272,7 +251,6 @@
   cursor: pointer;
   border-radius: 3px;
   margin-bottom: 8px;
-  position: relative;
 }
 
 .vp-progress-filled {
@@ -283,14 +261,12 @@
   transition: width 0.1s linear;
 }
 
-/* BOTTOM CONTROL BAR */
 .vp-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* LEFT CONTROLS */
 .vp-left {
   display: flex;
   align-items: center;
@@ -307,21 +283,17 @@
   cursor: pointer;
 }
 
-
-
 .vp-time {
   font-size: 14px;
   color: #ccc;
 }
 
-/* RIGHT CONTROLS */
 .vp-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* SETTINGS BUTTON */
 .vp-settings {
   position: relative;
 }
@@ -334,188 +306,25 @@
   padding: 8px 12px;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.vp-settings > button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.08);
-}
-
-/* SETTINGS MENU (YT‑like) */
 .vp-settings-menu {
   position: absolute;
   bottom: 46px;
   right: 0;
   background: rgba(24, 24, 24, 0.92);
-  backdrop-filter: blur(8px) saturate(120%);
-  color: #eee;
   padding: 12px;
   border-radius: 12px;
   min-width: 180px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 14px;
-  z-index: 300;
-  animation: fadeInMenu 0.15s ease-out;
 }
 
-@keyframes fadeInMenu {
-  from { transform: translateY(6px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
+/* ==========================
+   COURSE SIDEBAR
+========================== */
 
-.vp-settings-menu button {
-  padding: 8px 14px;
-  border-radius: 20px;
-  border: none;
-  background: rgba(255, 255, 255, 0.05);
-  color: #e5e5e5;
-  text-align: left;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.vp-settings-menu button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-}
-
-.vp-settings-menu p {
-  margin: 0;
-  font-weight: 500;
-  color: #bbb;
-  padding-left: 4px;
-}
-
-/* SPEED MENU (YT‑like Overlay) */
-.vp-speed-menu {
-  position: absolute;
-  top: -230px;
-  right: 0;
-  background: rgba(24, 24, 24, 0.92);
-  backdrop-filter: blur(12px) saturate(120%);
-  color: #eee;
-  padding: 14px;
-  border-radius: 12px;
-  width: 240px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
-  font-size: 14px;
-  z-index: 400;
-  animation: fadeInSpeed 0.15s ease-out;
-}
-
-@keyframes fadeInSpeed {
-  from { transform: translateY(10px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
-
-.vp-speed-menu h4 {
-  margin: 0 0 10px;
-  font-size: 15px;
-  color: #ccc;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.vp-speed-current {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #ffffff;
-}
-
-/* Slider Row */
-.vp-speed-slider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.vp-speed-slider input[type="range"] {
-  flex: 1;
-  height: 4px;
-  background: #555;
-  border-radius: 2px;
-  -webkit-appearance: none;
-}
-
-.vp-speed-slider input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border: 2px solid #2563eb;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.15s ease;
-}
-
-.vp-speed-slider input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-
-/* +/- Buttons */
-.vp-speed-slider button {
-  background: rgba(38, 99, 235, 0.15);
-  border: none;
-  padding: 6px 10px;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.vp-speed-slider button:hover {
-  background: #2563eb;
-}
-
-/* Preset Buttons */
-.vp-speed-presets {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-}
-
-.vp-speed-presets button {
-  flex: 1;
-  padding: 8px 0;
-  background: rgba(255, 255, 255, 0.08);
-  border: none;
-  font-size: 14px;
-  border-radius: 18px;
-  color: #eee;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.vp-speed-presets button.active,
-.vp-speed-presets button:hover {
-  background: #2563eb;
-  color: white;
-}
-
-/* MEDIA QUERIES */
-@media (max-width: 600px) {
-  .vp-settings-menu, .vp-speed-menu {
-    width: 180px;
-  }
-  .vp-speed-slider input[type="range"] {
-    height: 3px;
-  }
-  .vp-speed-current {
-    font-size: 16px;
-  }
-}
-/* CourseSidebar css */
-/* ================= CONTAINER ================= */
-/* ---------------- CONTAINER ---------------- */
 .csb-container {
   padding: 15px;
   border-radius: 8px;
@@ -523,7 +332,6 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ---------------- CARD ---------------- */
 .csb-card {
   background: #fff;
   border-radius: 8px;
@@ -531,32 +339,29 @@
   margin-bottom: 20px;
 }
 
-/* ---------------- HEADINGS ---------------- */
 .csb-heading {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-/* ---------------- TEXT ---------------- */
 .csb-text {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
 }
 
-/* ---------------- META INFO ---------------- */
 .csb-meta p {
   font-size: 13px;
   margin: 4px 0;
   color: #666;
 }
+
 .csb-meta span {
   font-weight: 600;
   margin-left: 5px;
 }
 
-/* ---------------- PROGRESS BAR ---------------- */
 .csb-progress-wrapper {
   margin-top: 10px;
   display: flex;
@@ -575,17 +380,13 @@
 .csb-progress-fill {
   height: 100%;
   background: #4caf50;
-  border-radius: 4px;
-  transition: width 0.3s ease;
 }
 
 .csb-progress-text {
   font-size: 12px;
   font-weight: 600;
-  color: #333;
 }
 
-/* ---------------- MODULE DROPDOWN ---------------- */
 .csb-module-dropdown {
   width: 100%;
   padding: 6px 10px;
@@ -594,15 +395,8 @@
   border: 1px solid #ccc;
   margin-bottom: 10px;
   background: #fff;
-  cursor: pointer;
 }
 
-/* ---------------- LESSON LIST ---------------- */
-.csb-lesson-list {
-  margin-top: 10px;
-}
-
-/* ---------------- LESSON ITEM ---------------- */
 .csb-lesson-item {
   display: flex;
   justify-content: space-between;
@@ -610,80 +404,19 @@
   padding: 8px 10px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s;
-  margin-bottom: 4px;
 }
 
 .csb-lesson-item:hover {
   background: #f0f0f0;
 }
 
-/* ---------------- LESSON LEFT ---------------- */
-.csb-lesson-left {
-  display: flex;
-  align-items: center;
-}
-
-/* ---------------- ICON ---------------- */
-.csb-demo-button{
-  background: transparent;
-  border: transparent;
-  margin-right: 10px;
-  font-size: 14px;
-  color: #2563eb;
-
-}
-.csb-icon {
-  color: #ffb400;
-  display: flex;
-  align-items: center;
-  margin-right: 6px;
-}
-
-/* ---------------- LESSON TITLE ---------------- */
 .csb-lesson-title {
   font-size: 20px;
   font-weight: 500;
   color: #333;
 }
 
-/* ---------------- LESSON DURATION ---------------- */
 .csb-duration {
   font-size: 12px;
   color: #888;
-}
-
-/* ---------------- SUBTITLE ITEM ---------------- */
-/* Subtitle text and duration layout */
-.csb-subtitle-item {
-  display: flex;
-  width: 300px;
-  align-items: center;
-  padding-left: 40px; /* indent under the lesson */
-  font-size: 15px;
-  color: #555;
-  margin: 5px 0;
-  position: relative;
-}
-
-.csb-subtitle-item::before {
-  content: "•";
-  position: absolute;
-  left: 20px;
-  color: #4caf50;
-  font-size: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.csb-subtitle-text {
-  flex: 1; /* take remaining space */
-}
-
-.csb-subtitle-duration {
-  font-size: 15px;
-  color: black;
-  font-weight: lighter;
-  margin-left: 10px;
-  white-space: nowrap;
 }

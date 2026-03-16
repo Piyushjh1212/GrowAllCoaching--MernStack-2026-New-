@@ -13,7 +13,6 @@ export default function CoursemainLayout() {
   const [modules, setModules] = useState([]);
   const [currentModuleId, setCurrentModuleId] = useState(moduleId || null);
   const [loading, setLoading] = useState(true);
-  const [selectedVideo, setSelectedVideo] = useState(null);
 
   // ---------------- FETCH MODULES ----------------
   useEffect(() => {
