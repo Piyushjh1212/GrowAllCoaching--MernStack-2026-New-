@@ -62,7 +62,7 @@ This application is fully protected with industry-standard security practices, i
 
 ## Project Structure
 
-```text
+|__ Admin /
 GrowAll-Coaching/
 ├── Backend/                  # React frontend
 │   ├── Config/
@@ -74,6 +74,7 @@ GrowAll-Coaching/
 │   |── Services/
 │   |── Utils/
 │   ---- server.js            # main file...
+|
 ├── Frontend/                 # Node.js backend
 │   ├── Public/
 │   ├── src/
@@ -85,18 +86,22 @@ GrowAll-Coaching/
 ├── package.json
 └── .env
 
-|__ Admin 
 ---
 
+## ⚙️ Installation & Setup
 
+### 🔑 Prerequisites
 
-## Installation & Setup
+Make sure you have the following installed and configured:
 
-### Prerequisites
-- Node.js (v16+)
-- MongoDB database
+- Node.js (v16 or higher)
+- MongoDB (Local or Atlas Cluster)
 - npm or yarn
-- Razorpay account (for payments)
+- Razorpay Account (for payment integration)
+- AWS Account (for cloud services)
+- Cloudinary Account (for media storage)
+
+---
 
 ### Steps
 1. **Clone the repository**
@@ -124,6 +129,7 @@ JWT_SECRET=your_jwt_secret
 RAZORPAY_KEY_ID=your_razorpay_key
 RAZORPAY_KEY_SECRET=your_razorpay_secret
 
+
 Start the application
 
 # Start backend
@@ -134,7 +140,7 @@ npm run dev
 cd ../client
 npm start
 
-The application should now be running at http://localhost:3000
+The application should now be running at http://localhost:5000
 
 Contributing
 
