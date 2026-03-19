@@ -12,7 +12,7 @@
 ---
 
 ## Project Overview
-**GrowAll Coaching** is a scalable full-stack EdTech platform built to provide students with seamless access to online courses. The platform allows real-time course tracking, progress management, secure authentication, and integrated payment options. Admins can manage courses, users, and analytics efficiently.
+**Grow All Coaching** is a scalable full-stack EdTech platform built to provide students with seamless access to online courses. The platform allows real-time course tracking, progress management, secure authentication, and integrated payment options. Admins can manage courses, users, and analytics efficiently.
 
 This project was developed to provide a comprehensive online learning experience for students.
 
@@ -35,18 +35,28 @@ This project was developed to provide a comprehensive online learning experience
 - Secure payments using Razorpay.
 - Handles multiple transactions with automatic verification.
 
-### Internship / Team Management
-- Assign tasks and manage interns for content and platform support.
-
 ---
 
 ## Tech Stack
+
 - **Frontend:** React.js, HTML5, CSS3, JavaScript (ES6+)
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
-- **Authentication:** JWT, bcrypt, RBAC
+- **Authentication & Security:** JWT, bcrypt, Role-Based Access Control (RBAC)
 - **Payment Gateway:** Razorpay
 - **Cloud & Tools:** AWS, Cloudinary, Git, VS Code
+
+## 🔐 Security
+
+This application is fully protected with industry-standard security practices, including:
+
+- Secure Authentication using JWT
+- Password Hashing with bcrypt
+- Role-Based Access Control (RBAC)
+- Protected API Routes
+- Secure Payment Integration (Razorpay)
+- Environment Variables for Sensitive Data
+- Cloud Security with AWS
 
 ---
 
