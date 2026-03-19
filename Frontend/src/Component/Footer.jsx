@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaInstagram, FaTwitter, FaFacebookF, FaYoutube } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 export default function Footer() {
@@ -51,7 +52,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        © 2026 Growall Coaching. All Rights Reserved.
+        © 2026 Growall Coaching. All Rights Reserved. | <Link to="/Terms/Policies" className='ft-terms-Policies'>Terms & Policies</Link>
       </div>
 
     </footer>

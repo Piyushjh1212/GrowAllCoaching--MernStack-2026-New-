@@ -20,9 +20,10 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
   const [playbackRate, setPlaybackRate] = useState(1);
   const [selectedSubtitle, setSelectedSubtitle] = useState("off");
 
-  // Reload video when selectedVideo changes
+  // 🔥 Reload video when URL changes
   useEffect(() => {
     if (videoRef.current && selectedVideo) {
+      videoRef.current.pause(); // ✅ stop previous
       videoRef.current.load();
       setProgress(0);
       setDuration(0);
@@ -32,24 +33,44 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
     }
   }, [selectedVideo]);
 
+  // 🔥 Playback speed apply
   useEffect(() => {
-    if (videoRef.current) videoRef.current.playbackRate = playbackRate;
+    if (videoRef.current) {
+      videoRef.current.playbackRate = playbackRate;
+    }
   }, [playbackRate]);
 
-  const togglePlay = () => {
+  // 🔥 Sync fullscreen state (ESC press handle)
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
+
+  const togglePlay = async () => {
     if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
+
+    try {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        await videoRef.current.play(); // ✅ promise handle
+        setIsPlaying(true);
+      }
+    } catch (err) {
+      console.error("Play error:", err);
     }
   };
 
   const handleProgressClick = (e) => {
     if (!videoRef.current) return;
-    const rect = e.target.getBoundingClientRect();
+    const rect = e.currentTarget.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const newTime = (clickX / rect.width) * duration;
     videoRef.current.currentTime = newTime;
@@ -58,16 +79,16 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
 
   const toggleFullScreen = () => {
     if (!wrapperRef.current) return;
+
     if (!document.fullscreenElement) {
       wrapperRef.current.requestFullscreen();
-      setIsFullScreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullScreen(false);
     }
   };
 
   const formatTime = (time) => {
+    if (!time || isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
@@ -75,10 +96,18 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
 
   const handleSubtitleChange = (lang) => {
     if (!videoRef.current) return;
+
     const tracks = videoRef.current.textTracks;
+
     for (let i = 0; i < tracks.length; i++) {
-      tracks[i].mode = tracks[i].language === lang ? "showing" : "disabled";
+      if (lang === "off") {
+        tracks[i].mode = "disabled";
+      } else {
+        tracks[i].mode =
+          tracks[i].language === lang ? "showing" : "disabled";
+      }
     }
+
     setSelectedSubtitle(lang);
   };
 
@@ -91,16 +120,20 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
               ref={videoRef}
               src={selectedVideo}
               className="vp-video"
+              controls={false} // 🔥 custom controls
               onTimeUpdate={() => {
                 if (!videoRef.current) return;
-                setCurrentTime(videoRef.current.currentTime);
-                setProgress(
-                  (videoRef.current.currentTime / videoRef.current.duration) * 100
-                );
+
+                const current = videoRef.current.currentTime;
+                const total = videoRef.current.duration;
+
+                setCurrentTime(current);
+                setProgress(total ? (current / total) * 100 : 0);
               }}
               onLoadedMetadata={() =>
                 setDuration(videoRef.current?.duration || 0)
               }
+              onEnded={() => setIsPlaying(false)} // 🔥 important
             >
               {subtitleTracks?.map((sub) => (
                 <track
@@ -117,7 +150,10 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
             <div className="vp-controls">
               {/* PROGRESS BAR */}
               <div className="vp-progress-bar" onClick={handleProgressClick}>
-                <div className="vp-progress-filled" style={{ width: `${progress}%` }} />
+                <div
+                  className="vp-progress-filled"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
 
               {/* BOTTOM BAR */}
@@ -141,22 +177,34 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
                     {showSettings && (
                       <div className="vp-settings-menu">
                         {/* Subtitles */}
-                        <button onClick={() => setShowSubtitleMenu(!showSubtitleMenu)}>
-                          Subtitles / CC ({selectedSubtitle})
+                        <button
+                          onClick={() =>
+                            setShowSubtitleMenu(!showSubtitleMenu)
+                          }
+                        >
+                          Subtitles ({selectedSubtitle})
                         </button>
+
                         {showSubtitleMenu && (
                           <div className="vp-subtitle-menu">
                             <button
-                              className={selectedSubtitle === "off" ? "active" : ""}
+                              className={
+                                selectedSubtitle === "off" ? "active" : ""
+                              }
                               onClick={() => handleSubtitleChange("off")}
                             >
                               Off
                             </button>
+
                             {subtitleTracks?.map((sub) => (
                               <button
                                 key={sub.lang}
-                                className={selectedSubtitle === sub.lang ? "active" : ""}
-                                onClick={() => handleSubtitleChange(sub.lang)}
+                                className={
+                                  selectedSubtitle === sub.lang ? "active" : ""
+                                }
+                                onClick={() =>
+                                  handleSubtitleChange(sub.lang)
+                                }
                               >
                                 {sub.label}
                               </button>
@@ -164,16 +212,21 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
                           </div>
                         )}
 
-                        {/* Playback speed */}
-                        <button onClick={() => setShowSpeedMenu(!showSpeedMenu)}>
-                          Playback speed ({playbackRate}x)
+                        {/* Speed */}
+                        <button
+                          onClick={() => setShowSpeedMenu(!showSpeedMenu)}
+                        >
+                          Speed ({playbackRate}x)
                         </button>
+
                         {showSpeedMenu && (
                           <div className="vp-speed-menu">
                             {[0.5, 1, 1.25, 1.5, 2].map((speed) => (
                               <button
                                 key={speed}
-                                className={speed === playbackRate ? "active" : ""}
+                                className={
+                                  speed === playbackRate ? "active" : ""
+                                }
                                 onClick={() => setPlaybackRate(speed)}
                               >
                                 {speed}x
@@ -185,7 +238,7 @@ export default function CourseLectureLayout({ selectedVideo, subtitleTracks }) {
                     )}
                   </div>
 
-                  {/* Fullscreen */}
+                  {/* FULLSCREEN */}
                   <button onClick={toggleFullScreen}>
                     {isFullScreen ? <FaCompress /> : <FaExpand />}
                   </button>

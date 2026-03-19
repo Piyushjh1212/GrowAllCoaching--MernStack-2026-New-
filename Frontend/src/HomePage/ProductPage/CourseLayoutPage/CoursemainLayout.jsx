@@ -19,17 +19,22 @@ export default function CoursemainLayout() {
     const fetchModules = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/v1/Courses/${courseId}/modules-with-lectures`
+          `http://localhost:5000/api/v1/Courses/${courseId}/modules-with-lectures`,
+          {
+            credentials: "include",
+          }
         );
+
         const data = await res.json();
 
         if (Array.isArray(data) && data.length > 0) {
           setModules(data);
 
-          // Auto select first module/lecture if lectureId not provided
           const firstModule = data[0];
-          const firstLecture = firstModule.lectures?.[0] || firstModule.lessons?.[0];
+          const firstLecture =
+            firstModule.lectures?.[0] || firstModule.lessons?.[0];
 
+          // 🔥 auto redirect
           if (!lectureId && firstLecture) {
             navigate(
               `/course/${courseId}/module/${firstModule._id}/lecture/${firstLecture._id}`,
@@ -37,10 +42,7 @@ export default function CoursemainLayout() {
             );
           }
 
-          // set current module if moduleId not provided
-          if (!moduleId) {
-            setCurrentModuleId(firstModule._id);
-          }
+          setCurrentModuleId(moduleId || firstModule._id);
         }
       } catch (error) {
         console.error("Error fetching modules:", error);
@@ -50,45 +52,48 @@ export default function CoursemainLayout() {
     };
 
     if (courseId) fetchModules();
-  }, [courseId, lectureId, moduleId, navigate]);
-
-  // ---------------- UPDATE URL WHEN MODULE CHANGE ----------------
-  useEffect(() => {
-    if (!currentModuleId) return;
-
-    if (currentModuleId !== moduleId) {
-      navigate(`/course/${courseId}/module/${currentModuleId}`, { replace: true });
-    }
-  }, [currentModuleId, navigate, courseId, moduleId]);
+  }, [courseId]);
 
   // ---------------- FIND CURRENT LECTURE ----------------
   const selectedLecture = useMemo(() => {
     if (!lectureId || modules.length === 0) return null;
 
-    for (let module of modules) {
-      const lecture = module.lectures?.find((lec) => lec._id.toString() === lectureId.toString());
-      const lesson = module.lessons?.find((lec) => lec._id.toString() === lectureId.toString());
-      const selected = lecture || lesson;
-      if (selected) return selected;
-    }
-
-    return null;
+    return (
+      modules
+        .flatMap((m) => [...(m.lectures || []), ...(m.lessons || [])])
+        .find(
+          (lec) => lec?._id?.toString() === lectureId?.toString()
+        ) || null
+    );
   }, [lectureId, modules]);
 
-  const selectedVideoUrl = useMemo(() => selectedLecture?.videoUrl || null, [selectedLecture]);
+  // 🔥 Direct Cloudinary URL
+  const videoUrl = selectedLecture?.videoUrl || null;
   const currentLectureId = selectedLecture?._id || null;
 
   // ---------------- LOADING ----------------
-  if (loading) return <p>Loading modules...</p>;
+  if (loading) {
+    return (
+      <div className="loader">
+        <h2>Loading modules...</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="Course-main-Layout-container">
       {/* ---------------- VIDEO PLAYER ---------------- */}
       <div className="course-main-layout-left-container">
-        <CourseLectureLayout
-          selectedVideo={selectedVideoUrl}
-          currentLectureId={currentLectureId}
-        />
+
+        {videoUrl ? (
+          <CourseLectureLayout
+            selectedVideo={videoUrl}
+            currentLectureId={currentLectureId}
+          />
+        ) : (
+          <h3>No Video Available</h3>
+        )}
+
         <CourseLectureDownContent />
       </div>
 

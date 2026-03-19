@@ -6,36 +6,25 @@ export const PublicRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
-  const token = localStorage.getItem("token");
-
   useEffect(() => {
-    const checkAuth = async () => {
 
-      if (!token) {
-        setLoading(false);
-        return;
-      }
+    const checkAuth = async () => {
 
       try {
 
         const res = await fetch(
           "http://localhost:5000/api/v1/UserLoginSignup/profile",
           {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+            credentials: "include" // ⭐ cookie send karega
           }
         );
 
         if (res.ok) {
           setIsAuth(true);
-        } else {
-          localStorage.removeItem("token");
         }
 
       } catch (err) {
         console.error(err);
-        localStorage.removeItem("token");
       }
 
       setLoading(false);
@@ -43,7 +32,7 @@ export const PublicRoute = ({ children }) => {
 
     checkAuth();
 
-  }, [token]);
+  }, []);
 
   if (loading) return <p>Checking...</p>;
 

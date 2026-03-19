@@ -9,13 +9,11 @@ import Admin from "../Modals/AdminModal.js";
 // ----------------------- PROTECT -----------------------
 export const protect = async (req, res, next) => {
   try {
-    let token;
 
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-      token = req.headers.authorization.split(" ")[1];
-    }
+    const token = req.cookies.token;
 
     if (!token) {
+
       await logSecurityEventHelper({
         endpoint: req.originalUrl,
         method: req.method,
@@ -23,18 +21,26 @@ export const protect = async (req, res, next) => {
         type: "protect-block",
         message: "No token provided"
       });
-      return res.status(401).json({ message: "Not authorized, no token" });
+
+      return res.status(401).json({
+        message: "Not authorized, no token"
+      });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decoded?.id) {
-      return res.status(401).json({ message: "Invalid token payload" });
+      return res.status(401).json({
+        message: "Invalid token payload"
+      });
     }
 
-    req.user = await UserSignup.findById(decoded.id).select("-password");
+    req.user = await UserSignup
+      .findById(decoded.id)
+      .select("-password");
 
     if (!req.user) {
+
       await logSecurityEventHelper({
         endpoint: req.originalUrl,
         method: req.method,
@@ -42,11 +48,16 @@ export const protect = async (req, res, next) => {
         type: "protect-block",
         message: "Token valid but user not found"
       });
-      return res.status(401).json({ message: "User not found" });
+
+      return res.status(401).json({
+        message: "User not found"
+      });
     }
 
     next();
+
   } catch (error) {
+
     await logSecurityEventHelper({
       endpoint: req.originalUrl,
       method: req.method,
@@ -54,7 +65,10 @@ export const protect = async (req, res, next) => {
       type: "protect-block",
       message: "Token failed or expired"
     });
-    res.status(401).json({ message: "Not authorized, token failed" });
+
+    res.status(401).json({
+      message: "Not authorized, token failed"
+    });
   }
 };
 

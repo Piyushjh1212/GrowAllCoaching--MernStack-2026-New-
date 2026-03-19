@@ -6,7 +6,7 @@ import "./CourseLectureDownContent.css";
 
 export default function CourseLectureDownContent() {
   const { lectureId } = useParams();
-  const token = localStorage.getItem("token");
+  const token = document.cookie.split('; ').find(row => row.startsWith('verifyToken='))?.split('=')[1];
 
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -50,10 +50,7 @@ export default function CourseLectureDownContent() {
     try {
       const res = await fetch("http://localhost:5000/api/v1/comments", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        credentials:"include",
         body: JSON.stringify({ comment: comment, lectureId: lectureId }),
       });
       const data = await res.json();

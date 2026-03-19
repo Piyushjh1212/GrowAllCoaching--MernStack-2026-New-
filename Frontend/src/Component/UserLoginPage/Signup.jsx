@@ -71,6 +71,7 @@ const SignupPage = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include", 
           body: JSON.stringify(signupForm),
         }
       );
@@ -78,7 +79,6 @@ const SignupPage = () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Signup failed");
 
-      localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
       alert(error.message);

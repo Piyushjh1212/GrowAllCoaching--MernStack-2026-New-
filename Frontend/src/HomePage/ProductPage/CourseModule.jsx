@@ -31,9 +31,7 @@ function CourseModule() {
           const userRes = await fetch(
             "http://localhost:5000/api/v1/UserLoginSignup/profile",
             {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+              credentials:"include",
             }
           );
 
@@ -91,10 +89,7 @@ function CourseModule() {
         "http://localhost:5000/api/v1/Razorpay/createPayment",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+          credentials:"include",
           body: JSON.stringify({ moduleId, amount }),
         }
       );
@@ -123,10 +118,7 @@ function CourseModule() {
               "http://localhost:5000/api/v1/Razorpay/verifyPayment",
               {
                 method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
+                credentials:"include",
                 body: JSON.stringify({
                   ...response,
                   moduleId,
@@ -167,10 +159,7 @@ function CourseModule() {
               "http://localhost:5000/api/v1/Razorpay/paymentFailed",
               {
                 method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
+                credentials:"include",
                 body: JSON.stringify({
                   orderId: orderData.order.id,
                 }),
@@ -188,10 +177,7 @@ function CourseModule() {
           "http://localhost:5000/api/v1/Razorpay/paymentFailed",
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+            credentials:"include",
             body: JSON.stringify({
               orderId: orderData.order.id,
             }),

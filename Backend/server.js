@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import { customSanitize } from './Middleware/CustomSanitizecloneMiddlewear.js';
 import connectDB from './Config/Connectdb.js';
 import Contactroutes from './Routes/ContactRoutes.js'
@@ -19,18 +20,22 @@ const app = express();
 
 
 
-app.use(helmet());
 
-app.use(cors());
+dotenv.config();      // 1️⃣ sabse pehle env load
+connectDB();          // 2️⃣ database connect
 
-// body parser
-app.use(express.json());
+app.use(helmet());    // 3️⃣ security headers
 
-// custom XSS sanitize
-app.use(customSanitize);
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));                  // 4️⃣ cors with credentials (cookies ke liye)
 
-dotenv.config();
-connectDB();
+app.use(cookieParser());  // 5️⃣ cookies read karne ke liye
+
+app.use(express.json());  // 6️⃣ body parser
+
+app.use(customSanitize); 
 
 
 

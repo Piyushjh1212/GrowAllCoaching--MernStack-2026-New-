@@ -12,6 +12,7 @@ import CoursemainLayout from './HomePage/ProductPage/CourseLayoutPage/Coursemain
 
 import { PrivateRoute } from './Route/PrivateRoute';
 import { PublicRoute } from './Route/PublicRoute';
+import CompanyPolicy from './Component/CopanyPolicy/CompanyPolicy';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
 
         {/* User Authentication */}
         <Route path="/UserLogin" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="//Terms/Policies" element={<CompanyPolicy/>} />
         <Route path="/UserSignup" element={<PublicRoute><SignupPage /></PublicRoute>} />
 
         {/* User Dashboard */}
@@ -34,6 +36,7 @@ export default function App() {
           path="/course/:courseId/module/:moduleId" 
           element={<PrivateRoute><CoursemainLayout /></PrivateRoute>} 
         />
+
         <Route 
           path="/course/:courseId/module/:moduleId/lecture/:lectureId" 
           element={<PrivateRoute><CoursemainLayout /></PrivateRoute>} 

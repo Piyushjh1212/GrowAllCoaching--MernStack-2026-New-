@@ -1,0 +1,54 @@
+/* CompanyPolicy.module.css - Unique & Professional Styling */
+
+.container_uniquePolicy {
+  padding: 50px 25px;
+  background-color: #ffffff;
+  color: #222222;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin: 0px auto;
+  padding: 100px 120px;
+}
+
+.title_uniquePolicy {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #0b1d3a;
+}
+
+.text_uniquePolicy {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.text_uniquePolicy a {
+  color: #1a73e8;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.text_uniquePolicy a:hover {
+  color: #0b49a0;
+}
+
+.section_uniquePolicy {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  color: #0b1d3a;
+}
+
+.list_uniquePolicy {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.list_uniquePolicy li {
+  margin-bottom: 10px;
+}

@@ -1,5 +1,5 @@
 import express from "express";
-import { GatAlltheUser, UserLoginController, UserSignupController } from "../Controllers/UserSignupController.js";
+import { GatAlltheUser, UserLoginController, UserLogout, UserSignupController } from "../Controllers/UserSignupController.js";
 import { adminProtect, LoginrateLimiter, protect, SignuprateLimiter, speedSlowDownLimiter } from "../Middleware/Userauthmiddlewear.js";
 import { customSanitize } from "../Middleware/CustomSanitizecloneMiddlewear.js";
 import UserSignup from "../Modals/UserSignupModal.js";
@@ -45,6 +45,8 @@ UserLoginSignup.get("/totalUser-count", adminProtect ,async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 });
+
+UserLoginSignup.get("/logout",protect, UserLogout)
 
 // Get all users
 UserLoginSignup.get("/Get-all-theUser",adminProtect , GatAlltheUser);

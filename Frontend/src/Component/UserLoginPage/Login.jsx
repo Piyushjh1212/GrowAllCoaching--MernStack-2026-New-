@@ -31,6 +31,7 @@ const LoginPage = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include", // this is important if you are save token in cokiees
                 body: JSON.stringify(isLoginForm),
             });
 
@@ -46,20 +47,19 @@ const LoginPage = () => {
                 return;
             }
 
-            //  Token save
-            localStorage.setItem("token", data.token);
 
             setAttemptsLeft(null);
             setRetryAfter(null);
+
             navigate("/");
-            navigate(0);
+            navigate(0) // iski jagah navigate(0) the but ye better version hai
 
         } catch (error) {
             alert(error.message);
         }
     };
 
-    
+
 
     return (
         <div className="hac-login-page">
@@ -77,7 +77,8 @@ const LoginPage = () => {
                     {attemptsLeft !== null && (
                         <p className="hac-login-attempts">
                             You have {attemptsLeft} attempt{attemptsLeft !== 1 ? "s" : ""} left.
-                            {retryAfter > 0 && ` Try again after ${Math.ceil(retryAfter / 60)} min.`}
+                            {retryAfter && retryAfter > 0 &&
+                                ` Try again after ${Math.ceil(retryAfter / 60)} min.`}
                         </p>
                     )}
                     <label className="hac-login-label">Email</label>
@@ -102,7 +103,10 @@ const LoginPage = () => {
                         className="hac-login-input"
                     />
 
-                    <button type="submit" className="hac-cta-btn hac-login-btn">
+                    <button
+                        type="submit"
+                        className="hac-cta-btn hac-login-btn"
+                        disabled={retryAfter > 0}>
                         Login
                     </button>
 
