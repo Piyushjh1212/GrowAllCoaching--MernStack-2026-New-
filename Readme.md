@@ -64,14 +64,23 @@ This application is fully protected with industry-standard security practices, i
 
 ```text
 GrowAll-Coaching/
-├── client/                  # React frontend
-│   ├── public/
-│   └── src/
-├── server/                  # Node.js backend
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   └── utils/
+├── Backend/                  # React frontend
+│   ├── Config/
+│   |── Controllers/
+│   |── Helpers/
+│   |── Middlewear/
+│   |── Modals/
+│   |── Routes/
+│   |── Services/
+│   |── Utils/
+│   ---- server.js            # main file...
+├── Frontend/                 # Node.js backend
+│   ├── Public/
+│   ├── src/
+│       |── Components/
+│       |── HomePage/
+│       |── Utils
+│   |── routes/
 ├── README.md
 ├── package.json
 └── .env
