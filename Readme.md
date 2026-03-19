@@ -1,10 +1,13 @@
-# Grow All Coaching – Full Stack Web Application
+# Grow All Coaching – Web Application
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react)](https://reactjs.org/)
-[![NodeJS](https://img.shields.io/badge/Node.js-18-green?logo=node.js)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-6.0-green?logo=mongodb)](https://www.mongodb.com/)
-[![Razorpay](https://img.shields.io/badge/Razorpay-Payment-blue)](https://razorpay.com/)
+![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)
+![Frontend](https://img.shields.io/badge/Frontend-React-blue?logo=react)
+![Backend](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js)
+![Database](https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb)
+![Payments](https://img.shields.io/badge/Payments-Razorpay-blue)
+![Cloud](https://img.shields.io/badge/Cloud-AWS-orange?logo=amazonaws)
+![Security](https://img.shields.io/badge/Security-High-brightgreen)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 
 ---
 
